@@ -1,8 +1,8 @@
 ﻿namespace StudentsLearning.Server.Api
 {
+    using System.Data.Entity;
     using StudentsLearning.Data;
     using StudentsLearning.Data.Migrations;
-    using System.Data.Entity;
 
     public static class DatabaseConfig
     {

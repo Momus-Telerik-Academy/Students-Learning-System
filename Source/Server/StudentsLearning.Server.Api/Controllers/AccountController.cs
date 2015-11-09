@@ -14,12 +14,13 @@
     using Microsoft.Owin.Security;
     using Microsoft.Owin.Security.Cookies;
     using Microsoft.Owin.Security.OAuth;
-    using StudentsLearning.Server.Api.Models;
-    using StudentsLearning.Server.Api.Providers;
-    using StudentsLearning.Server.Api.Results;
     using Models.AccountBindingModels;
     using Models.AccountViewModels;
     using StudentsLearning.Models;
+    using StudentsLearning.Server.Api.Models;
+    using StudentsLearning.Server.Api.Providers;
+    using StudentsLearning.Server.Api.Results;
+
 
     [Authorize]
     [RoutePrefix("api/Account")]
@@ -127,7 +128,7 @@
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -260,9 +261,9 @@
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -370,7 +371,7 @@
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }
