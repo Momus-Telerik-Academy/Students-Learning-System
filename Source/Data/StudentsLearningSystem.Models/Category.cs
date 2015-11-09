@@ -2,8 +2,10 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Common;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    using Common;
+   
     public class Category
     {
         private ICollection<Section> sections;
@@ -16,6 +18,7 @@
         public int Id { get; set; }
 
         [Required]
+        [Index(IsUnique=true)]
         [MinLength(ValidationConstants.MinStringLength)]
         [MaxLength(ValidationConstants.MaxTitleLength)]
         public string Name { get; set; }
