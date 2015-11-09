@@ -9,8 +9,10 @@
     using StudentsLearning.Services.Data;
     using StudentsLearning.Services.Data.Contracts;
     using Models;
+    using System.Web.Http.Cors;
 
     [RoutePrefix("api/Categories")]
+    [EnableCors("*", "*", "*")]
     public class CategoriesController : ApiController
     {
         private readonly ICategoryService categories;
@@ -45,7 +47,7 @@
             }
 
             var updatedCategory = this.categories.GetById(id);
-           
+
             if (this.categories.GetId(updates.Name) != 0)
             {
                 return this.BadRequest();
