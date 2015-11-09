@@ -6,8 +6,8 @@ namespace StudentsLearning.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
+            this.AutomaticMigrationsEnabled = true;
+            this.AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(StudentsLearning.Data.StudentsLearningDbContext context)
@@ -23,7 +23,6 @@ namespace StudentsLearning.Data.Migrations
             //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
             //    );
-            //
         }
     }
 }
