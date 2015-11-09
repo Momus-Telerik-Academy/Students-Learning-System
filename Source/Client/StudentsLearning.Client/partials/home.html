@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    Categories:
+    {{#each this}}
+    <div id={{this.Id}}><i> {{this.Name}}</i></div>
+    {{/each}}
+    <input id="tb-new-category-name" type="text" placeholder="Name.."/>
+    <button id="btn-add">Add</button>
+</body>
+</html>
