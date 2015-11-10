@@ -26,7 +26,10 @@
 
         public IHttpActionResult Get(int id)
         {
-            return this.Ok(this.sections.GetById(id));
+            var res = this.sections.GetById(id)
+                                   .FirstOrDefault();
+
+            return this.Ok(res.Name);
         }
 
         // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
@@ -37,24 +40,16 @@
                 return this.BadRequest();
             }
 
-            var updatedSection = this.sections.GetById(id);
 
-            if (this.sections.GetId(updates.Name) != 0)
+            var newSection = new Section
             {
-                return this.BadRequest();
-            }
-            
-            // var newSection = new Section
-            // {
-            //     Name = updates.Name,
-            //     Description = updates.Description,
-            //     CategoryId = updates.CategoryId
-            // };
+                Id = id,
+                Name = updates.Name,
+                Description = updates.Description,
+                CategoryId = updates.CategoryId
+            };
 
-            updatedSection.Name = updates.Name;
-            updatedSection.Description = updates.Description;
-
-            this.sections.Update(updatedSection);
+            this.sections.Update(newSection);
 
             return this.Ok();
         }
@@ -75,7 +70,7 @@
             };
 
             this.sections.Add(section);
-            return this.Ok(this.sections.GetId(section.Name));
+            return this.Ok(section);
         }
     }
 }

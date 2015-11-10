@@ -24,30 +24,22 @@
 
         public IQueryable<Section> All()
         {
-            return this.sections.All();
+            var test = this.sections.All();
+            return test;
         }
 
-        public Section GetById(int id)
+        public IQueryable<Section> GetById(int id)
         {
-            return this.All()
-                        .Where(x => x.Id == id)
-                        .FirstOrDefault();
+            return this.sections.All()
+                        .Where(x => x.Id == id);
         }
 
         public IQueryable<Section> GetByName(string name)
         {
-            return this.All()
+            return this.sections.All()
                        .Where(x => x.Name == name);
         }
-
-        public int? GetId(string name)
-        {
-            return this.All()
-                       .Where(x => x.Name == name)
-                       .Select(c => c.Id)
-                       .FirstOrDefault();
-        }
-
+        
         public void Update(Section section)
         {
             this.sections.Update(section);

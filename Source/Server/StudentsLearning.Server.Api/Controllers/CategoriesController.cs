@@ -54,15 +54,15 @@
         }
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody] string name)
+        public IHttpActionResult Post([FromBody] CategoryRequestModel categoryModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest();
             }
 
-            this.categories.Add(name);
-            return this.Ok(this.categories.GetId(name));
+            this.categories.Add(categoryModel.Name);
+            return this.Ok(this.categories.GetId(categoryModel.Name));
         }
     }
 }

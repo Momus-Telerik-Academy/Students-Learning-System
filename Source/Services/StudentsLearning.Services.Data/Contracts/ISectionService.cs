@@ -7,10 +7,8 @@
     {
         IQueryable<Section> All();
 
-        Section GetById(int id);
-
-        int? GetId(string name);
-
+        IQueryable<Section> GetById(int id);
+        
         IQueryable<Section> GetByName(string name);
 
         void Add(Section section);
