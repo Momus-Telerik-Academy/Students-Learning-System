@@ -35,12 +35,19 @@
             Console.WriteLine("File name: {0}", get.OriginalFilename);
 
             // Download a file
-            var isDownloaded = DaimtoGoogleDriveHelper.DownloadFileById(service, newFile.Id, "Downloaded.txt");
+            bool isDownloaded = DaimtoGoogleDriveHelper.DownloadFileById(service, newFile.Id, "Downloaded.txt");
             Console.WriteLine("File downloadedloaded: {0}", isDownloaded);
 
+            //Get download link (probably temporary)
+            string url = DaimtoGoogleDriveHelper.GetDownloadUrlById(service, newFile.Id);
+            Console.WriteLine("Download link: {0}", url);
+
+            Console.WriteLine("Press any key to continie. All new generated files will be deleted!");
+            Console.ReadLine();
+
             // Clear test
-            // string deleteResult = DaimtoGoogleDriveHelper.DeleteFileById(service, newFile.Id);
-            // Console.WriteLine(deleteResult);
+            string deleteResult = DaimtoGoogleDriveHelper.DeleteFileById(service, newFile.Id);
+            Console.WriteLine(deleteResult);
         }
     }
 }

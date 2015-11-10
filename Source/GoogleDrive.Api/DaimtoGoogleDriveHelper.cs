@@ -246,6 +246,12 @@
         }
 
         // TODO: handle exceptions
+        public static string GetDownloadUrlById(DriveService service, string fileId)
+        {
+            return service.Files.Get(fileId).Execute().DownloadUrl;
+        }
+
+        // TODO: handle exceptions
         public static string DeleteFileById(DriveService service, string fileId)
         {
             string request = service.Files.Delete(fileId).Execute();
