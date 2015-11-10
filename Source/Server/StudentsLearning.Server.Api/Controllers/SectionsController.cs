@@ -26,10 +26,15 @@
 
         public IHttpActionResult Get(int id)
         {
-            var res = this.sections.GetById(id)
+            var sectionResult = this.sections.GetById(id)
+                                    .Select(x => new SectionResponsetModel
+                                    {
+                                        Name = x.Name,
+                                        Description = x.Description
+                                    })
                                    .FirstOrDefault();
 
-            return this.Ok(res.Name);
+            return this.Ok(sectionResult);
         }
 
         // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
