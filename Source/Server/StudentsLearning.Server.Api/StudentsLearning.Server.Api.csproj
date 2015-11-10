@@ -214,7 +214,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
-
+    <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\TopicController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -235,6 +235,7 @@
     <Compile Include="Models\ExampleRequestModel.cs" />
     <Compile Include="Models\ExampleResponseModel.cs" />
     <Compile Include="Models\SectionRequestModel.cs" />
+    <Compile Include="Models\SectionResponsetModel.cs" />
     <Compile Include="Models\TopicRequestModel.cs" />
     <Compile Include="Models\TopicResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
