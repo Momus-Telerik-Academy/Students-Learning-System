@@ -6,6 +6,7 @@
         categoryModel.all()
             .then(function (res) {
                 categories = res;
+                console.log(categories);
                 return templatesManager.get('home')
             })
             .then(function (partial) {
@@ -35,7 +36,7 @@
         .then(function () {
             sidebarController.config;
            
-            context.redirect('/#/sections/2')
+            context.redirect('/#/sections/1')
             // atach events
         });
     }
