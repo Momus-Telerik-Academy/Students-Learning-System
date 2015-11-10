@@ -4,7 +4,7 @@
     using System.Linq;
     using StudentsLearning.Data.Models;
 
-    public interface ICategoryService
+    public interface ICategoriesService
     {
         IQueryable<Category> All();
 

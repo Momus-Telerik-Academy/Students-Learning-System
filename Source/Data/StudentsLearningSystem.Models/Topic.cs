@@ -34,9 +34,9 @@
         public virtual Section Section { get; set; }
 
         // [Key]
-        public int? ZipFileId { get; set; }
+       // public int? ZipFileId { get; set; }
 
-        public virtual ZipFile Materials { get; set; }
+       // public virtual ZipFile Materials { get; set; }
 
         public virtual ICollection<Example> Examples
         {

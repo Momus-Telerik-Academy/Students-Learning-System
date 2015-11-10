@@ -5,11 +5,11 @@
     using StudentsLearning.Data.Models;
     using StudentsLearning.Data.Repositories;
 
-    public class CategoryService : ICategoryService
+    public class CategoriesService : ICategoriesService
     {
         private readonly IRepository<Category> categories;
 
-        public CategoryService(
+        public CategoriesService(
             IRepository<Category> categoriesRepository)
         {
             this.categories = categoriesRepository;
