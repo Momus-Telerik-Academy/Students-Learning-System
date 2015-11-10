@@ -17,12 +17,6 @@
     {
         private readonly ICategoryService categories;
 
-        // TODO: Remove when ninject is fixed
-        public CategoriesController()
-            : this(new CategoryService(new EfGenericRepository<Category>(new StudentsLearningDbContext())))
-        {
-        }
-
         public CategoriesController(ICategoryService categoryService)
         {
             this.categories = categoryService;
