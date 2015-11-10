@@ -15,9 +15,9 @@
     [EnableCors("*", "*", "*")]
     public class CategoriesController : ApiController
     {
-        private readonly ICategoryService categories;
+        private readonly ICategoriesService categories;
 
-        public CategoriesController(ICategoryService categoryService)
+        public CategoriesController(ICategoriesService categoryService)
         {
             this.categories = categoryService;
         }
