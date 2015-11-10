@@ -21,7 +21,15 @@
 
         public IHttpActionResult Get()
         {
-            return this.Ok(this.sections.All().ToList());
+            var sections = this.sections.All()
+                               .Select(x => new SectionResponsetModel
+                               {
+                                   Name = x.Name,
+                                   Description = x.Description
+                               })
+                               .ToList();
+
+            return this.Ok(sections);
         }
 
         public IHttpActionResult Get(int id)
@@ -44,7 +52,6 @@
             {
                 return this.BadRequest();
             }
-
 
             var newSection = new Section
             {
