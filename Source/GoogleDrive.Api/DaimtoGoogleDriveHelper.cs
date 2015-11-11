@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Net;
 
     using Google.Apis.Drive.v2;
     using Google.Apis.Drive.v2.Data;
@@ -22,34 +23,48 @@
         ///     Documentation: https://developers.google.com/drive/v2/reference/files/get
         /// </summary>
         /// <param name="service">a Valid authenticated DriveService</param>
-        /// <param name="id">File resource id of the file to download</param>
+        /// <param name="fileId">File resource id of the file to download</param>
         /// <param name="saveTo">location of where to save the file including the file name to save it as.</param>
         /// <returns>Is download successful</returns>
-        public static bool DownloadFileById(DriveService service, string id, string saveTo)
+        public static bool DownloadFileById(DriveService service, string fileId, string saveTo)
         {
-            var fileResource = service.Files.Get(id).Execute();
-
-            if (!string.IsNullOrEmpty(fileResource.DownloadUrl))
+            if (string.IsNullOrWhiteSpace(fileId))
             {
-                try
-                {
-                    var x = service.HttpClient.GetByteArrayAsync(fileResource.DownloadUrl);
-                    var arrBytes = x.Result;
-                    System.IO.File.WriteAllBytes(saveTo, arrBytes);
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("An error occurred: " + e.Message);
-                    return false;
-                }
+                throw new ArgumentNullException("The ID of the file to download can not be empty!");
             }
 
-            // The file doesn't have any content stored on Drive.
-            return false;
+            var fileResource = service.Files.Get(fileId).Execute();
+
+            if (string.IsNullOrEmpty(fileResource.DownloadUrl))
+            {
+                throw new WebException("The file does not exist on Google Drive. Invalid ID!");
+            }
+
+            if (string.IsNullOrWhiteSpace(saveTo))
+            {
+                throw new ArgumentNullException("Save to path cannott be empty!");
+            }
+
+            if (service == null)
+            {
+                throw new ArgumentNullException("Google Drive DriveService is not initialized!");
+            }
+
+            try
+            {
+                var x = service.HttpClient.GetByteArrayAsync(fileResource.DownloadUrl);
+                var arrBytes = x.Result;
+                System.IO.File.WriteAllBytes(saveTo, arrBytes);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred: " + e.Message);
+                return false;
+            }
         }
 
-        
+
 
         /// <summary>
         ///     Uploads a file
@@ -67,34 +82,43 @@
         /// </returns>
         public static File UploadFile(DriveService service, string uploadFile, string parentDirectoryId)
         {
-            if (System.IO.File.Exists(uploadFile))
+            if (!System.IO.File.Exists(uploadFile))
             {
-
-                var body = new File();
-                body.Title = Path.GetFileName(uploadFile);
-                body.Description = "File uploaded by Diamto Drive Sample";
-                body.MimeType = GetMimeType(uploadFile);
-                body.Parents = new List<ParentReference> { new ParentReference { Id = parentDirectoryId } };
-
-                // File's content.
-                var byteArray = System.IO.File.ReadAllBytes(uploadFile);
-                var stream = new MemoryStream(byteArray);
-                try
-                {
-                    var request = service.Files.Insert(body, stream, GetMimeType(uploadFile));
-
-                    // request.Convert = true;   // uncomment this line if you want files to be converted to Drive format
-                    request.Upload();
-                    return request.ResponseBody;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("An error occurred: " + e.Message);
-                    return null;
-                }
+                throw new IOException("File does not exist: " + uploadFile);
             }
 
-            throw new IOException("File does not exist: " + uploadFile);
+            if (string.IsNullOrWhiteSpace(parentDirectoryId))
+            {
+                throw new ArgumentNullException("Parent folder ID can not be empty!");
+            }
+
+            if (service == null)
+            {
+                throw new ArgumentNullException("Google Drive DriveService is not initialized!");
+            }
+
+            var body = new File();
+            body.Title = Path.GetFileName(uploadFile);
+            //body.Description = "File uploaded by Diamto Drive Sample";
+            body.MimeType = GetMimeType(uploadFile);
+            body.Parents = new List<ParentReference> { new ParentReference { Id = parentDirectoryId } };
+
+            // File's content.
+            var byteArray = System.IO.File.ReadAllBytes(uploadFile);
+            var stream = new MemoryStream(byteArray);
+            try
+            {
+                var request = service.Files.Insert(body, stream, GetMimeType(uploadFile));
+
+                // request.Convert = true;   // uncomment this line if you want files to be converted to Drive format
+                request.Upload();
+                return request.ResponseBody;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred: " + e.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -114,32 +138,46 @@
         /// </returns>
         public static File UpdateFile(DriveService service, string uploadFile, string parentFolderId, string fileId)
         {
-            if (System.IO.File.Exists(uploadFile))
+            if (!System.IO.File.Exists(uploadFile))
             {
-                var body = new File();
-                body.Title = Path.GetFileName(uploadFile);
-                body.Description = "File updated by Diamto Drive Sample";
-                body.MimeType = GetMimeType(uploadFile);
-                body.Parents = new List<ParentReference> { new ParentReference { Id = parentFolderId } };
-
-                // File's content.
-                var byteArray = System.IO.File.ReadAllBytes(uploadFile);
-                var stream = new MemoryStream(byteArray);
-                try
-                {
-                    var request = service.Files.Update(body, fileId, stream, GetMimeType(uploadFile));
-                    request.Upload();
-                    return request.ResponseBody;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("An error occurred: " + e.Message);
-                    return null;
-                }
+                throw new IOException("File does not exist on this computer: " + uploadFile);
             }
 
-            Console.WriteLine("File does not exist: " + uploadFile);
-            return null;
+            if (string.IsNullOrWhiteSpace(parentFolderId))
+            {
+                throw new ArgumentNullException("Parent folder ID can not be empty!");
+            }
+
+            if (string.IsNullOrWhiteSpace(fileId))
+            {
+                throw new ArgumentNullException("The ID of the file to update can not be empty!");
+            }
+
+            if (service == null)
+            {
+                throw new ArgumentNullException("Google Drive DriveService is not initialized!");
+            }
+
+            var body = new File();
+            body.Title = Path.GetFileName(uploadFile);
+            // body.Description = "File updated by Diamto Drive Sample";
+            body.MimeType = GetMimeType(uploadFile);
+            body.Parents = new List<ParentReference> { new ParentReference { Id = parentFolderId } };
+
+            // File's content.
+            var byteArray = System.IO.File.ReadAllBytes(uploadFile);
+            var stream = new MemoryStream(byteArray);
+            try
+            {
+                var request = service.Files.Update(body, fileId, stream, GetMimeType(uploadFile));
+                request.Upload();
+                return request.ResponseBody;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred: " + e.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -155,9 +193,9 @@
         /// </param>
         /// <returns></returns>
         public static File CreateDirectory(
-            DriveService service, 
-            string title, 
-            string description, 
+            DriveService service,
+            string title,
+            string description,
             string parentDirectoryId)
         {
             File newDirectory = null;
