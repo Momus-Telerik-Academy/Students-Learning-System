@@ -127,6 +127,7 @@
   <ItemGroup>
     <Compile Include="Authentication.cs" />
     <Compile Include="DaimtoGoogleDriveHelper.cs" />
+    <Compile Include="IDriveService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
