@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="partials\add-category.html" />
     <Content Include="partials\category.html" />
     <Content Include="partials\home.html" />
     <Content Include="partials\section.html" />
@@ -124,6 +125,7 @@
     <Content Include="scripts\controllers\homeController.js" />
     <Content Include="scripts\controllers\sectionController.js" />
     <Content Include="scripts\helpers\ajaxRequester.js" />
+    <Content Include="scripts\helpers\appManager.js" />
     <Content Include="scripts\helpers\Constants.js" />
     <Content Include="scripts\helpers\templatesManager.js" />
     <Content Include="scripts\models\categoryModel.js" />

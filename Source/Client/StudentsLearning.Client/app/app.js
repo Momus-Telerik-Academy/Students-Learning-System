@@ -5,7 +5,7 @@
         this.get('#/', homeController.startUp);
         this.get('#/category/:id', categoriesController.current)
         this.get('#/sections/:id', sectionsController.byId);
-
+        this.get('#/add/category', categoriesController.add)
     });
 
 

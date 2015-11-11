@@ -28,6 +28,7 @@
         categoryModel.byId(categoryId)
         .then(function (res) {
             category = res;
+            console.log(category);
             return templatesManager.get('category');
         })
         .then(function (partial) {
@@ -35,15 +36,30 @@
         })
         .then(function () {
             sidebarController.config;
-           
-            context.redirect('/#/sections/1')
-            // atach events
+
+            $('.btn-section-show').on('click', function (e) {
+                context.redirect('/#/sections/' + $(e.currentTarget).attr('id'));
+            });
+        });
+    }
+
+    function add(context) {
+        appManager.loadView('add-category', context)
+        .then(function () {
+            $('#btn-category-add').on('click', function () {
+                console.log($('#tb-category-add').val());
+                categoryModel.add({ name: $('#tb-category-add').val() })
+                .then(function () {
+                    context.redirect('/#/')
+                });
+            });
         });
     }
 
     return {
         all: all,
-        current: byId
+        current: byId,
+        add:add
     }
 
 }())
