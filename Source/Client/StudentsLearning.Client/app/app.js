@@ -6,6 +6,7 @@
         this.get('#/category/:id', categoriesController.current)
         this.get('#/sections/:id', sectionsController.byId);
         this.get('#/add/category', categoriesController.add)
+        this.get('#/add/section', sectionsController.add)
     });
 
 

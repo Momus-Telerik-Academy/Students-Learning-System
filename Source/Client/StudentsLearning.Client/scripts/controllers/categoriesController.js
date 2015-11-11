@@ -22,23 +22,20 @@
     }
 
     function byId(context) {
-        var categoryId = context.params['id'];
+        categoryModel.currentId(+context.params['id'])
+
         var category;
 
-        categoryModel.byId(categoryId)
-        .then(function (res) {
-            category = res;
-            console.log(category);
-            return templatesManager.get('category');
-        })
-        .then(function (partial) {
-            templatesManager.fill(context, partial, category);
-        })
+        appManager.loadView('category', context, false, categoryModel.byId, categoryModel.currentId())
         .then(function () {
             sidebarController.config;
 
             $('.btn-section-show').on('click', function (e) {
                 context.redirect('/#/sections/' + $(e.currentTarget).attr('id'));
+            });
+
+            $('.btn-section-add').on('click', function () {
+                context.redirect('/#/add/section');
             });
         });
     }
@@ -59,7 +56,7 @@
     return {
         all: all,
         current: byId,
-        add:add
+        add: add
     }
 
 }())

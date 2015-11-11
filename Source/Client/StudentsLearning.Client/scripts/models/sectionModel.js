@@ -5,8 +5,13 @@
         return ajaxRequester.get('api/sections/' + id)
     }
 
+    function add(section) {
+        return ajaxRequester.post('api/sections', { data: section })
+    }
+
     return {
-        getById: getById
+        getById: getById,
+        add: add
     }
 
 }())

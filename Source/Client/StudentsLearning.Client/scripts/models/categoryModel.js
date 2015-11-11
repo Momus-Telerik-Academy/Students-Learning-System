@@ -1,4 +1,14 @@
 ﻿var categoryModel = (function () {
+    var categoryId;
+
+    function currentId(id) {
+        if (id) {
+            categoryId = id;
+        } else {
+            return categoryId;
+        }
+        
+    }
 
     function all() {
         return ajaxRequester.get('api/categories');
@@ -15,7 +25,8 @@
     return {
         all: all,
         add: add,
-        byId : byId
+        byId: byId,
+        currentId: currentId
     }
 
 }())

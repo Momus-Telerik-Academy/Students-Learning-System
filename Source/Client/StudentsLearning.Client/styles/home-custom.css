@@ -15,7 +15,7 @@
 
 /*TODO: move*/
 #category-content {
-    background-color: #437A39;
+    /*background-color: #437A39;*/
     width: 115%;
     height: 103%;
     margin: -30px 220px;
@@ -58,7 +58,7 @@
      color: #fff;
 }
 
-.with-header-bg div {
+.add-category div {
     position: relative;
     margin: 20% 25%;
     display: inline-block;
@@ -70,4 +70,6 @@
     background-image: url('../images/header.jpg');
 }
 
-
+#wrapper-sections{
+    width:100%;
+}

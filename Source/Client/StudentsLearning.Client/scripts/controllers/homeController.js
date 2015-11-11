@@ -5,7 +5,7 @@
 
         // Login
 
-        appManager.loadView('home', context, categoryModel.all)
+        appManager.loadView('home', context, false, categoryModel.all)
              .then(function () {
                  // set events
                  $('.btn-category-show').on('click', function (e) {
