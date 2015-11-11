@@ -13,15 +13,12 @@
         })
         .then(function (partial) {
             var categoryContent = context.$element().find(Constants.CATEGORY_CONTENT_WRAPPER);
-            console.log(categoryContent);
             if (categoryContent.html() == undefined) {
                 context.redirect('/#/category/2   ');
                 categoryContent = context.$element().find(Constants.CATEGORY_CONTENT_WRAPPER);
             }
             categoryContent.html(partial(section))
         });
-
-        console.log('in section')
     }
 
     function add(context) {

@@ -38,7 +38,11 @@
                                     .Select(x => new SectionResponsetModel
                                     {
                                         Name = x.Name,
-                                        Description = x.Description
+                                        Description = x.Description,
+                                        Topics = x.Topics.Select(t=> new TopicResponseMinifiedModel() {
+                                            Id = t.Id,
+                                            Title = t.Title
+                                        }).ToList()                                     
                                     })
                                    .FirstOrDefault();
 
