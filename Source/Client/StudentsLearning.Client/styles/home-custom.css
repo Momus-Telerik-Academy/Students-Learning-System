@@ -31,12 +31,43 @@
         color: #fff;
         width: 20%;
     }
-     #category-content h2{
-         color: #fff;
-     }
-    .topic-box{
-        margin: 15px;
-        width : 20%;
-        display: inline-block;
+
+    #category-content h2 {
+        color: #fff;
     }
-   
+
+.topic-box {
+    margin: 15px;
+    width: 20%;
+    display: inline-block;
+}
+
+#categories a {
+    text-decoration: none;
+}
+
+#add-category {
+    position: absolute;
+    top: 0;
+    padding: 0;
+    width: 100%;
+    height: 80%;
+}
+
+.with-header-bg span {
+     color: #fff;
+}
+
+.with-header-bg div {
+    position: relative;
+    margin: 20% 25%;
+    display: inline-block;
+}
+
+.with-header-bg {
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/header.jpg');
+}
+
+

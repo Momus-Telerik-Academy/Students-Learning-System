@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<section id="services">
+<section id="categories">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -21,17 +21,21 @@
     <div class="container">
         <div class="row">
             {{#each this}}
-            <div class="col-lg-3 col-md-6 text-center btn-category-show" id={{this.Id}}>
+            <a class="col-lg-3 col-md-6 text-center btn-category-show" id={{this.Id}}>
                 <div class="service-box">
-                    <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                    <i class="fa fa-4x fa-graduation-cap wow bounceIn text-primary"></i>
                     <h3>{{this.Name}}</h3>
                     <p class="text-muted">Our templates are updated regularly so they don't break.</p>
                 </div>
-            </div>
+            </a>
             {{/each}}
-          
+            <a href="#/add/category" class="col-lg-3 col-md-6 text-center btn-category-add">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-plus-circle wow bounceIn text-primary"></i>
+                    <h3>Add</h3>
+                </div>
+            </a>
         </div>
-    </div>
 </section>
 
 <section id="contact">

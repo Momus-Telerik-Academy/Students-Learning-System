@@ -3,11 +3,10 @@
     function byId(context) {
         var sectionId = context.params['id'];
         var section;
-        //get data -> then ->
 
         sectionModel.getById(sectionId)
         .then(function (res) {
-           
+
             console.log(res);
             section = res;
             return templatesManager.get('section');
