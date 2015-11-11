@@ -4,16 +4,25 @@
     using Models;
     using System.Linq;
     using System.Web.Http;
+    using System.Web.Http.Cors;
 
-    public class TopicController : ApiController
+    [RoutePrefix("api/Topics")]
+    [EnableCors("*", "*", "*")]
+    public class TopicsController : ApiController
     {
         private readonly ITopicsServices topics;
         private readonly IZipFilesService zipFiles;
 
-        public TopicController(ITopicsServices topics, IZipFilesService zipFiles)
+        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles)
         {
             this.topics = topics;
            // this.zipFiles = zipFiles;
+        }
+
+        [HttpGet]
+        public IHttpActionResult Get(int id)
+        {            
+            return this.Ok(this.topics.GetById(id));
         }
 
         [HttpGet]
