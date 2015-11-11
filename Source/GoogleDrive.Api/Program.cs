@@ -4,10 +4,14 @@
 
     using System;
 
+    using Google.Apis.Drive.v2;
+    using Google.Apis.Drive.v2.Data;
+
     #endregion
 
     //source: https://github.com/LindaLawton/Google-Dotnet-Samples/tree/master/Google-Drive/Google-Drive-Api-dotnet
     //TODO: delete demo and make the project class library
+
     public class Program
     {
         private const string CLIENT_ID = "122586258718-lbpu876ap5o81fib62egce3aiqa87bpu.apps.googleusercontent.com";
@@ -19,7 +23,8 @@
         public static void Main()
         {
             // Connect with Oauth2 Ask user for permission
-            var service = Authentication.AuthenticateOauth(CLIENT_ID, CLIENT_SECRET, Environment.UserName);
+            // Environment.UserName can be null
+            DriveService service = Authentication.AuthenticateOauth(CLIENT_ID, CLIENT_SECRET, Environment.UserName);
 
             if (service == null)
             {
@@ -28,19 +33,28 @@
             }
 
             // Upload a file
-            var newFile = DaimtoGoogleDriveHelper.UploadFile(service, "Recovery.txt", ROOT_DIRECTORY_ID);
+            File newFile = DaimtoGoogleDriveHelper.UploadFile(service, "test-image.jpg", ROOT_DIRECTORY_ID);
 
+            
             // Find a file
-            var get = DaimtoGoogleDriveHelper.GetFileById(service, newFile.Id);
+            File get = DaimtoGoogleDriveHelper.GetFileById(service, newFile.Id);
             Console.WriteLine("File name: {0}", get.OriginalFilename);
 
             // Download a file
-            bool isDownloaded = DaimtoGoogleDriveHelper.DownloadFileById(service, newFile.Id, "Downloaded.txt");
+            //OR newFile.AlternateLink
+            bool isDownloaded = DaimtoGoogleDriveHelper.DownloadFileById(service, newFile.Id, "Downloaded.jpg");
             Console.WriteLine("File downloadedloaded: {0}", isDownloaded);
 
-            //Get download link (probably temporary)
+            //update existing file
+            File updatedFile = DaimtoGoogleDriveHelper.UpdateFile(
+                service,
+                "test-image.jpg",
+                ROOT_DIRECTORY_ID,
+                newFile.Id);
+
+            //Get download link
             string url = DaimtoGoogleDriveHelper.GetDownloadUrlById(service, newFile.Id);
-            Console.WriteLine("Download link: {0}", url);
+            Console.WriteLine("Open in Drive link: {0}", url);
 
             Console.WriteLine("Press any key to continie. All new generated files will be deleted!");
             Console.ReadLine();
