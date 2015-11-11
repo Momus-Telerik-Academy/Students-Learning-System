@@ -15,9 +15,9 @@
     [EnableCors("*", "*", "*")]
     public class CategoriesController : ApiController
     {
-        private readonly ICategoryService categories;
+        private readonly ICategoriesService categories;
 
-        public CategoriesController(ICategoryService categoryService)
+        public CategoriesController(ICategoriesService categoryService)
         {
             this.categories = categoryService;
         }
@@ -54,15 +54,15 @@
         }
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody] string name)
+        public IHttpActionResult Post([FromBody] CategoryRequestModel categoryModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest();
             }
 
-            this.categories.Add(name);
-            return this.Ok(this.categories.GetId(name));
+            this.categories.Add(categoryModel.Name);
+            return this.Ok(this.categories.GetId(categoryModel.Name));
         }
     }
 }

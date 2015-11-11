@@ -8,9 +8,14 @@
         return ajaxRequester.post('api/categories', {data:name})
     }
 
+    function byId(id) {
+        return ajaxRequester.get('api/categories/' + id);
+    }
+
     return {
         all: all,
-        add:add
+        add: add,
+        byId : byId
     }
 
 }())

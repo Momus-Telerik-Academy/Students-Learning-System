@@ -1,0 +1,42 @@
+﻿body {
+}
+
+#main-content {
+    display: inline;
+}
+
+#contact {
+    background-color: #808080;
+}
+
+#mainNav {
+    background-color: #4B4340;
+}
+
+/*TODO: move*/
+#category-content {
+    background-color: #437A39;
+    width: 115%;
+    height: 103%;
+    margin: -30px 220px;
+    padding: 20px;
+}
+
+    #category-content .section {
+        font: #ffffff;
+    }
+
+    #category-content a {
+        text-decoration: none;
+        color: #fff;
+        width: 20%;
+    }
+     #category-content h2{
+         color: #fff;
+     }
+    .topic-box{
+        margin: 15px;
+        width : 20%;
+        display: inline-block;
+    }
+   
