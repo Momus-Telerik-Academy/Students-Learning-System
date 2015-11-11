@@ -69,6 +69,7 @@
         {
             if (System.IO.File.Exists(uploadFile))
             {
+
                 var body = new File();
                 body.Title = Path.GetFileName(uploadFile);
                 body.Description = "File uploaded by Diamto Drive Sample";
@@ -93,8 +94,7 @@
                 }
             }
 
-            Console.WriteLine("File does not exist: " + uploadFile);
-            return null;
+            throw new IOException("File does not exist: " + uploadFile);
         }
 
         /// <summary>
@@ -248,7 +248,7 @@
         // TODO: handle exceptions
         public static string GetDownloadUrlById(DriveService service, string fileId)
         {
-            return service.Files.Get(fileId).Execute().AlternateLink;
+            return service.Files.Get(fileId).Execute().WebContentLink;
         }
 
         // TODO: handle exceptions

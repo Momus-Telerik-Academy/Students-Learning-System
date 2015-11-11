@@ -4,6 +4,7 @@
 
     using System;
 
+    using Google.Apis.Drive.v2;
     using Google.Apis.Drive.v2.Data;
 
     #endregion
@@ -22,7 +23,8 @@
         public static void Main()
         {
             // Connect with Oauth2 Ask user for permission
-            var service = Authentication.AuthenticateOauth(CLIENT_ID, CLIENT_SECRET, Environment.UserName);
+            // Environment.UserName can be null
+            DriveService service = Authentication.AuthenticateOauth(CLIENT_ID, CLIENT_SECRET, Environment.UserName);
 
             if (service == null)
             {
@@ -40,16 +42,17 @@
 
             // Download a file
             //OR newFile.AlternateLink
-            bool isDownloaded = DaimtoGoogleDriveHelper.DownloadFileById(service, newFile.Id, "Downloaded.txt");
+            bool isDownloaded = DaimtoGoogleDriveHelper.DownloadFileById(service, newFile.Id, "Downloaded.jpg");
             Console.WriteLine("File downloadedloaded: {0}", isDownloaded);
 
-            var updatedFile = DaimtoGoogleDriveHelper.UpdateFile(
+            //update existing file
+            File updatedFile = DaimtoGoogleDriveHelper.UpdateFile(
                 service,
                 "test-image.jpg",
                 ROOT_DIRECTORY_ID,
                 newFile.Id);
 
-            //Get download link (probably temporary)
+            //Get download link
             string url = DaimtoGoogleDriveHelper.GetDownloadUrlById(service, newFile.Id);
             Console.WriteLine("Open in Drive link: {0}", url);
 
