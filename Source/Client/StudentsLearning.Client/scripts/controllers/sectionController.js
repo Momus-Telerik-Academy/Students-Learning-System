@@ -2,23 +2,21 @@
 
     function byId(context) {
         var sectionId = context.params['id'];
-        var section;
+        
+        appManager.loadView('section', context, Constants.CATEGORY_CONTENT_WRAPPER, sectionModel.getById, sectionId)
+            .then(function () {
+                console.log('Hooray');
+            }, function (err) {
+                var id = categoryModel.currentId() ? categoryModel.currentId() : 1;
+                categoryModel.currentId(id);
+                console.log(id);
+                context.redirect('/#/category/' + categoryModel.currentId());
+            })
+            .then(function () {
+                $('.btn-topic-show').on('click', function (e) {
 
-        sectionModel.getById(sectionId)
-        .then(function (res) {
-
-            console.log(res);
-            section = res;
-            return templatesManager.get('section');
-        })
-        .then(function (partial) {
-            var categoryContent = context.$element().find(Constants.CATEGORY_CONTENT_WRAPPER);
-            if (categoryContent.html() == undefined) {
-                context.redirect('/#/category/2   ');
-                categoryContent = context.$element().find(Constants.CATEGORY_CONTENT_WRAPPER);
-            }
-            categoryContent.html(partial(section))
-        });
+                });
+            });
     }
 
     function add(context) {

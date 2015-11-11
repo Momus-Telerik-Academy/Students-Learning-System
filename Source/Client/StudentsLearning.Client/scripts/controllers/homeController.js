@@ -10,8 +10,9 @@
                  // set events
                  $('.btn-category-show').on('click', function (e) {
                      var target = e.currentTarget;
-                     console.log(e.currentTarget);
-                     context.redirect('/#/category/' + $(target).attr('id'));
+                     // TODO: Save on localeStorage for better behave on refresh
+                     categoryModel.currentId(+$(target).attr('id'))
+                     context.redirect('/#/category/' + categoryModel.currentId());
                  });
              })
     }

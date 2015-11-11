@@ -2,13 +2,11 @@
     <h2>{{Name}}</h2>
     <hr style="max-width:80%;border-color:#fff;margin-left: inherit;"/>
     <h3>{{Description}}</h3>
-    {{#each this.Topics}}
-    <div class="topic-box">
-        <a href="#/topics/{{this.Id}}">
-            {{this.Name}}
-
-            <p>{{this.Description}}</p>
-        </a>
+    {{#each Topics}}
+    <div class="topic-box btn-topic-show" id="{{Id}}">
+        <a href="#/topics/{{Id}}">
+            {{Title}}
+        </a>       
     </div>
     {{/each}}
 </div>
