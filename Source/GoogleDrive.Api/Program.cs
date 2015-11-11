@@ -28,8 +28,9 @@
             }
 
             // Upload a file
-            var newFile = DaimtoGoogleDriveHelper.UploadFile(service, "Recovery.txt", ROOT_DIRECTORY_ID);
+            var newFile = DaimtoGoogleDriveHelper.UploadFile(service, "test-image.jpg", ROOT_DIRECTORY_ID);
 
+            //newFile.AlternateLink
             // Find a file
             var get = DaimtoGoogleDriveHelper.GetFileById(service, newFile.Id);
             Console.WriteLine("File name: {0}", get.OriginalFilename);
@@ -40,7 +41,7 @@
 
             //Get download link (probably temporary)
             string url = DaimtoGoogleDriveHelper.GetDownloadUrlById(service, newFile.Id);
-            Console.WriteLine("Download link: {0}", url);
+            Console.WriteLine("Open in Drive link: {0}", url);
 
             Console.WriteLine("Press any key to continie. All new generated files will be deleted!");
             Console.ReadLine();

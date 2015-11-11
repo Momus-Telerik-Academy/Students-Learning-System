@@ -248,7 +248,7 @@
         // TODO: handle exceptions
         public static string GetDownloadUrlById(DriveService service, string fileId)
         {
-            return service.Files.Get(fileId).Execute().DownloadUrl;
+            return service.Files.Get(fileId).Execute().AlternateLink;
         }
 
         // TODO: handle exceptions
