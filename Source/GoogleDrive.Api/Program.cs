@@ -4,10 +4,13 @@
 
     using System;
 
+    using Google.Apis.Drive.v2.Data;
+
     #endregion
 
     //source: https://github.com/LindaLawton/Google-Dotnet-Samples/tree/master/Google-Drive/Google-Drive-Api-dotnet
     //TODO: delete demo and make the project class library
+
     public class Program
     {
         private const string CLIENT_ID = "122586258718-lbpu876ap5o81fib62egce3aiqa87bpu.apps.googleusercontent.com";
@@ -28,16 +31,23 @@
             }
 
             // Upload a file
-            var newFile = DaimtoGoogleDriveHelper.UploadFile(service, "test-image.jpg", ROOT_DIRECTORY_ID);
+            File newFile = DaimtoGoogleDriveHelper.UploadFile(service, "test-image.jpg", ROOT_DIRECTORY_ID);
 
-            //newFile.AlternateLink
+            
             // Find a file
-            var get = DaimtoGoogleDriveHelper.GetFileById(service, newFile.Id);
+            File get = DaimtoGoogleDriveHelper.GetFileById(service, newFile.Id);
             Console.WriteLine("File name: {0}", get.OriginalFilename);
 
             // Download a file
+            //OR newFile.AlternateLink
             bool isDownloaded = DaimtoGoogleDriveHelper.DownloadFileById(service, newFile.Id, "Downloaded.txt");
             Console.WriteLine("File downloadedloaded: {0}", isDownloaded);
+
+            var updatedFile = DaimtoGoogleDriveHelper.UpdateFile(
+                service,
+                "test-image.jpg",
+                ROOT_DIRECTORY_ID,
+                newFile.Id);
 
             //Get download link (probably temporary)
             string url = DaimtoGoogleDriveHelper.GetDownloadUrlById(service, newFile.Id);
