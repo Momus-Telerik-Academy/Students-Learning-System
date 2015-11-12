@@ -1,10 +1,14 @@
 ﻿namespace StudentsLearning.Server.Api.Controllers
 {
+    using System.Collections.ObjectModel;
+
     using Services.Data.Contracts;
     using Models;
     using System.Linq;
     using System.Web.Http;
     using System.Web.Http.Cors;
+
+    using StudentsLearning.Data.Models;
 
     [RoutePrefix("api/Topics")]
     [EnableCors("*", "*", "*")]
@@ -13,9 +17,15 @@
         private readonly ITopicsServices topics;
         private readonly IZipFilesService zipFiles;
 
-        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles)
+        private readonly ISectionService sections;
+
+        private readonly IExamplesService examples;
+
+        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles, ISectionService sections, IExamplesService examples)
         {
             this.topics = topics;
+            this.sections = sections;
+            this.examples = examples;
             // this.zipFiles = zipFiles;
         }
 
@@ -96,18 +106,44 @@
             return this.Ok(result);
         }
 
-        //[HttpPost]
-        //public IHttpActionResult Post(TopicRequestModel topic)
-        //{
-        //    if (!this.ModelState.IsValid)
-        //    {
-        //        return this.BadRequest(this.ModelState);
-        //    }
+        [HttpPost]
+        public IHttpActionResult Post(TopicRequestModel requestTopic)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
 
-        //    if (this.artists.GetById(requestSong.ArtistId) == null)
-        //    {
-        //        return this.BadRequest("The artist doesn't exist");
-        //    }
-        //}
+            if (this.sections.GetById(requestTopic.SectionId) == null)
+            {
+                return this.BadRequest("The section id doesn't exist");
+            }
+
+            var topic = new Topic
+            {
+                Content = requestTopic.Content,
+                SectionId = requestTopic.SectionId,
+                Title = requestTopic.Title,
+                VideoId = requestTopic.VideoId,
+            };
+            var newExamples = new Collection<Example>();
+            foreach (var example in requestTopic.Examples)
+            {
+                var newExample = new Example
+                {
+                    Content = example.Content,
+                    Description = example.Description,
+                    Topic = topic
+                };
+                newExamples
+                    .Add(newExample);
+
+            }
+
+            this.topics
+                .Add(topic, newExamples);
+
+            return this.Ok();
+        }
     }
 }
