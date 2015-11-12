@@ -13,7 +13,7 @@
 
         IQueryable<Topic> GetByTitle(string title);
 
-        void Add(Topic topic, ZipFile file, ICollection<Example> examples);
+        void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples);
 
         void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples);
     }

@@ -10,11 +10,13 @@
     {
         private ICollection<Example> examples;
         private ICollection<Comment> comments;
+        private ICollection<ZipFile> zipFiles;
 
         public Topic()
         {
             this.examples = new HashSet<Example>();
             this.comments = new HashSet<Comment>();
+            this.zipFiles = new HashSet<ZipFile>();
         }
 
         public int Id { get; set; }
@@ -33,14 +35,6 @@
 
         public virtual Section Section { get; set; }
 
-        public virtual ZipFile ZipFile { get; set; }
-
-
-        // [Key]
-        // public int? ZipFileId { get; set; }
-
-        // public virtual ZipFile Materials { get; set; }
-
         public virtual ICollection<Example> Examples
         {
             get { return this.examples; }
@@ -51,6 +45,12 @@
         {
             get { return this.comments; }
             set { this.comments = value; }
+        }
+
+        public virtual ICollection<ZipFile> ZipFiles
+        {
+            get { return this.zipFiles; }
+            set { this.zipFiles = value; }
         }
     }
 }

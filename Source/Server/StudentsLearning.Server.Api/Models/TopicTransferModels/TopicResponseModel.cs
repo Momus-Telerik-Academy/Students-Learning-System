@@ -19,7 +19,7 @@
 
         public int SectionId { get; set; }
 
-        public ZipFileResponseModel ZipFile { get; set; }
+        public ICollection<ZipFileResponseModel> ZipFiles { get; set; }
 
         public ICollection<ExampleResponseModel> Examples { get; set; }
 

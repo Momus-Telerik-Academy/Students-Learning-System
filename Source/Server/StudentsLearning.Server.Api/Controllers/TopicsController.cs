@@ -47,13 +47,6 @@
                 Title = topic.Title,
                 Content = topic.Content,
                 VideoId = topic.VideoId,
-                ZipFile = new ZipFileResponseModel
-                {
-                    TopicId = topic.Id,
-                    Path = topic.ZipFile.Path,
-                    DbName = topic.ZipFile.DbName,
-                    OriginalName = topic.ZipFile.OriginalName,
-                },
                 Comments = topic.Comments
                                 .Select(c => new CommentResponseModel
                                 {
@@ -65,6 +58,14 @@
                                     TopicId = c.TopicId
                                 })
                                 .ToList(),
+                ZipFiles = topic.ZipFiles
+                                .Select(c => new ZipFileResponseModel
+                                {
+                                    DbName = c.DbName,
+                                    OriginalName = c.OriginalName,
+                                    Path = c.Path,
+                                    TopicId = c.TopicId
+                                }).ToList(),
                 Examples = topic.Examples
                               .Select(e => new ExampleResponseModel
                               {
@@ -72,9 +73,9 @@
                                   Description = e.Description,
                                   Id = e.Id,
                                   TopicId = e.TopicId
-                              }).ToList(),
-
+                              }).ToList()
             };
+
             return this.Ok(respone);
         }
 
@@ -91,13 +92,14 @@
                     Content = x.Content,
                     VideoId = x.VideoId,
                     SectionId = x.SectionId,
-                    ZipFile = new ZipFileResponseModel
-                    {
-                        TopicId = x.Id,
-                        Path = x.ZipFile.Path,
-                        DbName = x.ZipFile.DbName,
-                        OriginalName = x.ZipFile.OriginalName,
-                    },
+                    ZipFiles = x.ZipFiles
+                                .Select(c => new ZipFileResponseModel
+                                {
+                                    DbName = c.DbName,
+                                    OriginalName = c.OriginalName,
+                                    Path = c.Path,
+                                    TopicId = c.TopicId
+                                }).ToList(),
                     Comments = x.Comments
                                 .Select(c => new CommentResponseModel
                                 {
@@ -124,8 +126,7 @@
         //http://localhost:56350/api/Topics
         //body example:
         /*
-
-       {
+{
   "title":"neshto",
   "content":"neshto1",
   "videoId":"ssidhs",
@@ -136,12 +137,12 @@
       "content":"secitonContent",
           }
   ],
-  "zipFile":{
+  "zipFiles":[{
     "originalName":"originalName1",
     "dbName":"dbName1",
     "path":"path"
-  }
-}       */
+  }]
+}      */
         [HttpPost]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
@@ -160,15 +161,23 @@
                 Content = requestTopic.Content,
                 SectionId = requestTopic.SectionId,
                 Title = requestTopic.Title,
-                VideoId = requestTopic.VideoId,
+                VideoId = requestTopic.VideoId
+            };
 
-            };
-            var zipFile = new ZipFile
+            var newZipFiles = new Collection<ZipFile>();
+            foreach (var zipFile in requestTopic.ZipFiles)
             {
-                DbName = requestTopic.ZipFile.DbName,
-                OriginalName = requestTopic.ZipFile.OriginalName,
-                Path = requestTopic.ZipFile.Path,
-            };
+                var newFile = new ZipFile
+                {
+                    DbName = zipFile.DbName,
+                    OriginalName = zipFile.OriginalName,
+                    Path = zipFile.Path,
+                    Topic = topic
+                };
+                newZipFiles
+                    .Add(newFile);
+            }
+
             var newExamples = new Collection<Example>();
             foreach (var example in requestTopic.Examples)
             {
@@ -183,7 +192,7 @@
             }
 
             this.topics
-                .Add(topic, zipFile, newExamples);
+                .Add(topic, newZipFiles, newExamples);
 
             return this.Ok();
         }

@@ -16,7 +16,7 @@
 
         public int SectionId { get; set; }
 
-        public ZipFileRequestModel ZipFile { get; set; }
+        public ICollection<ZipFileRequestModel> ZipFiles { get; set; }
 
         public ICollection<ExampleRequestModel> Examples { get; set; }
 

@@ -20,12 +20,16 @@
             this.zipFiles = zipFilesRepo;
         }
 
-        public void Add(Topic topic, ZipFile file, ICollection<Example> examples)
+        public void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples)
         {
-            this.zipFiles.Add(file);
             foreach (var example in examples)
             {
                 topic.Examples.Add(example);
+            }
+
+            foreach (var file in files)
+            {
+                topic.ZipFiles.Add(file);
             }
 
             this.topics.Add(topic);
