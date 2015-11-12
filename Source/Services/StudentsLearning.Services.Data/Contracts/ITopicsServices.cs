@@ -1,8 +1,9 @@
 ﻿namespace StudentsLearning.Services.Data.Contracts
 {
-    using StudentsLearning.Data.Models;
     using System.Collections.Generic;
     using System.Linq;
+
+    using StudentsLearning.Data.Models;
 
     public interface ITopicsServices
     {
@@ -12,8 +13,8 @@
 
         IQueryable<Topic> GetByTitle(string title);
 
-        void Add(Topic topic,/* ZipFile file,*/ ICollection<Example> examples);
+        void Add(Topic topic, ZipFile file, ICollection<Example> examples);
 
-        void Update(Topic topic, /*ZipFile newfile,*/ ICollection<Example> newExamples);
+        void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples);
     }
 }

@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Common;
     using System.ComponentModel.DataAnnotations.Schema;
+
+    using Common;
 
     public class Topic
     {
@@ -16,7 +17,6 @@
             this.comments = new HashSet<Comment>();
         }
 
-        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -33,10 +33,13 @@
 
         public virtual Section Section { get; set; }
 
-        // [Key]
-       // public int? ZipFileId { get; set; }
+        public virtual ZipFile ZipFile { get; set; }
 
-       // public virtual ZipFile Materials { get; set; }
+
+        // [Key]
+        // public int? ZipFileId { get; set; }
+
+        // public virtual ZipFile Materials { get; set; }
 
         public virtual ICollection<Example> Examples
         {

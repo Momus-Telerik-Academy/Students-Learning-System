@@ -243,6 +243,8 @@
     <Compile Include="Models\TopicTransferModels\TopicRequestModel.cs" />
     <Compile Include="Models\TopicTransferModels\TopicResponseMinifiedModel.cs" />
     <Compile Include="Models\TopicTransferModels\TopicResponseModel.cs" />
+    <Compile Include="Models\ZipFileTransferModels\ZipFileRequestModel.cs" />
+    <Compile Include="Models\ZipFileTransferModels\ZipFileResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />

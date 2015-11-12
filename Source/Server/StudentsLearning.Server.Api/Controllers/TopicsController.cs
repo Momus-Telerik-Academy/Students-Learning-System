@@ -11,6 +11,7 @@
     using StudentsLearning.Data.Models;
 
     using StudentsLearning.Server.Api.Models.TopicTransferModels;
+    using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
 
     [RoutePrefix("api/Topics")]
     [EnableCors("*", "*", "*")]
@@ -83,7 +84,13 @@
                     Content = x.Content,
                     VideoId = x.VideoId,
                     SectionId = x.SectionId,
-                    // ZipFileId = x.ZipFileId,
+                    ZipFile = new ZipFileResponseModel
+                    {
+                        TopicId = x.Id,
+                        Path = x.ZipFile.Path,
+                        DbName = x.ZipFile.DbName,
+                        OriginalName = x.ZipFile.OriginalName,
+                    },
                     Comments = x.Comments
                                 .Select(c => new CommentResponseModel
                                 {
@@ -111,7 +118,7 @@
         //body example:
         /*
 
-            {
+       {
   "title":"neshto",
   "content":"neshto1",
   "videoId":"ssidhs",
@@ -121,8 +128,13 @@
       "description":"description",
       "content":"secitonContent",
           }
-  ]
-}        */
+  ],
+  "zipFile":{
+    "originalName":"originalName1",
+    "dbName":"dbName1",
+    "path":"path"
+  }
+}       */
         [HttpPost]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
@@ -142,6 +154,13 @@
                 SectionId = requestTopic.SectionId,
                 Title = requestTopic.Title,
                 VideoId = requestTopic.VideoId,
+
+            };
+            var zipFile = new ZipFile
+            {
+                DbName = requestTopic.ZipFile.DbName,
+                OriginalName = requestTopic.ZipFile.OriginalName,
+                Path = requestTopic.ZipFile.Path,
             };
             var newExamples = new Collection<Example>();
             foreach (var example in requestTopic.Examples)
@@ -157,7 +176,7 @@
             }
 
             this.topics
-                .Add(topic, newExamples);
+                .Add(topic, zipFile, newExamples);
 
             return this.Ok();
         }

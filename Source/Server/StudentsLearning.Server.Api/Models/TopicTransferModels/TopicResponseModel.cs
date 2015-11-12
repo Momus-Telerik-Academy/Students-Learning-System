@@ -1,8 +1,11 @@
 ﻿namespace StudentsLearning.Server.Api.Models.TopicTransferModels
 {
     using System.Collections.Generic;
+
+    using StudentsLearning.Data.Models;
     using StudentsLearning.Server.Api.Models.CommentTransferModels;
     using StudentsLearning.Server.Api.Models.ExampleTransferModels;
+    using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
 
     public class TopicResponseModel
     {
@@ -16,7 +19,7 @@
 
         public int SectionId { get; set; }
 
-        public int? ZipFileId { get; set; }
+        public ZipFileResponseModel ZipFile { get; set; }
 
         public ICollection<ExampleResponseModel> Examples { get; set; }
 

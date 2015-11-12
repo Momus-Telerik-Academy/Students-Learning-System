@@ -1,16 +1,17 @@
 ﻿namespace StudentsLearning.Services.Data
 {
-    using System.Linq;
-    using StudentsLearning.Data.Models;
-    using StudentsLearning.Services.Data.Contracts;
-    using StudentsLearning.Data.Repositories;
     using System.Collections.Generic;
+    using System.Linq;
+
+    using StudentsLearning.Data.Models;
+    using StudentsLearning.Data.Repositories;
+    using StudentsLearning.Services.Data.Contracts;
+
 
     public class TopicsServices : ITopicsServices
     {
         private readonly IRepository<Topic> topics;
         private readonly IRepository<ZipFile> zipFiles;
-        // private readonly IRepository<Example> examples;
 
 
         public TopicsServices(IRepository<Topic> topicsRepo, IRepository<ZipFile> zipFilesRepo)
@@ -19,10 +20,9 @@
             this.zipFiles = zipFilesRepo;
         }
 
-        public void Add(Topic topic, ICollection<Example> examples)
+        public void Add(Topic topic, ZipFile file, ICollection<Example> examples)
         {
-            // this.zipFiles.Add(file);
-            //topic.ZipFileId = this.GetZipFileId(topic, file);
+            this.zipFiles.Add(file);
             foreach (var example in examples)
             {
                 topic.Examples.Add(example);
@@ -56,7 +56,7 @@
                 .Where(x => x.Title == title);
         }
 
-        public void Update(Topic topic, /*ZipFile newfile,*/ ICollection<Example> newExamples)
+        public void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples)
         {
             topic
                 .Examples
@@ -66,7 +66,7 @@
             {
                 topic.Examples.Add(example);
             }
-            //topic.ZipFileId = this.GetZipFileId(topic, newfile);
+
 
             this.topics
                 .Update(topic);
