@@ -1,0 +1,49 @@
+﻿<div class="topics-container-custom">
+    <div class="row">
+        <h2>{{Title}}</h2>
+    </div>
+    <hr style="max-width:80%;border-color:#fff;margin-left: inherit;"/>
+    <div class="row">
+        <div class="col-md-4">
+            <iframe width="480" height="360" src="https://www.youtube.com/embed/{{VideoId}}?enablejsapi=1&version=3" enablejsapi="1" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-8">{{Content}}</div>
+    </div>
+    <hr style="max-width:80%;border-color:#fff;margin-left: inherit;"/>
+    <div class="row">
+        <div class="col-md-5 comments">
+            <div class="form-horizontal comments-bg">
+            </div>
+            Comments:
+            {{#each this.Comments}}
+            <div class="container">
+                <blockquote class="quote-box">
+                    <p class="quotation-mark">
+                        “
+                    </p>
+                    <p class="quote-text">
+                        {{Content}}
+                    </p>
+                    <hr>
+                    <div class="blog-post-actions">
+                        <p class="blog-post-bottom pull-left">
+                            {{Author}}
+                        </p>
+                        <p class="blog-post-bottom pull-right">
+                            <span class="badge quote-badge">{{Likes}}</span>  ❤
+                            <span class="badge quote-badge">{{Dislikes}}</span>
+                        </p>
+                    </div>
+                </blockquote>
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="col-md-7 examples">
+            {{#each this.Examples}}
+            <h3>{{Description}}</h3>
+            <div>{{Content}}</div>
+            {{/each}}
+        </div>
+    </div>
+</div>

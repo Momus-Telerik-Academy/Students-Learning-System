@@ -4,16 +4,58 @@
     using Models;
     using System.Linq;
     using System.Web.Http;
+    using System.Web.Http.Cors;
 
-    public class TopicController : ApiController
+    [RoutePrefix("api/Topics")]
+    [EnableCors("*", "*", "*")]
+    public class TopicsController : ApiController
     {
         private readonly ITopicsServices topics;
         private readonly IZipFilesService zipFiles;
 
-        public TopicController(ITopicsServices topics, IZipFilesService zipFiles)
+        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles)
         {
             this.topics = topics;
-           // this.zipFiles = zipFiles;
+            // this.zipFiles = zipFiles;
+        }
+
+        [HttpGet]
+        public IHttpActionResult Get(int id)
+        {
+            var topic = this.topics.GetById(id).FirstOrDefault();
+
+            if (topic == null)
+            {
+                return this.BadRequest();
+            }
+            var respone = new TopicResponseModel
+            {
+                Id = topic.Id,
+                Title = topic.Title,
+                Content = topic.Content,
+                VideoId = topic.VideoId,
+                Comments = topic.Comments
+                                .Select(c => new CommentResponseModel
+                                {
+                                    Id = c.Id,
+                                    Author = c.Author,
+                                    Content = c.Content,
+                                    Dislikes = c.Dislikes,
+                                    Likes = c.Likes,
+                                    TopicId = c.TopicId
+
+                                }).ToList(),
+                Examples = topic.Examples
+                              .Select(e => new ExampleResponseModel
+                              {
+                                  Content = e.Content,
+                                  Description = e.Description,
+                                  Id = e.Id,
+                                  TopicId = e.TopicId
+                              }).ToList()
+
+            };
+            return this.Ok(respone);
         }
 
         [HttpGet]
@@ -29,7 +71,7 @@
                     Content = x.Content,
                     VideoId = x.VideoId,
                     SectionId = x.SectionId,
-                   // ZipFileId = x.ZipFileId,
+                    // ZipFileId = x.ZipFileId,
                     Comments = x.Comments
                                 .Select(c => new CommentResponseModel
                                 {

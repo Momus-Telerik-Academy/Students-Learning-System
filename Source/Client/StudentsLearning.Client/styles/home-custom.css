@@ -17,7 +17,8 @@
 #category-content {
     /*background-color: #437A39;*/
     width: 115%;
-    height: 103%;
+    height: auto;
+    min-height: 103%;
     margin: -30px 220px;
     padding: 20px;
 }
@@ -55,7 +56,7 @@
 }
 
 .with-header-bg span {
-     color: #fff;
+    color: #fff;
 }
 
 .add-category div {
@@ -70,6 +71,6 @@
     background-image: url('../images/header.jpg');
 }
 
-#wrapper-sections{
-    width:100%;
+#wrapper-sections {
+    /*width: 100%;*/
 }
