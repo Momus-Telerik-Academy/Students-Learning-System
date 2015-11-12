@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace StudentsLearning.Server.Api.Models
+﻿namespace StudentsLearning.Server.Api.Models.TopicTransferModels
 {
+    using System.Collections.Generic;
+    using StudentsLearning.Server.Api.Models.CommentTransferModels;
+    using StudentsLearning.Server.Api.Models.ExampleTransferModels;
+
     public class TopicResponseModel
     {
         public int Id { get; set; }
@@ -14,7 +16,7 @@ namespace StudentsLearning.Server.Api.Models
 
         public int SectionId { get; set; }
 
-       // public int? ZipFileId { get; set; }
+        public int? ZipFileId { get; set; }
 
         public ICollection<ExampleResponseModel> Examples { get; set; }
 

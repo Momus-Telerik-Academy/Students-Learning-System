@@ -7,6 +7,7 @@
     using Data.Models;
     using Models;
     using Services.Data.Contracts;
+    using StudentsLearning.Server.Api.Models.SectionTransferModels;
 
     [RoutePrefix("api/Sections")]
     [EnableCors("*", "*", "*")]
@@ -39,10 +40,12 @@
                                     {
                                         Name = x.Name,
                                         Description = x.Description,
-                                        Topics = x.Topics.Select(t=> new TopicResponseMinifiedModel() {
-                                            Id = t.Id,
-                                            Title = t.Title
-                                        }).ToList()                                     
+                                        Topics = x.Topics
+                                                   .Select(t => new TopicResponseMinifiedModel()
+                                                   {
+                                                       Id = t.Id,
+                                                       Title = t.Title
+                                                   }).ToList()
                                     })
                                    .FirstOrDefault();
 

@@ -24,7 +24,7 @@
         {
             return this.zipfiles
                         .All()
-                        .Where(x => x.Id == id);
+                        .Where(x => x.TopicId == id);
         }
 
         public void Update(ZipFile file)

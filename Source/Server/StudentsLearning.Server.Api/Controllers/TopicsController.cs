@@ -1,14 +1,16 @@
 ﻿namespace StudentsLearning.Server.Api.Controllers
 {
     using System.Collections.ObjectModel;
-
-    using Services.Data.Contracts;
-    using Models;
     using System.Linq;
     using System.Web.Http;
     using System.Web.Http.Cors;
 
+    using Models.CommentTransferModels;
+    using Models.ExampleTransferModels;
+    using Services.Data.Contracts;
     using StudentsLearning.Data.Models;
+
+    using StudentsLearning.Server.Api.Models.TopicTransferModels;
 
     [RoutePrefix("api/Topics")]
     [EnableCors("*", "*", "*")]
@@ -26,7 +28,7 @@
             this.topics = topics;
             this.sections = sections;
             this.examples = examples;
-            // this.zipFiles = zipFiles;
+            this.zipFiles = zipFiles;
         }
 
         [HttpGet]
@@ -53,8 +55,8 @@
                                     Dislikes = c.Dislikes,
                                     Likes = c.Likes,
                                     TopicId = c.TopicId
-
-                                }).ToList(),
+                                })
+                                .ToList(),
                 Examples = topic.Examples
                               .Select(e => new ExampleResponseModel
                               {
@@ -62,7 +64,7 @@
                                   Description = e.Description,
                                   Id = e.Id,
                                   TopicId = e.TopicId
-                              }).ToList()
+                              }).ToList(),
 
             };
             return this.Ok(respone);
@@ -91,7 +93,6 @@
                                     Dislikes = c.Dislikes,
                                     Likes = c.Likes,
                                     TopicId = c.TopicId
-
                                 }).ToList(),
                     Examples = x.Examples
                               .Select(e => new ExampleResponseModel
@@ -100,12 +101,28 @@
                                   Description = e.Description,
                                   Id = e.Id,
                                   TopicId = e.TopicId
-                              }).ToList()
-
+                              })
+                              .ToList()
                 });
             return this.Ok(result);
         }
 
+        //http://localhost:56350/api/Topics
+        //body example:
+        /*
+
+            {
+  "title":"neshto",
+  "content":"neshto1",
+  "videoId":"ssidhs",
+  "sectionId":"1",
+  "examples":[
+    {
+      "description":"description",
+      "content":"secitonContent",
+          }
+  ]
+}        */
         [HttpPost]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
@@ -137,7 +154,6 @@
                 };
                 newExamples
                     .Add(newExample);
-
             }
 
             this.topics
