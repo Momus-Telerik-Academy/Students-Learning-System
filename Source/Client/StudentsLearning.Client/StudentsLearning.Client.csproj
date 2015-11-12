@@ -122,6 +122,7 @@
     <Content Include="partials\category.html" />
     <Content Include="partials\home.html" />
     <Content Include="partials\section.html" />
+    <Content Include="partials\topic.html" />
     <Content Include="scripts\controllers\categoriesController.js" />
     <Content Include="scripts\controllers\homeController.js" />
     <Content Include="scripts\controllers\sectionController.js" />
@@ -144,6 +145,7 @@
     <Content Include="styles\category-sidebar.css" />
     <Content Include="styles\creative.css" />
     <Content Include="styles\home-custom.css" />
+    <Content Include="styles\topic-custom.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

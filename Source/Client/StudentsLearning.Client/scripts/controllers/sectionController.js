@@ -17,7 +17,7 @@
                     var target = e.currentTarget;
                     // TODO: Save on localeStorage for better behave on refresh
                     topicModel.currentId(+$(target).attr('id'))
-                    context.redirect('/#/topic/' + topicModel.currentId());
+                    context.redirect('/#/topics/' + topicModel.currentId());
                 });
             });
     }

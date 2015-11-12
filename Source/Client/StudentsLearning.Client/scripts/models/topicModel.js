@@ -1,4 +1,4 @@
-﻿var categoryModel = (function () {
+﻿var topicModel = (function () {
     var categoryId;
 
     function currentId(id) {

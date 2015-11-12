@@ -46,6 +46,7 @@ html {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    border: none;
 }
 
     #sidebar-wrapper::-webkit-scrollbar {
@@ -65,7 +66,7 @@ html {
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
     margin-right: -220px;
-    }
+}
 
 /*-------------------------------*/
 /*     Sidebar nav styles        */
@@ -332,5 +333,8 @@ html {
 #wrapper-sections {
     position: absolute;
     top: 60px;
-    height: 650px;
+    background: #4B4340;
+    width: 100%;
+    min-height: 100%;
+    height: auto;
 }
