@@ -16,8 +16,8 @@
                         context.redirect('/#/login');
                     },
                     function (err) {
-                       
-                       alert('TODO: Insert toastr' + "")
+
+                        alert('TODO: Insert toastr' + "")
                     });
 
                 console.log(user);
@@ -26,10 +26,36 @@
         });
     }
 
-    function login(contex) {
-        appManager.loadView('login', contex, false, false, false)
+    function login(context) {
+        console.log('Login');
+        appManager.loadView('login', context, false, false, false)
         .then(function () {
+            console.log('before click');
+            $(USER_CONSTANTS.BTN_LOGIN).on('click', function () {
+                console.log('clickeddd');
+                var user = {
+                    Email: $(USER_CONSTANTS.TB_EMAIL).val(),
+                    Password: $(USER_CONSTANTS.TB_PASSWORD).val()
+                };
 
+                console.log(user);
+
+                userModel.login(user)
+                    .then(function (res) {
+                        console.log(res);
+                        context.redirect('/#/');
+                    },
+                    function (err) {
+
+                        alert('TODO: Insert toastr' + "")
+                    });
+
+                console.log(user);
+                return false;
+            });
+            
+        }, function (err) {
+            console.log(err);
         });
     }
 

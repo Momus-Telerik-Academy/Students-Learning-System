@@ -22,7 +22,7 @@
     using StudentsLearning.Server.Api.Results;
     using System.Web.Http.Cors;
 
-    [EnableCors("*", "*", "*")]
+    [EnableCors("*", "*", "GET, POST, OPTIONS")]
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
@@ -225,6 +225,7 @@
         }
 
         // GET api/Account/ExternalLogin
+        [EnableCors("*","*", "GET, POST, OPTIONS")]
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
