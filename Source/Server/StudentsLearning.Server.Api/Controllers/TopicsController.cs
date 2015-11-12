@@ -47,6 +47,13 @@
                 Title = topic.Title,
                 Content = topic.Content,
                 VideoId = topic.VideoId,
+                ZipFile = new ZipFileResponseModel
+                {
+                    TopicId = topic.Id,
+                    Path = topic.ZipFile.Path,
+                    DbName = topic.ZipFile.DbName,
+                    OriginalName = topic.ZipFile.OriginalName,
+                },
                 Comments = topic.Comments
                                 .Select(c => new CommentResponseModel
                                 {
