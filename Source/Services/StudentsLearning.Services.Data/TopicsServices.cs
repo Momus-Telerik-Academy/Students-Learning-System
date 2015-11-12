@@ -10,7 +10,7 @@
     {
         private readonly IRepository<Topic> topics;
         private readonly IRepository<ZipFile> zipFiles;
-       // private readonly IRepository<Example> examples;
+        // private readonly IRepository<Example> examples;
 
 
         public TopicsServices(IRepository<Topic> topicsRepo, IRepository<ZipFile> zipFilesRepo)
@@ -21,7 +21,7 @@
 
         public void Add(Topic topic, ICollection<Example> examples)
         {
-           // this.zipFiles.Add(file);
+            // this.zipFiles.Add(file);
             //topic.ZipFileId = this.GetZipFileId(topic, file);
             foreach (var example in examples)
             {
@@ -29,6 +29,7 @@
             }
 
             this.topics.Add(topic);
+            this.topics.SaveChanges();
         }
 
         public IQueryable<Topic> All(int sectionId, int page = 1, int pageSize = 10)
