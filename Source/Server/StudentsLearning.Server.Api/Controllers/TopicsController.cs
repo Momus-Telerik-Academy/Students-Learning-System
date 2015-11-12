@@ -143,6 +143,7 @@
     "path":"path"
   }]
 }      */
+       //TODO:Check if the current category exist and if exist do not let the user the make the same category twice
         [HttpPost]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
