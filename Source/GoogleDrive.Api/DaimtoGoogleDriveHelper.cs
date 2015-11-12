@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Net;
+    using System.Security.Authentication;
 
     using Google.Apis.Drive.v2;
     using Google.Apis.Drive.v2.Data;
@@ -33,13 +34,6 @@
                 throw new ArgumentNullException("The ID of the file to download can not be empty!");
             }
 
-            var fileResource = service.Files.Get(fileId).Execute();
-
-            if (string.IsNullOrEmpty(fileResource.DownloadUrl))
-            {
-                throw new WebException("The file does not exist on Google Drive. Invalid ID!");
-            }
-
             if (string.IsNullOrWhiteSpace(saveTo))
             {
                 throw new ArgumentNullException("Save to path cannott be empty!");
@@ -50,18 +44,26 @@
                 throw new ArgumentNullException("Google Drive DriveService is not initialized!");
             }
 
+            File fileResource;
             try
             {
-                var x = service.HttpClient.GetByteArrayAsync(fileResource.DownloadUrl);
-                var arrBytes = x.Result;
-                System.IO.File.WriteAllBytes(saveTo, arrBytes);
-                return true;
+                fileResource = service.Files.Get(fileId).Execute();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine("An error occurred: " + e.Message);
-                return false;
+                throw ex;
             }
+
+
+            if (string.IsNullOrEmpty(fileResource.DownloadUrl))
+            {
+                throw new WebException("The file does not exist on Google Drive. Invalid ID!");
+            }
+
+            var x = service.HttpClient.GetByteArrayAsync(fileResource.DownloadUrl);
+            var arrBytes = x.Result;
+            System.IO.File.WriteAllBytes(saveTo, arrBytes);
+            return true;
         }
 
 
@@ -89,12 +91,27 @@
 
             if (string.IsNullOrWhiteSpace(parentDirectoryId))
             {
-                throw new ArgumentNullException("Parent folder ID can not be empty!");
+                throw new ArgumentNullException("", "Parent folder ID can not be empty!");
             }
 
             if (service == null)
             {
                 throw new ArgumentNullException("Google Drive DriveService is not initialized!");
+            }
+
+            if (service.HttpClientInitializer == null)
+            {
+                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+            }
+
+            File fileResource;
+            try
+            {
+                fileResource = service.Files.Get(parentDirectoryId).Execute();
+            }
+            catch (Exception ex)
+            {
+                throw new WebException("Directory not found!");
             }
 
             var body = new File();
@@ -106,19 +123,12 @@
             // File's content.
             var byteArray = System.IO.File.ReadAllBytes(uploadFile);
             var stream = new MemoryStream(byteArray);
-            try
-            {
-                var request = service.Files.Insert(body, stream, GetMimeType(uploadFile));
 
-                // request.Convert = true;   // uncomment this line if you want files to be converted to Drive format
-                request.Upload();
-                return request.ResponseBody;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("An error occurred: " + e.Message);
-                return null;
-            }
+            var request = service.Files.Insert(body, stream, GetMimeType(uploadFile));
+
+            // request.Convert = true;   // uncomment this line if you want files to be converted to Drive format
+            request.Upload();
+            return request.ResponseBody;
         }
 
         /// <summary>
@@ -158,6 +168,11 @@
                 throw new ArgumentNullException("Google Drive DriveService is not initialized!");
             }
 
+            if (service.HttpClientInitializer == null)
+            {
+                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+            }
+
             var body = new File();
             body.Title = Path.GetFileName(uploadFile);
             // body.Description = "File updated by Diamto Drive Sample";
@@ -167,17 +182,10 @@
             // File's content.
             var byteArray = System.IO.File.ReadAllBytes(uploadFile);
             var stream = new MemoryStream(byteArray);
-            try
-            {
-                var request = service.Files.Update(body, fileId, stream, GetMimeType(uploadFile));
-                request.Upload();
-                return request.ResponseBody;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("An error occurred: " + e.Message);
-                return null;
-            }
+
+            var request = service.Files.Update(body, fileId, stream, GetMimeType(uploadFile));
+            request.Upload();
+            return request.ResponseBody;
         }
 
         /// <summary>
@@ -198,6 +206,26 @@
             string description,
             string parentDirectoryId)
         {
+            if (string.IsNullOrWhiteSpace(parentDirectoryId))
+            {
+                throw new ArgumentNullException("Parent folder ID can not be empty!");
+            }
+
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentNullException("parentDirectoryId name can not be empty!");
+            }
+
+            if (service == null)
+            {
+                throw new ArgumentNullException("Google Drive DriveService is not initialized!");
+            }
+
+            if (service.HttpClientInitializer == null)
+            {
+                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+            }
+
             File newDirectory = null;
 
             // Create metaData for a new Directory
@@ -206,15 +234,9 @@
             body.Description = description;
             body.MimeType = "application/vnd.google-apps.folder";
             body.Parents = new List<ParentReference> { new ParentReference { Id = parentDirectoryId } };
-            try
-            {
-                var request = service.Files.Insert(body);
-                newDirectory = request.Execute();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("An error occurred: " + e.Message);
-            }
+
+            var request = service.Files.Insert(body);
+            newDirectory = request.Execute();
 
             return newDirectory;
         }
@@ -229,69 +251,118 @@
         /// <returns>A list of files</returns>
         public static IList<File> GetFiles(DriveService service, string search)
         {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                throw new ArgumentNullException("Search can not be empty!");
+            }
+
+            if (service == null)
+            {
+                throw new ArgumentNullException("Google Drive DriveService is not initialized!");
+            }
+
+            if (service.HttpClientInitializer == null)
+            {
+                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+            }
+
             IList<File> files = new List<File>();
 
-            try
+            // List all of the files and directories for the current user.  
+            // Documentation: https://developers.google.com/drive/v2/reference/files/list
+            var list = service.Files.List();
+            list.MaxResults = 1000;
+            if (search != null)
             {
-                // List all of the files and directories for the current user.  
-                // Documentation: https://developers.google.com/drive/v2/reference/files/list
-                var list = service.Files.List();
-                list.MaxResults = 1000;
-                if (search != null)
-                {
-                    list.Q = search;
-                }
-
-                var filesFeed = list.Execute();
-
-                //// Loop through until we arrive at an empty page
-                while (filesFeed.Items != null)
-                {
-                    // Adding each item  to the list.
-                    foreach (var item in filesFeed.Items)
-                    {
-                        files.Add(item);
-                    }
-
-                    // We will know we are on the last page when the next page token is
-                    // null.
-                    // If this is the case, break.
-                    if (filesFeed.NextPageToken == null)
-                    {
-                        break;
-                    }
-
-                    // Prepare the next page of results
-                    list.PageToken = filesFeed.NextPageToken;
-
-                    // Execute and process the next page request
-                    filesFeed = list.Execute();
-                }
+                list.Q = search;
             }
-            catch (Exception ex)
+
+            var filesFeed = list.Execute();
+
+            //// Loop through until we arrive at an empty page
+            while (filesFeed.Items != null)
             {
-                // In the event there is an error with the request.
-                Console.WriteLine(ex.Message);
+                // Adding each item  to the list.
+                foreach (var item in filesFeed.Items)
+                {
+                    files.Add(item);
+                }
+
+                // We will know we are on the last page when the next page token is
+                // null.
+                // If this is the case, break.
+                if (filesFeed.NextPageToken == null)
+                {
+                    break;
+                }
+
+                // Prepare the next page of results
+                list.PageToken = filesFeed.NextPageToken;
+
+                // Execute and process the next page request
+                filesFeed = list.Execute();
             }
 
             return files;
         }
 
-        // TODO: handle exceptions
         public static File GetFileById(DriveService service, string fileId)
         {
+            if (string.IsNullOrWhiteSpace(fileId))
+            {
+                throw new ArgumentNullException("File ID can not be empty!");
+            }
+
+            if (service == null)
+            {
+                throw new ArgumentNullException("Google Drive DriveService is not initialized!");
+            }
+
+            if (service.HttpClientInitializer == null)
+            {
+                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+            }
+
             return service.Files.Get(fileId).Execute();
         }
 
-        // TODO: handle exceptions
         public static string GetDownloadUrlById(DriveService service, string fileId)
         {
+            if (string.IsNullOrWhiteSpace(fileId))
+            {
+                throw new ArgumentNullException("File ID can not be empty!");
+            }
+
+            if (service == null)
+            {
+                throw new ArgumentNullException("Google Drive DriveService is not initialized!");
+            }
+
+            if (service.HttpClientInitializer == null)
+            {
+                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+            }
+
             return service.Files.Get(fileId).Execute().WebContentLink;
         }
 
-        // TODO: handle exceptions
         public static string DeleteFileById(DriveService service, string fileId)
         {
+            if (string.IsNullOrWhiteSpace(fileId))
+            {
+                throw new ArgumentNullException("File ID can not be empty!");
+            }
+
+            if (service == null)
+            {
+                throw new ArgumentNullException("Google Drive DriveService is not initialized!");
+            }
+
+            if (service.HttpClientInitializer == null)
+            {
+                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+            }
+
             string request = service.Files.Delete(fileId).Execute();
             return request;
         }
