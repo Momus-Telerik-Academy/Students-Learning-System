@@ -5,9 +5,11 @@
         this.get('#/', homeController.startUp);
         this.get('#/category/:id', categoriesController.current)
         this.get('#/sections/:id', sectionsController.byId);
-        this.get('#/add/category', categoriesController.add)
-        this.get('#/add/section', sectionsController.add)
-        this.get('#/topics/:id', topicsController.byId)
+        this.get('#/add/category', categoriesController.add);
+        this.get('#/add/section', sectionsController.add);
+        this.get('#/topics/:id', topicsController.byId);
+        this.get('#/login', userController.login);
+        this.get('#/register', userController.register);
     });
 
 

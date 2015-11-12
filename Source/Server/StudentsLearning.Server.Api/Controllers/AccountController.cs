@@ -20,8 +20,9 @@
     using StudentsLearning.Server.Api.Models;
     using StudentsLearning.Server.Api.Providers;
     using StudentsLearning.Server.Api.Results;
+    using System.Web.Http.Cors;
 
-
+    [EnableCors("*", "*", "*")]
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
