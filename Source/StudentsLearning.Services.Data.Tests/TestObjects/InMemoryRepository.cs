@@ -19,6 +19,7 @@ namespace StudentsLearning.Services.Data.Tests.TestObjects
             data = new List<T>();
             AttachedEntities = new List<T>();
             DetachedEntities = new List<T>();
+            UpdatedEntities = new List<T>();
         }
 
         public IList<T> AttachedEntities { get; }
