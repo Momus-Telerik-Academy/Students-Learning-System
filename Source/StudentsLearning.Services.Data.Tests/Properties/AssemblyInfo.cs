@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Google-Drive-Api-dotnet.Tests")]
+[assembly: AssemblyTitle("StudentsLearning.Services.Data.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Google-Drive-Api-dotnet.Tests")]
+[assembly: AssemblyProduct("StudentsLearning.Services.Data.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("28ae41ee-37b5-4d02-9a04-d1e081bb8f1d")]
+[assembly: Guid("f3b21fe2-db83-4f7b-8969-df5032f270f3")]
 
 // Version information for an assembly consists of the following four values:
 //

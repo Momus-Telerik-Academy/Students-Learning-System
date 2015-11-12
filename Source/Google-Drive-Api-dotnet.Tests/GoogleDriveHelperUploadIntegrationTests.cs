@@ -1,18 +1,17 @@
-﻿using NUnit.Framework;
-using GoogleDrive.Api;
+﻿#region
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net;
+using System.Security.Authentication;
+using Google.Apis.Drive.v2;
+using GoogleDrive.Api;
+using NUnit.Framework;
 
-namespace GoogleDrive.Api.Tests
+#endregion
+
+namespace Google_Drive_Api_dotnet.Tests
 {
-    using System.Security.Authentication;
-
-    using Google.Apis.Drive.v2;
-    using System.Net;
-
-    [TestFixture()]
+    [TestFixture]
     public class GoogleDriveHelperUploadIntegrationTests
     {
         private static string clientID;
@@ -37,35 +36,10 @@ namespace GoogleDrive.Api.Tests
             service = Authentication.AuthenticateOauth(clientID, clientSecret, Environment.UserName);
         }
 
-        [Test()]
-        public void UploadValidFileTest()
-        {
-            var fileName = TestFile;
-            Google.Apis.Drive.v2.Data.File result = DaimtoGoogleDriveHelper.UploadFile(service, fileName, rootDirectoryID);
-
-            testFileId = result.Id;
-
-            // name should be as set
-            Assert.AreEqual(result.OriginalFilename, fileName);
-
-            // should exist (not throw)
-            DaimtoGoogleDriveHelper.GetFileById(service, result.Id);
-        }
-
-        [Test()]
-        [ExpectedException(typeof(AuthenticationException), ExpectedMessage = "Authentication error! Please use the Authentication class to initialize the Google Drive service!")]
-        public void UploadUnauthenticatedServiceShouldThrowTest()
-        {
-            DriveService unauthenticated=new DriveService();
-
-            var fileName = TestFile;
-            DaimtoGoogleDriveHelper.UploadFile(unauthenticated, fileName, rootDirectoryID);
-        }
-
         [TestCase("")]
         [TestCase(null)]
         [TestCase("   ")]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "Parent folder ID can not be empty!")]
+        [ExpectedException(typeof (ArgumentNullException), ExpectedMessage = "Parent folder ID can not be empty!")]
         public void UploadEmptyDirectoryIdShouldThrowTest(string id)
         {
             var fileName = TestFile;
@@ -73,7 +47,7 @@ namespace GoogleDrive.Api.Tests
         }
 
         [TestCase("lizzaARD")]
-        [ExpectedException(typeof(WebException), ExpectedMessage = "Directory not found!")]
+        [ExpectedException(typeof (WebException), ExpectedMessage = "Directory not found!")]
         public void UploadInvalidIdShouldThrowTest(string id)
         {
             var fileName = TestFile;
@@ -91,10 +65,35 @@ namespace GoogleDrive.Api.Tests
                 }
                 catch
                 {
-                    
                 }
             }
+        }
 
+        [Test]
+        [ExpectedException(typeof (AuthenticationException),
+            ExpectedMessage =
+                "Authentication error! Please use the Authentication class to initialize the Google Drive service!")]
+        public void UploadUnauthenticatedServiceShouldThrowTest()
+        {
+            var unauthenticated = new DriveService();
+
+            var fileName = TestFile;
+            DaimtoGoogleDriveHelper.UploadFile(unauthenticated, fileName, rootDirectoryID);
+        }
+
+        [Test]
+        public void UploadValidFileTest()
+        {
+            var fileName = TestFile;
+            var result = DaimtoGoogleDriveHelper.UploadFile(service, fileName, rootDirectoryID);
+
+            testFileId = result.Id;
+
+            // name should be as set
+            Assert.AreEqual(result.OriginalFilename, fileName);
+
+            // should exist (not throw)
+            DaimtoGoogleDriveHelper.GetFileById(service, result.Id);
         }
     }
 }
