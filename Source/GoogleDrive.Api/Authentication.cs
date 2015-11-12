@@ -19,6 +19,7 @@ namespace GoogleDrive.Api
 
     using System;
     using System.IO;
+    using System.Security.Authentication;
     using System.Security.Cryptography.X509Certificates;
     using System.Threading;
 
@@ -75,8 +76,7 @@ namespace GoogleDrive.Api
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.InnerException);
-                return null;
+                throw new AuthenticationException("Failed to authenticate! Please check credentials and internet access!");
             }
         }
 
@@ -131,8 +131,7 @@ namespace GoogleDrive.Api
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.InnerException);
-                return null;
+                throw new AuthenticationException("Failed to authenticate! Please check credentials!");
             }
         }
     }

@@ -134,7 +134,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="DaimtoGoogleDriveHelperTests.cs" />
+    <Compile Include="GoogleDriveHelperUploadIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
