@@ -20,8 +20,36 @@
         }
     }
 
+    function toggleUserState() {
+        var element = $('#bs-example-navbar-collapse-1').find('#login-container');
+        var state = element.text();
+
+        if (localStorage.getItem(USER_CONSTANTS.LOCAL_STORAGE_USERNAME)
+            && localStorage.getItem(USER_CONSTANTS.LOCAL_STORAGE_TOKEN)) {
+
+            if (state.indexOf('In') == -1) {
+                element.text('Log In');
+            }
+
+            element.text('Log Out');
+            element.attr('href', '#/logout');
+
+        } else {
+
+            if (state.indexOf('In') == -1) {
+                element.text('Log In');
+                element.attr('href', '/#/login');
+            }
+        }
+
+       
+       
+
+    }
+
     return {
-        loadView: loadView
+        loadView: loadView,
+        toggleUserState: toggleUserState
     }
 
 }();

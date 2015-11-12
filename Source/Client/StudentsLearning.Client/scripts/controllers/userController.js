@@ -43,6 +43,11 @@
                 userModel.login(user)
                     .then(function (res) {
                         console.log(res);
+                        localStorage.setItem(USER_CONSTANTS.LOCAL_STORAGE_TOKEN, res.access_token);
+                        localStorage.setItem(USER_CONSTANTS.LOCAL_STORAGE_USERNAME, res.userName);
+                       
+                        appManager.toggleUserState();
+                      
                         context.redirect('/#/');
                     },
                     function (err) {
@@ -59,7 +64,13 @@
         });
     }
 
-    function logout(contex) { }
+    function logout(context) {
+        localStorage.removeItem(USER_CONSTANTS.LOCAL_STORAGE_TOKEN);
+        localStorage.removeItem(USER_CONSTANTS.LOCAL_STORAGE_USERNAME);
+
+        appManager.toggleUserState();
+        context.redirect('/#/');
+    }
 
 
     return {
