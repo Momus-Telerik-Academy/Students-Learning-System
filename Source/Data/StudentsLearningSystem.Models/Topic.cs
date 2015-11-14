@@ -10,14 +10,14 @@
         private ICollection<Example> examples;
         private ICollection<Comment> comments;
         private ICollection<ZipFile> zipFiles;
-        private ICollection<CustomUser> contributors;
+        private ICollection<User> contributors;
 
         public Topic()
         {
             this.examples = new HashSet<Example>();
             this.comments = new HashSet<Comment>();
             this.zipFiles = new HashSet<ZipFile>();
-            this.contributors = new HashSet<CustomUser>();
+            this.contributors = new HashSet<User>();
         }
 
         public int Id { get; set; }
@@ -54,7 +54,7 @@
             set { this.zipFiles = value; }
         }
 
-        public virtual ICollection<CustomUser> CustomUsers
+        public virtual ICollection<User> Contributors
         {
             get { return this.contributors; }
             set { this.contributors = value; }

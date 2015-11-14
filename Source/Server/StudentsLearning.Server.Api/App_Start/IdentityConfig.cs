@@ -5,7 +5,7 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
     using StudentsLearning.Data;
-    using StudentsLearning.Models;
+    using StudentsLearning.Data.Models;
 
     public class ApplicationUserManager : UserManager<User>
     {

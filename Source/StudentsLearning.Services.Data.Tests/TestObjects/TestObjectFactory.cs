@@ -2,7 +2,6 @@
 
 using System;
 using StudentsLearning.Data.Models;
-using StudentsLearning.Models;
 
 #endregion
 

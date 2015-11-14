@@ -23,6 +23,6 @@
 
         public ICollection<CommentRequestModel> Comments { get; set; }
 
-        public ICollection<ContributorRequestModel> Contributors { get; set; }
+        //public ICollection<ContributorRequestModel> Contributors { get; set; }
     }
 }

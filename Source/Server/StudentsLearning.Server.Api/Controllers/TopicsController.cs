@@ -14,6 +14,8 @@
     using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
     using System;
 
+    using Microsoft.AspNet.Identity;
+
     [RoutePrefix("api/Topics")]
     [EnableCors("*", "*", "*")]
     public class TopicsController : ApiController
@@ -25,19 +27,22 @@
 
         private readonly IExamplesService examples;
 
-        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles, ISectionService sections, IExamplesService examples)
+        private readonly IUsersService users;
+
+        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles, ISectionService sections, IExamplesService examples, IUsersService usersService)
         {
             this.topics = topics;
             this.sections = sections;
             this.examples = examples;
             this.zipFiles = zipFiles;
+            this.users = usersService;
         }
 
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
             var topic = this.topics.GetById(id).FirstOrDefault();
-            var topicC = topic.CustomUsers;
+            var topicC = topic.Contributors;
             if (topic == null)
             {
                 return this.BadRequest();
@@ -75,7 +80,7 @@
                                   Id = e.Id,
                                   TopicId = e.TopicId
                               }).ToList(),
-                Contributors = topic.CustomUsers
+                Contributors = topic.Contributors
                                 .Select(c => new ContributorResponseModel
                                 {
                                     Id = c.Id,
@@ -198,22 +203,10 @@
                 newExamples
                     .Add(newExample);
             }
-            var newContributors = new Collection<CustomUser>();
 
-            foreach (var contributor in requestTopic.Contributors)
-            {
-                var newContributor = new CustomUser
-                {
-                    Id = contributor.Id,
-
-                };
-
-                newContributors
-                    .Add(newContributor);
-                topic.CustomUsers.Add(newContributor);
-            }
+            var newContributor = this.users.GetUserById(this.User.Identity.GetUserId());
             this.topics
-                .Add(topic, newZipFiles, newExamples);
+                 .Add(topic, newZipFiles, newExamples, newContributor);
 
             return this.Ok();
         }

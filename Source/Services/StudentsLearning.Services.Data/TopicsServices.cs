@@ -14,17 +14,17 @@
         private readonly IRepository<Topic> topics;
         private readonly IRepository<ZipFile> zipFiles;
 
-        private readonly IRepository<CustomUser> contributors;
+        private readonly IRepository<User> contributors;
 
 
-        public TopicsServices(IRepository<Topic> topicsRepo, IRepository<ZipFile> zipFilesRepo, IRepository<CustomUser> contributors)
+        public TopicsServices(IRepository<Topic> topicsRepo, IRepository<ZipFile> zipFilesRepo, IRepository<User> contributors)
         {
             this.topics = topicsRepo;
             this.zipFiles = zipFilesRepo;
             this.contributors = contributors;
         }
 
-        public void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples)
+        public void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples, User contributor)
         {
             foreach (var example in examples)
             {
@@ -36,6 +36,7 @@
                 topic.ZipFiles.Add(file);
             }
 
+            topic.Contributors.Add(contributor);
             this.topics.Add(topic);
             this.topics.SaveChanges();
         }
@@ -52,7 +53,7 @@
 
         public IQueryable<Topic> All(string contributorId)
         {
-            return this.topics.All().Where(x => x.CustomUsers.Any(c => c.Id == contributorId));
+            return this.topics.All().Where(x => x.Contributors.Any(c => c.Id == contributorId));
         }
 
         public IQueryable<Topic> GetById(int id)
