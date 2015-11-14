@@ -208,11 +208,11 @@
 
                 };
 
-                //newContributors
-                //    .Add(newContributor);
+                newContributors
+                    .Add(newContributor);
                 topic.CustomUsers.Add(newContributor);
-                //}
-                this.topics
+            }
+            this.topics
                 .Add(topic, newZipFiles, newExamples);
 
             return this.Ok();
@@ -226,27 +226,28 @@
             }
 
             var topic = this.topics.GetById(id).FirstOrDefault();
-           
-            if(topic == null)
+
+            if (topic == null)
             {
                 return this.BadRequest();
             }
 
-            Func<ExampleRequestModel, Example> mapToExample = c => {
+            Func<ExampleRequestModel, Example> mapToExample = c =>
+            {
                 var example = this.examples.GetById(c.Id).FirstOrDefault();
-                
-                if(example == null)
+
+                if (example == null)
                 {
-                    example = new Example{ Id = c.Id };
+                    example = new Example { Id = c.Id };
                 }
 
                 example.Description = c.Description;
                 example.Content = c.Content;
-               
+
                 this.examples.Update(example);
                 return example;
-                };
-            
+            };
+
             topic.Title = requestTopic.Title;
             topic.Content = requestTopic.Content;
             topic.VideoId = requestTopic.VideoId;
