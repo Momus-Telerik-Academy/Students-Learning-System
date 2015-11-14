@@ -52,8 +52,8 @@ namespace StudentsLearning.Data.Migrations
                             Content ="Graph algorithms article. Graphs are this and that",
                             Comments = new HashSet<Comment>
                             {
-                                new Comment() {UserId="09bea2be-d614-490c-939d-1a562f4fd89e", Content="I have learned that when I was 2 years old.. ", Likes=2, Dislikes = 0 },
-                                new Comment() {UserId="4dac58c0-e459-47c7-9e55-f4f15d0e66b7", Content="Sad panda", Likes=3, Dislikes = 0 }
+                                new Comment() {UserId=cukiUser.Id, Content="I have learned that when I was 2 years old.. ", Likes=2, Dislikes = 0 },
+                                new Comment() {UserId=peshoUser.Id, Content="Sad panda", Likes=3, Dislikes = 0 }
                             },
                             Examples = new HashSet<Example>
                             {

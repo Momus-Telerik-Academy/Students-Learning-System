@@ -1,6 +1,5 @@
-﻿var sectionModel = (function () {
-
-    var sectionId;
+var sectionModel = (function () {
+    var sectionId = 1;
 
     function currentId(id) {
         if (id) {
@@ -10,7 +9,6 @@
         }
 
     }
-
     function getById(id) {
         id = id | 0;
         return ajaxRequester.get('api/sections/' + id)
@@ -21,9 +19,8 @@
     }
 
     return {
-        currentId : currentId,
         getById: getById,
-        add: add
+        add: add,
+        currentId: currentId
     }
-
 }())
