@@ -1,4 +1,4 @@
-﻿var sectionModel = (function () {
+var sectionModel = (function () {
     var sectionId = 1;
 
     function currentId(id) {
@@ -23,5 +23,4 @@
         add: add,
         currentId: currentId
     }
-
 }())

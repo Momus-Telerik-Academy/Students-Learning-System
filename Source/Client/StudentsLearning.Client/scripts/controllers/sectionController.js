@@ -5,6 +5,7 @@
         
         appManager.loadView('section', context, Constants.CATEGORY_CONTENT_WRAPPER, sectionModel.getById, sectionId)
             .then(function () {
+                sectionModel.currentId(sectionId);
                 console.log('Hooray');
             }, function (err) {
                 var id = categoryModel.currentId() ? categoryModel.currentId() : 1;
@@ -16,7 +17,7 @@
                 $('.btn-topic-show').on('click', function (e) {
                     var target = e.currentTarget;
                     // TODO: Save on localeStorage for better behave on refresh
-                    topicModel.currentId(+$(target).attr('id'))
+                    topicModel.currentId(+$(target).attr('id'));
                     context.redirect('/#/topics/' + topicModel.currentId());
                 });
             });

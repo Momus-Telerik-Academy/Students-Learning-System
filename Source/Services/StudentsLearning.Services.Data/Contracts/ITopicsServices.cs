@@ -17,6 +17,7 @@
 
         void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples);
 
-        void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples);
+        //void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples);
+        void Update(Topic topic);
     }
 }

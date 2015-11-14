@@ -39,37 +39,33 @@ namespace StudentsLearning.Data.Migrations
             //context.Users.AddOrUpdate(cukiUser);
             //context.Users.AddOrUpdate(peshoUser);
 
-            //var programming = new Category() { Name = "Programming" };
+            var programming = new Category() { Name = "Programming" };
 
-            //programming.Sections
-            //    .Add(new Section()
-            //    {
-            //        Name = "Algorithms",
-            //        Description = "Algorithms Lorem Ipsum Dolor",
-            //        Topics = new HashSet<Topic> {
-            //            new Topic() {
-            //                Title = "Graphs",
-            //                Content ="Graph algorithms article. Graphs are this and that",
-            //                Comments = new HashSet<Comment>
-            //                {
-            //                    new Comment() {UserId=cukiUser.Id, Content="I have learned that when I was 2 years old.. ", Likes=2, Dislikes = 0 },
-            //                    new Comment() {UserId=peshoUser.Id, Content="Sad panda", Likes=3, Dislikes = 0 }
-            //                },
-            //                Examples = new HashSet<Example>
-            //                {
-            //                    new Example() { Description = "Graph example", Content="some content"},
-            //                    new Example() { Description = "Algo Academy 2012 Task 1", Content="some content"}
-            //                },
-            //              VideoId="Xr21-vMs_XM"
-            //            },
+            programming.Sections
+                .Add(new Section()
+                {
+                    Name = "Algorithms",
+                    Description = "Algorithms Lorem Ipsum Dolor",
+                    Topics = new HashSet<Topic> {
+                        new Topic() {
+                            Title = "Graphs",
+                            Content ="Graph algorithms article. Graphs are this and that",
 
-            //        }
-            //    });
+                            Examples = new HashSet<Example>
+                            {
+                                new Example() { Description = "Graph example", Content="some content"},
+                                new Example() { Description = "Algo Academy 2012 Task 1", Content="some content"}
+                            },
+                          VideoId="Xr21-vMs_XM"
+                        },
 
-            //context.Categories.AddOrUpdate(
-            //    c => c.Name,
-            //   programming
-            //    );
+                    }
+                });
+
+            context.Categories.AddOrUpdate(
+                c => c.Name,
+               programming
+                );
         }
     }
 }

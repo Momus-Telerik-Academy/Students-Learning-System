@@ -12,6 +12,7 @@
     using StudentsLearning.Server.Api.Models.ContributorTransferModels;
     using StudentsLearning.Server.Api.Models.TopicTransferModels;
     using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
+    using System;
 
     [RoutePrefix("api/Topics")]
     [EnableCors("*", "*", "*")]
@@ -213,6 +214,46 @@
                 //}
                 this.topics
                 .Add(topic, newZipFiles, newExamples);
+
+            return this.Ok();
+        }
+
+        public IHttpActionResult Put(int id, TopicRequestModel requestTopic)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            var topic = this.topics.GetById(id).FirstOrDefault();
+           
+            if(topic == null)
+            {
+                return this.BadRequest();
+            }
+
+            Func<ExampleRequestModel, Example> mapToExample = c => {
+                var example = this.examples.GetById(c.Id).FirstOrDefault();
+                
+                if(example == null)
+                {
+                    example = new Example{ Id = c.Id };
+                }
+
+                example.Description = c.Description;
+                example.Content = c.Content;
+               
+                this.examples.Update(example);
+                return example;
+                };
+            
+            topic.Title = requestTopic.Title;
+            topic.Content = requestTopic.Content;
+            topic.VideoId = requestTopic.VideoId;
+            topic.Examples = requestTopic.Examples.Select(mapToExample).ToList();
+            // topic.ZipFiles = requestTopic.ZipFiles;
+
+            this.topics.Update(topic);
 
             return this.Ok();
         }
