@@ -6,7 +6,7 @@
     });
 
     var sammyApp = Sammy("#main-content", function () {
-
+  
         // this.get('#/', {controller.method});
         this.get('#/', homeController.startUp);
         this.get('#/category/:id', categoriesController.current)
@@ -17,6 +17,8 @@
         this.get('#/login', userController.login);
         this.get('#/register', userController.register);
         this.get('#/logout', userController.logout);
+        this.get('#/test', uploadController.upload);
+        this.get('#/topic/edit/:id', topicsController.edit);
     });
 
 
