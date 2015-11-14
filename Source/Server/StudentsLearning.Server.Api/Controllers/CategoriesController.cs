@@ -1,4 +1,10 @@
-﻿namespace StudentsLearning.Server.Api.Controllers
+﻿using Microsoft.Ajax.Utilities;
+using StudentsLearning.Data;
+using StudentsLearning.Data.Models;
+using StudentsLearning.Data.Repositories;
+using StudentsLearning.Services.Data;
+
+namespace StudentsLearning.Server.Api.Controllers
 {
     using System.Linq;
     using System.Web.Http;
@@ -13,11 +19,18 @@
     {
         private readonly ICategoriesService categories;
 
+        // for integration tests
+        public CategoriesController()
+            :this(new CategoriesService(new EfGenericRepository<Category>(new StudentsLearningDbContext())))
+        {
+            
+        }
+
         public CategoriesController(ICategoriesService categoryService)
         {
             this.categories = categoryService;
         }
-
+        
         public IHttpActionResult Get()
         {
             return this.Ok(this.categories.All().ToList());
