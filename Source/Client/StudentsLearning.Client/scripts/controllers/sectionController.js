@@ -23,6 +23,7 @@
     }
 
     function add(context) {
+        console.log('in section');
         appManager.loadView('add-section', context, Constants.CATEGORY_CONTENT_WRAPPER)
             .then(function (res) {
                 console.log('after app');

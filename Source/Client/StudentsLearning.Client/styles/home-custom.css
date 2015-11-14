@@ -30,7 +30,7 @@
     #category-content a {
         text-decoration: none;
         color: #fff;
-        width: 20%;
+        /*width: 20%;*/
     }
 
     #category-content h2 {
@@ -73,7 +73,4 @@
 
 #wrapper-sections {
     /*width: 100%;*/
-}
-label, p {
-    color: #FFFFFF;
 }

@@ -1,6 +1,12 @@
 ﻿var topicModel = (function () {
     var categoryId;
 
+    var Properties = {
+        VideoId: 'none',
+        Content: 'none',
+        ZipFiles : []
+    };
+
     function currentId(id) {
         if (id) {
             categoryId = id;
@@ -11,7 +17,7 @@
     }
 
     function add(topic) {
-        return ajaxRequester.post('api/Topics', { data: topic })
+        return ajaxRequester.post('api/topics', { data: topic })
     }
 
     function byId(id) {
@@ -21,7 +27,8 @@
     return {
         add: add,
         byId: byId,
-        currentId: currentId
+        currentId: currentId,
+        Properties : Properties
     }
 
 }())

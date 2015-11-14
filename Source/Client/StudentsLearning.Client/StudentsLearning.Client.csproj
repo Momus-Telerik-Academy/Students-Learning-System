@@ -118,23 +118,25 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="partials\add-category.html" />
-    <Content Include="partials\add-example.html" />
     <Content Include="partials\add-section.html" />
-    <Content Include="partials\add-topic.html" />
     <Content Include="partials\category.html" />
+    <Content Include="partials\edit-topic.html" />
     <Content Include="partials\home.html" />
     <Content Include="partials\login.html" />
     <Content Include="partials\section.html" />
     <Content Include="partials\signup.html" />
+    <Content Include="partials\test-upload.html" />
     <Content Include="partials\topic.html" />
     <Content Include="scripts\controllers\categoriesController.js" />
     <Content Include="scripts\controllers\homeController.js" />
     <Content Include="scripts\controllers\sectionController.js" />
     <Content Include="scripts\controllers\topicsController.js" />
+    <Content Include="scripts\controllers\uploadController.js" />
     <Content Include="scripts\controllers\userController.js" />
     <Content Include="scripts\helpers\ajaxRequester.js" />
     <Content Include="scripts\helpers\appManager.js" />
     <Content Include="scripts\helpers\Constants.js" />
+    <Content Include="scripts\helpers\htmlElementCreator.js" />
     <Content Include="scripts\helpers\templatesManager.js" />
     <Content Include="scripts\helpers\UserConstants.js" />
     <Content Include="scripts\models\categoryModel.js" />

@@ -34,10 +34,17 @@
             element.text('Log Out');
             element.attr('href', '#/logout');
 
-        } else if (state.indexOf('In') == -1) {
-            element.text('Log In');
-            element.attr('href', '/#/login');
+        } else {
+
+            if (state.indexOf('In') == -1) {
+                element.text('Log In');
+                element.attr('href', '/#/login');
+            }
         }
+
+       
+       
+
     }
 
     return {
