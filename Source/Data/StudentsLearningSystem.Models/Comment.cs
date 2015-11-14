@@ -11,6 +11,8 @@
         [MinLength(ValidationConstants.MinStringLength)]
         public string UserId { get; set; }
 
+        public virtual CustomUser User { get; set; }
+
         [Required]
         [MinLength(ValidationConstants.MinStringLength)]
         [MaxLength(ValidationConstants.MaxContentLength)]
