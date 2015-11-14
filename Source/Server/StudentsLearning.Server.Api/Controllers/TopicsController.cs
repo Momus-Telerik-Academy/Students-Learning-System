@@ -51,7 +51,7 @@
                                 .Select(c => new CommentResponseModel
                                 {
                                     Id = c.Id,
-                                    Author = c.Author,
+                                    UserId = c.UserId,
                                     Content = c.Content,
                                     Dislikes = c.Dislikes,
                                     Likes = c.Likes,
@@ -105,7 +105,7 @@
                                 .Select(c => new CommentResponseModel
                                 {
                                     Id = c.Id,
-                                    Author = c.Author,
+                                    UserId = c.UserId,
                                     Content = c.Content,
                                     Dislikes = c.Dislikes,
                                     Likes = c.Likes,
