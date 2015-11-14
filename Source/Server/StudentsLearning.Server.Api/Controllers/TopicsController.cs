@@ -73,7 +73,8 @@
                                   Description = e.Description,
                                   Id = e.Id,
                                   TopicId = e.TopicId
-                              }).ToList()
+                              }).ToList(),
+
             };
 
             return this.Ok(respone);
