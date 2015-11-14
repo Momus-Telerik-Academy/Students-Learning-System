@@ -27,6 +27,10 @@
             .appendTo($parent);
     }
 
+    function createUploadForm() {
+
+    }
+
     return {
         createButton: createButton,
         createForm: createForm
