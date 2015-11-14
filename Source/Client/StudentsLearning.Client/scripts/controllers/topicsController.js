@@ -10,6 +10,8 @@
         });
     }
 
+
+
     function edit(context) {
         var topicId = context.params['id'];
         appManager.loadView('edit-topic', context, Constants.CATEGORY_CONTENT_WRAPPER, topicModel.byId, topicId)
