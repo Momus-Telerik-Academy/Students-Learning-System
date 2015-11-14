@@ -20,15 +20,15 @@
         console.log("clicked");
         appManager.loadView('add-topic', context, Constants.CATEGORY_CONTENT_WRAPPER)
             .then(function (res) {
-                //$('#add-example').on('click', function () {
-                //    $('#topic-examples').load('partials/add-example.html');
-                //});
+                $('#add-example').on('click', function () {
+                    $('#topic-examples').load('partials/add-example.html');
+                });
 
                 $('#btn-topic-add').on('click', function (e) {
                     console.log("clickedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
                     var newExample = {
-                        description: ($('#tb-example-description').val() ? undefined : ""),
-                        content: ($('#tb-example-content').val() ? undefined : "")
+                        description: $('#tb-example-description').val(),
+                        content: $('#tb-example-content').val()
                     };
 
                     var newFiles = {
@@ -48,7 +48,9 @@
                         content: $('#tb-topic-content').val(),
                         videoId: video_id,
                         sectionId: sectionModel.currentId().toString(),
-                        examples: [],
+                        examples: [
+                            newExample
+                        ],
                         zipFiles: []
                     };
 
@@ -77,9 +79,9 @@
 
             $('.btn-edit-topic').on('click', function (e) {
                 var $target = $(e.currentTarget),
-                $parent = $target.parent(),
-                targetId = $target.attr('id'),
-                editBtnId = 'btn-change-topic-' + targetId,
+                 $parent = $target.parent(),
+                 targetId = $target.attr('id'),
+                 editBtnId = 'btn-change-topic-' + targetId,
                 inputId = '.tb-topic-edit-' + targetId;
 
                 // $parent, itemName, properties)
