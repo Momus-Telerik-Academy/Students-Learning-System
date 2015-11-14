@@ -3,7 +3,6 @@
     using System.Data.Entity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
-    using StudentsLearning.Models;
 
     public class StudentsLearningDbContext : IdentityDbContext<User>, IStudentsLearningDbContext
     {

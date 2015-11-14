@@ -9,12 +9,15 @@
     {
         IQueryable<Topic> All(int sectionId, int page, int pageSize);
 
+        IQueryable<Topic> All(string contributorId);
+
         IQueryable<Topic> GetById(int id);
 
         IQueryable<Topic> GetByTitle(string title);
 
-        void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples);
+        void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples, User contributor);
 
-        void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples);
+        //void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples);
+        void Update(Topic topic);
     }
 }

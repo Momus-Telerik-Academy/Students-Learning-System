@@ -223,6 +223,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -243,6 +244,8 @@
     <Compile Include="Models\CategoryTransferModels\CategoryRequestModel.cs" />
     <Compile Include="Models\CommentTransferModels\CommentRequestModel.cs" />
     <Compile Include="Models\CommentTransferModels\CommentResponseModel.cs" />
+    <Compile Include="Models\ContributorTransferModels\ContributorRequestModel.cs" />
+    <Compile Include="Models\ContributorTransferModels\ContributorResponseModel.cs" />
     <Compile Include="Models\ExampleTransferModels\ExampleRequestModel.cs" />
     <Compile Include="Models\ExampleTransferModels\ExampleResponseModel.cs" />
     <Compile Include="Models\SectionTransferModels\SectionRequestModel.cs" />

@@ -7,7 +7,6 @@ namespace StudentsLearning.Services.Data.Tests
     using NUnit.Framework;
     using StudentsLearning.Services;
     using StudentsLearning.Data.Models;
-    using StudentsLearning.Models;
     using StudentsLearning.Services.Data.Contracts;
     using StudentsLearning.Services.Data.Tests.TestObjects;
 

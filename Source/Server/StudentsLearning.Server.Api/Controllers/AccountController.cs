@@ -16,11 +16,11 @@
     using Microsoft.Owin.Security.OAuth;
     using Models.AccountBindingModels;
     using Models.AccountViewModels;
-    using StudentsLearning.Models;
-    using StudentsLearning.Server.Api.Models;
     using StudentsLearning.Server.Api.Providers;
     using StudentsLearning.Server.Api.Results;
     using System.Web.Http.Cors;
+
+    using StudentsLearning.Data.Models;
 
     [EnableCors("*", "*", "GET, POST, OPTIONS")]
     [Authorize]
@@ -225,7 +225,7 @@
         }
 
         // GET api/Account/ExternalLogin
-        [EnableCors("*","*", "GET, POST, OPTIONS")]
+        [EnableCors("*", "*", "GET, POST, OPTIONS")]
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
@@ -333,7 +333,7 @@
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email };
+            var user = new User() { UserName = model.Username, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

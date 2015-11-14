@@ -1,12 +1,14 @@
 ﻿<div class="section" id={{Id}}>
     <h2>{{Name}}</h2>
-    <hr style="max-width:80%;border-color:#fff;margin-left: inherit;"/>
+    <hr style="max-width:80%;border-color:#fff;margin-left: inherit;" />
     <h3>{{Description}}</h3>
+    <a href="#/add/topic">Add topic</a>
+    <br />
     {{#each Topics}}
     <div class="topic-box btn-topic-show" id="{{Id}}">
         <a href="#/topics/{{Id}}">
             {{Title}}
-        </a>       
+        </a>
     </div>
     {{/each}}
 </div>

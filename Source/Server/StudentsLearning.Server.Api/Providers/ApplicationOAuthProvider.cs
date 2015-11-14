@@ -10,10 +10,11 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using StudentsLearning.Server.Api.Models;
-using StudentsLearning.Models;
 
 namespace StudentsLearning.Server.Api.Providers
 {
+    using StudentsLearning.Data.Models;
+
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;

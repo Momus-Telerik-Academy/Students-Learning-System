@@ -25,6 +25,20 @@ namespace StudentsLearning.Data.Migrations
             //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
             //    );
+
+            //var cukiUser = new CustomUser
+            //{
+            //    UserName = "Cuki"
+            //};
+
+            //var peshoUser = new CustomUser
+            //{
+            //    UserName = "Pesho"
+            //};
+
+            //context.Users.AddOrUpdate(cukiUser);
+            //context.Users.AddOrUpdate(peshoUser);
+
             var programming = new Category() { Name = "Programming" };
 
             programming.Sections
@@ -36,19 +50,15 @@ namespace StudentsLearning.Data.Migrations
                         new Topic() {
                             Title = "Graphs",
                             Content ="Graph algorithms article. Graphs are this and that",
-                            Comments = new HashSet<Comment>
-                            {
-                                new Comment() {Author="Cuki", Content="I have learned that when I was 2 years old.. ", Likes=2, Dislikes = 0 },
-                                new Comment() {Author="Pesho", Content="Sad panda", Likes=3, Dislikes = 0 }
-                            },
+
                             Examples = new HashSet<Example>
                             {
                                 new Example() { Description = "Graph example", Content="some content"},
                                 new Example() { Description = "Algo Academy 2012 Task 1", Content="some content"}
                             },
-                            VideoId="Xr21-vMs_XM"
+                          VideoId="Xr21-vMs_XM"
                         },
-                            
+
                     }
                 });
 

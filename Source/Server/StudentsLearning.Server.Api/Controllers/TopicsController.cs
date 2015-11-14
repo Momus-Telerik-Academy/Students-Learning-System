@@ -9,9 +9,12 @@
     using Models.ExampleTransferModels;
     using Services.Data.Contracts;
     using StudentsLearning.Data.Models;
-
+    using StudentsLearning.Server.Api.Models.ContributorTransferModels;
     using StudentsLearning.Server.Api.Models.TopicTransferModels;
     using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
+    using System;
+
+    using Microsoft.AspNet.Identity;
 
     [RoutePrefix("api/Topics")]
     [EnableCors("*", "*", "*")]
@@ -24,19 +27,22 @@
 
         private readonly IExamplesService examples;
 
-        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles, ISectionService sections, IExamplesService examples)
+        private readonly IUsersService users;
+
+        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles, ISectionService sections, IExamplesService examples, IUsersService usersService)
         {
             this.topics = topics;
             this.sections = sections;
             this.examples = examples;
             this.zipFiles = zipFiles;
+            this.users = usersService;
         }
 
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
             var topic = this.topics.GetById(id).FirstOrDefault();
-
+            var topicC = topic.Contributors;
             if (topic == null)
             {
                 return this.BadRequest();
@@ -51,7 +57,7 @@
                                 .Select(c => new CommentResponseModel
                                 {
                                     Id = c.Id,
-                                    Author = c.Author,
+                                    UserId = c.UserId,
                                     Content = c.Content,
                                     Dislikes = c.Dislikes,
                                     Likes = c.Likes,
@@ -59,12 +65,12 @@
                                 })
                                 .ToList(),
                 ZipFiles = topic.ZipFiles
-                                .Select(c => new ZipFileResponseModel
+                                .Select(z => new ZipFileResponseModel
                                 {
-                                    DbName = c.DbName,
-                                    OriginalName = c.OriginalName,
-                                    Path = c.Path,
-                                    TopicId = c.TopicId
+                                    DbName = z.DbName,
+                                    OriginalName = z.OriginalName,
+                                    Path = z.Path,
+                                    TopicId = z.TopicId
                                 }).ToList(),
                 Examples = topic.Examples
                               .Select(e => new ExampleResponseModel
@@ -73,7 +79,13 @@
                                   Description = e.Description,
                                   Id = e.Id,
                                   TopicId = e.TopicId
-                              }).ToList()
+                              }).ToList(),
+                Contributors = topic.Contributors
+                                .Select(c => new ContributorResponseModel
+                                {
+                                    Id = c.Id,
+                                    UserName = c.UserName
+                                }).ToList(),
             };
 
             return this.Ok(respone);
@@ -104,7 +116,7 @@
                                 .Select(c => new CommentResponseModel
                                 {
                                     Id = c.Id,
-                                    Author = c.Author,
+                                    UserId = c.UserId,
                                     Content = c.Content,
                                     Dislikes = c.Dislikes,
                                     Likes = c.Likes,
@@ -143,7 +155,7 @@
     "path":"path"
   }]
 }      */
-       //TODO:Check if the current category exist and if exist do not let the user the make the same category twice
+        //TODO:Check if the current category exist and if exist do not let the user the make the same category twice
         [HttpPost]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
@@ -157,7 +169,7 @@
                 return this.BadRequest("The section id doesn't exist");
             }
 
-            var topic = new Topic
+            var topic = new Topic()
             {
                 Content = requestTopic.Content,
                 SectionId = requestTopic.SectionId,
@@ -192,8 +204,50 @@
                     .Add(newExample);
             }
 
+            var newContributor = this.users.GetUserById(this.User.Identity.GetUserId());
             this.topics
-                .Add(topic, newZipFiles, newExamples);
+                 .Add(topic, newZipFiles, newExamples, newContributor);
+
+            return this.Ok();
+        }
+
+        public IHttpActionResult Put(int id, TopicRequestModel requestTopic)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            var topic = this.topics.GetById(id).FirstOrDefault();
+
+            if (topic == null)
+            {
+                return this.BadRequest();
+            }
+
+            Func<ExampleRequestModel, Example> mapToExample = c =>
+            {
+                var example = this.examples.GetById(c.Id).FirstOrDefault();
+
+                if (example == null)
+                {
+                    example = new Example { Id = c.Id };
+                }
+
+                example.Description = c.Description;
+                example.Content = c.Content;
+
+                this.examples.Update(example);
+                return example;
+            };
+
+            topic.Title = requestTopic.Title;
+            topic.Content = requestTopic.Content;
+            topic.VideoId = requestTopic.VideoId;
+            topic.Examples = requestTopic.Examples.Select(mapToExample).ToList();
+            // topic.ZipFiles = requestTopic.ZipFiles;
+
+            this.topics.Update(topic);
 
             return this.Ok();
         }

@@ -1,6 +1,7 @@
 ﻿namespace StudentsLearning.Services.Data
 {
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
 
     using StudentsLearning.Data.Models;
@@ -13,14 +14,17 @@
         private readonly IRepository<Topic> topics;
         private readonly IRepository<ZipFile> zipFiles;
 
+        private readonly IRepository<User> contributors;
 
-        public TopicsServices(IRepository<Topic> topicsRepo, IRepository<ZipFile> zipFilesRepo)
+
+        public TopicsServices(IRepository<Topic> topicsRepo, IRepository<ZipFile> zipFilesRepo, IRepository<User> contributors)
         {
             this.topics = topicsRepo;
             this.zipFiles = zipFilesRepo;
+            this.contributors = contributors;
         }
 
-        public void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples)
+        public void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples, User contributor)
         {
             foreach (var example in examples)
             {
@@ -32,6 +36,7 @@
                 topic.ZipFiles.Add(file);
             }
 
+            topic.Contributors.Add(contributor);
             this.topics.Add(topic);
             this.topics.SaveChanges();
         }
@@ -44,6 +49,11 @@
                 .OrderByDescending(pr => pr.Title)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize);
+        }
+
+        public IQueryable<Topic> All(string contributorId)
+        {
+            return this.topics.All().Where(x => x.Contributors.Any(c => c.Id == contributorId));
         }
 
         public IQueryable<Topic> GetById(int id)
@@ -60,16 +70,18 @@
                 .Where(x => x.Title == title);
         }
 
-        public void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples)
+
+        // TODO: Why public void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples) ??
+        public void Update(Topic topic)
         {
-            topic
-                .Examples
-                .ToList()
-                .ForEach(i => topic.Examples.Remove(i));
-            foreach (var example in newExamples)
-            {
-                topic.Examples.Add(example);
-            }
+            //topic
+            //    .Examples
+            //    .ToList()
+            //    .ForEach(i => topic.Examples.Remove(i));
+            //foreach (var example in newExamples)
+            //{
+            //    topic.Examples.Add(example);
+            //}
 
 
             this.topics

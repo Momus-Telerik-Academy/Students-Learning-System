@@ -9,7 +9,9 @@
 
         [Required]
         [MinLength(ValidationConstants.MinStringLength)]
-        public string Author { get; set; }
+        public string UserId { get; set; }
+
+        public virtual User User { get; set; }
 
         [Required]
         [MinLength(ValidationConstants.MinStringLength)]
