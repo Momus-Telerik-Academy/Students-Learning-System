@@ -1,5 +1,5 @@
 ﻿var sectionModel = (function () {
-    var sectionId = 1;
+    var sectionId;
 
     function currentId(id) {
         if (id) {

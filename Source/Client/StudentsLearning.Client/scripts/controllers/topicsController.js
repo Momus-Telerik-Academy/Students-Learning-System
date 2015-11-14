@@ -11,6 +11,8 @@
     }
 
     function add(context) {
+        var sectionId = context.params['id'];
+        console.log(context);
         console.log("clicked");
         appManager.loadView('add-topic', context, Constants.CATEGORY_CONTENT_WRAPPER)
             .then(function (res) {
@@ -37,11 +39,14 @@
                         video_id = video_id.substring(0, ampersandPosition);
                     }
 
+                    //TODO: Fix sectionModel.currentId for sections
+                    var id = sectionModel.currentId() || 1;
+
                     var newTopic = {
                         title: $('#tb-topic-title').val(),
                         content: $('#tb-topic-content').val(),
                         videoId: video_id,
-                        sectionId: sectionModel.currentId().toString(),
+                        sectionId: id,
                         examples: [],
                         zipFiles: []
                     };
