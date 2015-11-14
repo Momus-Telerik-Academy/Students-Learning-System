@@ -1,8 +1,13 @@
 ﻿namespace StudentsLearning.Server.Api
 {
+    #region
+
+    using System.Web;
     using System.Web.Http;
 
-    public class WebApiApplication : System.Web.HttpApplication
+    #endregion
+
+    public class WebApiApplication : HttpApplication
     {
         protected void Application_Start()
         {

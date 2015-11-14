@@ -1,6 +1,10 @@
 ﻿namespace StudentsLearning.Server.Api.Models.SectionTransferModels
 {
+    #region
+
     using System.Collections.Generic;
+
+    #endregion
 
     public class SectionResponsetModel
     {

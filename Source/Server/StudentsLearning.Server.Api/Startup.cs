@@ -1,16 +1,29 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿#region
 
-[assembly: OwinStartup(typeof(StudentsLearning.Server.Api.Startup))]
+using Microsoft.Owin;
+
+using StudentsLearning.Server.Api;
+
+#endregion
+
+[assembly: OwinStartup(typeof(Startup))]
 
 namespace StudentsLearning.Server.Api
 {
+    #region
+
+    using Microsoft.Owin.Cors;
+
+    using Owin;
+
+    #endregion
+
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            ConfigureAuth(app);
+            app.UseCors(CorsOptions.AllowAll);
+            this.ConfigureAuth(app);
         }
     }
 }

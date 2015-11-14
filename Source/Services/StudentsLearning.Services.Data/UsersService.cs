@@ -1,8 +1,12 @@
 ﻿namespace StudentsLearning.Services.Data
 {
+    #region
+
     using StudentsLearning.Data.Models;
     using StudentsLearning.Data.Repositories;
     using StudentsLearning.Services.Data.Contracts;
+
+    #endregion
 
     public class UsersService : IUsersService
     {

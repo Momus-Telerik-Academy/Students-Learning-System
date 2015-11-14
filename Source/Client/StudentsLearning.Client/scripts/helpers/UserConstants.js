@@ -1,4 +1,4 @@
-﻿var USER_CONSTANTS = (function () {
+﻿var USER_CONSTANTS = (function() {
 
     var BTN_REGISTER = "#btn-register";
     var BTN_LOGIN = "#btn-login-custom";
@@ -16,6 +16,5 @@
         BTN_LOGIN: BTN_LOGIN,
         LOCAL_STORAGE_TOKEN: LOCAL_STORAGE_TOKEN,
         LOCAL_STORAGE_USERNAME: LOCAL_STORAGE_USERNAME
-    }
-
+    };
 }())

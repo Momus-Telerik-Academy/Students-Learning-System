@@ -1,7 +1,11 @@
-﻿using System.Security.Principal;
-
-namespace StudentsLearning.Services.Api.Tests.TestObjects
+﻿namespace StudentsLearning.Services.Api.Tests.TestObjects
 {
+    #region
+
+    using System.Security.Principal;
+
+    #endregion
+
     public class MockedIIdentity : IIdentity
     {
         public string AuthenticationType

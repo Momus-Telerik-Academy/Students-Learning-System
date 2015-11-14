@@ -1,24 +1,23 @@
-﻿var homeController = (function () {
+﻿var homeController = (function() {
 
     function showHome(context) {
         var categories;
 
         // Login
 
-        appManager.loadView('home', context, false, categoryModel.all)
-             .then(function () {
-                 // set events
-                 $('.btn-category-show').on('click', function (e) {
-                     var target = e.currentTarget;
-                     // TODO: Save on localeStorage for better behave on refresh
-                     categoryModel.currentId(+$(target).attr('id'))
-                     context.redirect('/#/category/' + categoryModel.currentId());
-                 });
-             })
+        appManager.loadView("home", context, false, categoryModel.all)
+            .then(function() {
+                // set events
+                $(".btn-category-show").on("click", function(e) {
+                    var target = e.currentTarget;
+                    // TODO: Save on localeStorage for better behave on refresh
+                    categoryModel.currentId(+$(target).attr("id"));
+                    context.redirect("/#/category/" + categoryModel.currentId());
+                });
+            });
     }
 
     return {
         startUp: showHome
-    }
-
+    };
 }())

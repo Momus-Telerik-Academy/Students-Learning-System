@@ -1,7 +1,12 @@
 ﻿namespace StudentsLearning.Services.Data.Contracts
 {
-    using StudentsLearning.Data.Models;
+    #region
+
     using System.Linq;
+
+    using StudentsLearning.Data.Models;
+
+    #endregion
 
     public interface ICommentService
     {

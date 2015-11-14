@@ -1,15 +1,18 @@
 ﻿namespace StudentsLearning.Services.Data
 {
-    using System;
+    #region
+
     using System.Linq;
+
     using StudentsLearning.Data.Models;
-    using StudentsLearning.Services.Data.Contracts;
     using StudentsLearning.Data.Repositories;
+    using StudentsLearning.Services.Data.Contracts;
+
+    #endregion
 
     public class SectionService : ISectionService
     {
-
-        private IRepository<Section> sections;
+        private readonly IRepository<Section> sections;
 
         public SectionService(IRepository<Section> sections)
         {
@@ -30,16 +33,14 @@
 
         public IQueryable<Section> GetById(int id)
         {
-            return this.sections.All()
-                        .Where(x => x.Id == id);
+            return this.sections.All().Where(x => x.Id == id);
         }
 
         public IQueryable<Section> GetByName(string name)
         {
-            return this.sections.All()
-                       .Where(x => x.Name == name);
+            return this.sections.All().Where(x => x.Name == name);
         }
-        
+
         public void Update(Section section)
         {
             this.sections.Update(section);

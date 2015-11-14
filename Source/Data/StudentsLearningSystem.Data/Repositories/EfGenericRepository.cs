@@ -1,10 +1,15 @@
 ﻿namespace StudentsLearning.Data.Repositories
 {
+    #region
+
     using System;
     using System.Data.Entity;
     using System.Linq;
 
-    public class EfGenericRepository<T> : IRepository<T> where T : class
+    #endregion
+
+    public class EfGenericRepository<T> : IRepository<T>
+        where T : class
     {
         public EfGenericRepository(IStudentsLearningDbContext context)
         {

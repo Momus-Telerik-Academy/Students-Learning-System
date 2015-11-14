@@ -1,13 +1,19 @@
 ﻿namespace StudentsLearning.Data
 {
+    #region
+
     using System.Data.Entity;
+
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Models;
+
+    using StudentsLearning.Data.Models;
+
+    #endregion
 
     public class StudentsLearningDbContext : IdentityDbContext<User>, IStudentsLearningDbContext
     {
         public StudentsLearningDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnection", false)
         {
         }
 

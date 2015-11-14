@@ -1,8 +1,12 @@
 ﻿namespace StudentsLearning.Services.Api.Tests.TestObjects
 {
+    #region
+
     using System.Security.Principal;
 
-    class MockedIPrincipal : IPrincipal
+    #endregion
+
+    internal class MockedIPrincipal : IPrincipal
     {
         public IIdentity Identity
         {

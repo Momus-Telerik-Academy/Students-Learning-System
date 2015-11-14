@@ -1,49 +1,42 @@
-﻿blockquote{
-    border-left:none
-}
+﻿blockquote { border-left: none }
 
-.quote-badge{
-    background-color: rgba(0, 0, 0, 0.2);   
-}
+.quote-badge { background-color: rgba(0, 0, 0, 0.2); }
 
-.quote-box{
+.quote-box {
     
-    overflow: hidden;
-    margin-top: -50px;
-    padding-top: -100px;
-    border-radius: 17px;
     background-color: #4ADFCC;
-    margin-top: 25px;
-    color:white;
-    width: 50%;
+    border-radius: 17px;
     box-shadow: 2px 2px 2px 2px #E0E0E0;
-    
+    color: white;
+    margin-top: -50px;
+    margin-top: 25px;
+    overflow: hidden;
+    padding-top: -100px;
+    width: 50%;    
 }
 
-.quotation-mark{
+.quotation-mark {
     
-    margin-top: -10px;
-    font-weight: bold;
-    font-size:50px;
-    color:white;
+    color: white;
     font-family: "Times New Roman", Georgia, Serif;
-    
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: -10px;    
 }
 
-.quote-text{
+.quote-text {
     
     font-size: 19px;
     margin-top: -55px;
 }
 
-.comments-bg{
-    height: 100%;
-    width: 90%;
-    position: absolute;
+.comments-bg {
     background: #696969;
     border-radius: 5px;
+    height: 100%;
     opacity: 0.4;
+    position: absolute;
+    width: 90%;
 }
-.topics-container-custom .row {
-   color: #fff;
-}
+
+.topics-container-custom .row { color: #fff; }

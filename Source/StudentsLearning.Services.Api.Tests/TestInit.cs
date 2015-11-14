@@ -1,8 +1,15 @@
-﻿using System.Reflection;
+﻿#region
+
+using System.Reflection;
 using System.Web.Http;
-using NUnit.Framework;
-using StudentsLearning.Server.Api;
+
 using MyTested.WebApi;
+
+using NUnit.Framework;
+
+using StudentsLearning.Server.Api;
+
+#endregion
 
 // DO NOT PUT IN A NAMESPACE!!!
 // It will only work for the current namespace and not all namespaces in the project.

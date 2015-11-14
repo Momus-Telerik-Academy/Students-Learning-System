@@ -1,11 +1,14 @@
 ﻿namespace StudentsLearning.Server.Api.Models.TopicTransferModels
 {
+    #region
+
     using System.Collections.Generic;
 
     using StudentsLearning.Server.Api.Models.CommentTransferModels;
-    using StudentsLearning.Server.Api.Models.ContributorTransferModels;
     using StudentsLearning.Server.Api.Models.ExampleTransferModels;
     using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
+
+    #endregion
 
     public class TopicRequestModel
     {
@@ -23,6 +26,6 @@
 
         public ICollection<CommentRequestModel> Comments { get; set; }
 
-        //public ICollection<ContributorRequestModel> Contributors { get; set; }
+        // public ICollection<ContributorRequestModel> Contributors { get; set; }
     }
 }

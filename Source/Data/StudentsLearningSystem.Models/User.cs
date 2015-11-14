@@ -1,16 +1,21 @@
 ﻿namespace StudentsLearning.Data.Models
 {
+    #region
+
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
+    #endregion
+
     public class User : IdentityUser
     {
-        private ICollection<Topic> topicsContributions;
         private ICollection<Comment> comments;
+
+        private ICollection<Topic> topicsContributions;
 
         public User()
         {
@@ -20,18 +25,33 @@
 
         public virtual ICollection<Topic> TopicsContibutions
         {
-            get { return this.topicsContributions; }
-            set { this.topicsContributions = value; }
+            get
+            {
+                return this.topicsContributions;
+            }
+
+            set
+            {
+                this.topicsContributions = value;
+            }
         }
 
         public virtual ICollection<Comment> Comments
         {
-            get { return this.comments; }
-            set { this.comments = value; }
+            get
+            {
+                return this.comments;
+            }
+
+            set
+            {
+                this.comments = value;
+            }
         }
 
-
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(
+            UserManager<User> manager, 
+            string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);

@@ -1,18 +1,20 @@
 ﻿namespace StudentsLearning.Server.Api
 {
+    #region
+
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
+
     using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.Owin;
     using Microsoft.Owin.Security.Cookies;
-    using Microsoft.Owin.Security.Google;
     using Microsoft.Owin.Security.OAuth;
+
     using Owin;
-    using StudentsLearning.Server.Api.Providers;
-    using StudentsLearning.Server.Api.Models;
+
     using StudentsLearning.Data;
+    using StudentsLearning.Server.Api.Providers;
+
+    #endregion
 
     public partial class Startup
     {
@@ -35,36 +37,38 @@
             // Configure the application for OAuth based flow
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
-            {
-                TokenEndpointPath = new PathString("/Token"),
-                Provider = new ApplicationOAuthProvider(PublicClientId),
-                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-                // In production mode set AllowInsecureHttp = false
-                AllowInsecureHttp = true
-            };
+                               {
+                                   TokenEndpointPath = new PathString("/Token"), 
+                                   Provider = new ApplicationOAuthProvider(PublicClientId), 
+                                   AuthorizeEndpointPath =
+                                       new PathString("/api/Account/ExternalLogin"), 
+                                   AccessTokenExpireTimeSpan = TimeSpan.FromDays(14), 
+
+                                   // In production mode set AllowInsecureHttp = false
+                                   AllowInsecureHttp = true
+                               };
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            // app.UseMicrosoftAccountAuthentication(
+            // clientId: "",
+            // clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //    consumerKey: "",
-            //    consumerSecret: "");
+            // app.UseTwitterAuthentication(
+            // consumerKey: "",
+            // consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+            // app.UseFacebookAuthentication(
+            // appId: "",
+            // appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            // app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            // {
+            // ClientId = "",
+            // ClientSecret = ""
+            // });
         }
     }
 }

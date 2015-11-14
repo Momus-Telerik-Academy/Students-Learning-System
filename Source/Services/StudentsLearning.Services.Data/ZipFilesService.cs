@@ -1,9 +1,14 @@
 ﻿namespace StudentsLearning.Services.Data
 {
-    using StudentsLearning.Services.Data.Contracts;
+    #region
+
+    using System.Linq;
+
     using StudentsLearning.Data.Models;
     using StudentsLearning.Data.Repositories;
-    using System.Linq;
+    using StudentsLearning.Services.Data.Contracts;
+
+    #endregion
 
     public class ZipFilesService : IZipFilesService
     {
@@ -16,23 +21,19 @@
 
         public void Add(ZipFile file)
         {
-            zipfiles.Add(file);
-            zipfiles.SaveChanges();
+            this.zipfiles.Add(file);
+            this.zipfiles.SaveChanges();
         }
 
         public IQueryable<ZipFile> GetById(int id)
         {
-            return this.zipfiles
-                        .All()
-                        .Where(x => x.Id == id);
+            return this.zipfiles.All().Where(x => x.Id == id);
         }
 
         public void Update(ZipFile file)
         {
-            this.zipfiles
-                .Update(file);
-            this.zipfiles
-                .SaveChanges();
+            this.zipfiles.Update(file);
+            this.zipfiles.SaveChanges();
         }
     }
 }

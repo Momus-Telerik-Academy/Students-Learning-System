@@ -54,7 +54,6 @@
                 throw ex;
             }
 
-
             if (string.IsNullOrEmpty(fileResource.DownloadUrl))
             {
                 throw new WebException("The file does not exist on Google Drive. Invalid ID!");
@@ -65,8 +64,6 @@
             System.IO.File.WriteAllBytes(saveTo, arrBytes);
             return true;
         }
-
-
 
         /// <summary>
         ///     Uploads a file
@@ -91,7 +88,7 @@
 
             if (string.IsNullOrWhiteSpace(parentDirectoryId))
             {
-                throw new ArgumentNullException("", "Parent folder ID can not be empty!");
+                throw new ArgumentNullException(string.Empty, "Parent folder ID can not be empty!");
             }
 
             if (service == null)
@@ -101,7 +98,8 @@
 
             if (service.HttpClientInitializer == null)
             {
-                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+                throw new AuthenticationException(
+                    "Authentication error! Please use the Authentication class to initialize the Google Drive service!");
             }
 
             File fileResource;
@@ -116,7 +114,8 @@
 
             var body = new File();
             body.Title = Path.GetFileName(uploadFile);
-            //body.Description = "File uploaded by Diamto Drive Sample";
+
+            // body.Description = "File uploaded by Diamto Drive Sample";
             body.MimeType = GetMimeType(uploadFile);
             body.Parents = new List<ParentReference> { new ParentReference { Id = parentDirectoryId } };
 
@@ -170,11 +169,13 @@
 
             if (service.HttpClientInitializer == null)
             {
-                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+                throw new AuthenticationException(
+                    "Authentication error! Please use the Authentication class to initialize the Google Drive service!");
             }
 
             var body = new File();
             body.Title = Path.GetFileName(uploadFile);
+
             // body.Description = "File updated by Diamto Drive Sample";
             body.MimeType = GetMimeType(uploadFile);
             body.Parents = new List<ParentReference> { new ParentReference { Id = parentFolderId } };
@@ -201,9 +202,9 @@
         /// </param>
         /// <returns></returns>
         public static File CreateDirectory(
-            DriveService service,
-            string title,
-            string description,
+            DriveService service, 
+            string title, 
+            string description, 
             string parentDirectoryId)
         {
             if (string.IsNullOrWhiteSpace(parentDirectoryId))
@@ -223,7 +224,8 @@
 
             if (service.HttpClientInitializer == null)
             {
-                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+                throw new AuthenticationException(
+                    "Authentication error! Please use the Authentication class to initialize the Google Drive service!");
             }
 
             File newDirectory = null;
@@ -263,7 +265,8 @@
 
             if (service.HttpClientInitializer == null)
             {
-                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+                throw new AuthenticationException(
+                    "Authentication error! Please use the Authentication class to initialize the Google Drive service!");
             }
 
             IList<File> files = new List<File>();
@@ -320,7 +323,8 @@
 
             if (service.HttpClientInitializer == null)
             {
-                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+                throw new AuthenticationException(
+                    "Authentication error! Please use the Authentication class to initialize the Google Drive service!");
             }
 
             return service.Files.Get(fileId).Execute();
@@ -340,7 +344,8 @@
 
             if (service.HttpClientInitializer == null)
             {
-                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+                throw new AuthenticationException(
+                    "Authentication error! Please use the Authentication class to initialize the Google Drive service!");
             }
 
             return service.Files.Get(fileId).Execute().WebContentLink;
@@ -360,10 +365,11 @@
 
             if (service.HttpClientInitializer == null)
             {
-                throw new AuthenticationException("Authentication error! Please use the Authentication class to initialize the Google Drive service!");
+                throw new AuthenticationException(
+                    "Authentication error! Please use the Authentication class to initialize the Google Drive service!");
             }
 
-            string request = service.Files.Delete(fileId).Execute();
+            var request = service.Files.Delete(fileId).Execute();
             return request;
         }
 

@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
-using StudentsLearning.Server.Api.Infrastructure.Mapping;
-
-namespace StudentsLearning.Server.Api
+﻿namespace StudentsLearning.Server.Api
 {
+    #region
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
+    using AutoMapper;
+
+    using StudentsLearning.Server.Api.Infrastructure.Mapping;
+
+    #endregion
+
     public static class AutoMapperConfig
     {
         public static void RegisterMappings(params Assembly[] assemblies)
@@ -23,13 +29,13 @@ namespace StudentsLearning.Server.Api
 
         private static void LoadStandardMappings(IEnumerable<Type> types)
         {
-            var maps = types.SelectMany(t => t.GetInterfaces(), (t, i) => new { t, i })
-                .Where(
-                    type =>
-                        type.i.IsGenericType && type.i.GetGenericTypeDefinition() == typeof(IMapFrom<>) &&
-                        !type.t.IsAbstract
-                        && !type.t.IsInterface)
-                .Select(type => new { Source = type.i.GetGenericArguments()[0], Destination = type.t });
+            var maps =
+                types.SelectMany(t => t.GetInterfaces(), (t, i) => new { t, i })
+                    .Where(
+                        type =>
+                        type.i.IsGenericType && type.i.GetGenericTypeDefinition() == typeof(IMapFrom<>)
+                        && !type.t.IsAbstract && !type.t.IsInterface)
+                    .Select(type => new { Source = type.i.GetGenericArguments()[0], Destination = type.t });
 
             foreach (var map in maps)
             {
@@ -44,8 +50,8 @@ namespace StudentsLearning.Server.Api
                 types.SelectMany(t => t.GetInterfaces(), (t, i) => new { t, i })
                     .Where(
                         type =>
-                            typeof(IHaveCustomMappings).IsAssignableFrom(type.t) && !type.t.IsAbstract &&
-                            !type.t.IsInterface)
+                        typeof(IHaveCustomMappings).IsAssignableFrom(type.t) && !type.t.IsAbstract
+                        && !type.t.IsInterface)
                     .Select(type => (IHaveCustomMappings)Activator.CreateInstance(type.t));
 
             foreach (var map in maps)

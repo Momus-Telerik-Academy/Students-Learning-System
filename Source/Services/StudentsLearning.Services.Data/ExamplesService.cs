@@ -1,10 +1,14 @@
 ﻿namespace StudentsLearning.Services.Data
 {
+    #region
+
     using System.Linq;
 
     using StudentsLearning.Data.Models;
     using StudentsLearning.Data.Repositories;
     using StudentsLearning.Services.Data.Contracts;
+
+    #endregion
 
     public class ExamplesService : IExamplesService
     {
@@ -27,15 +31,13 @@
 
         public void Add(Example example)
         {
-            this.examples
-                .Add(example);
+            this.examples.Add(example);
             this.examples.SaveChanges();
         }
 
         public void Update(Example example)
         {
-            this.examples
-                .Update(example);
+            this.examples.Update(example);
             this.examples.SaveChanges();
         }
     }

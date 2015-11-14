@@ -1,12 +1,15 @@
 ﻿namespace StudentsLearning.Server.Api.Models.TopicTransferModels
 {
+    #region
+
     using System.Collections.Generic;
 
-    using StudentsLearning.Data.Models;
     using StudentsLearning.Server.Api.Models.CommentTransferModels;
     using StudentsLearning.Server.Api.Models.ContributorTransferModels;
     using StudentsLearning.Server.Api.Models.ExampleTransferModels;
     using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
+
+    #endregion
 
     public class TopicResponseModel
     {

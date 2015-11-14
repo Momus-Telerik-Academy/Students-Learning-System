@@ -1,45 +1,56 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(StudentsLearning.Server.Api.App_Start.NinjectConfig), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(StudentsLearning.Server.Api.App_Start.NinjectConfig), "Stop")]
+#region
+
+using StudentsLearning.Server.Api.App_Start;
+
+using WebActivatorEx;
+
+#endregion
+
+[assembly: PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectConfig), "Stop")]
 
 namespace StudentsLearning.Server.Api.App_Start
 {
+    #region
+
     using System;
     using System.Web;
 
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
-    using Ninject.Web.Common;
-    using Data;
-    using Data.Repositories;
     using Ninject.Extensions.Conventions;
-    using Services.Data.Contracts;
-    using Services.Data;
+    using Ninject.Web.Common;
 
-    public static class NinjectConfig 
+    using StudentsLearning.Data;
+    using StudentsLearning.Data.Repositories;
+
+    #endregion
+
+    public static class NinjectConfig
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
-        /// Starts the application
+        ///     Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
-        /// Stops the application.
+        ///     Stops the application.
         /// </summary>
         public static void Stop()
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
-        /// Creates the kernel that will manage your application.
+        ///     Creates the kernel that will manage your application.
         /// </summary>
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
@@ -61,21 +72,16 @@ namespace StudentsLearning.Server.Api.App_Start
         }
 
         /// <summary>
-        /// Load your modules or register your services here!
+        ///     Load your modules or register your services here!
         /// </summary>
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel
-                  .Bind<IStudentsLearningDbContext>()
-                  .To<StudentsLearningDbContext>()
-                  .InRequestScope();
+            kernel.Bind<IStudentsLearningDbContext>().To<StudentsLearningDbContext>().InRequestScope();
 
             kernel.Bind(typeof(IRepository<>)).To(typeof(EfGenericRepository<>));
 
-            kernel.Bind(b => b.From("StudentsLearning.Services.Data")
-                .SelectAllClasses()
-                .BindDefaultInterface());
-        }        
+            kernel.Bind(b => b.From("StudentsLearning.Services.Data").SelectAllClasses().BindDefaultInterface());
+        }
     }
 }

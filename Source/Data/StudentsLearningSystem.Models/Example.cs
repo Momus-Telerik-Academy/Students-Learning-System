@@ -1,7 +1,12 @@
 ﻿namespace StudentsLearning.Data.Models
 {
+    #region
+
     using System.ComponentModel.DataAnnotations;
+
     using StudentsLearning.Common;
+
+    #endregion
 
     public class Example
     {

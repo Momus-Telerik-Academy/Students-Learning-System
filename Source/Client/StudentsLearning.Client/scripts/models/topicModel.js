@@ -1,13 +1,13 @@
-﻿var topicModel = (function () {
+﻿var topicModel = (function() {
     var categoryId;
 
     var Properties = {
-        Title : 'none',
-        VideoId: 'none',
-        Content: 'none',
-        SectionId: '',
+        Title: "none",
+        VideoId: "none",
+        Content: "none",
+        SectionId: "",
         Examples: [],
-        ZipFiles : []
+        ZipFiles: []
     };
 
     function currentId(id) {
@@ -20,15 +20,15 @@
     }
 
     function add(topic) {
-        return ajaxRequester.post('api/Topics', { data: topic })
+        return ajaxRequester.post("api/Topics", { data: topic });
     }
 
     function byId(id) {
-        return ajaxRequester.get('api/topics/' + id);
+        return ajaxRequester.get("api/topics/" + id);
     }
 
     function edit(id, topic) {
-        return ajaxRequester.put('api/topics/' + id, {data: topic})
+        return ajaxRequester.put("api/topics/" + id, { data: topic });
     }
 
     return {
@@ -36,7 +36,6 @@
         byId: byId,
         edit: edit,
         currentId: currentId,
-        Properties : Properties
-    }
-
+        Properties: Properties
+    };
 }())

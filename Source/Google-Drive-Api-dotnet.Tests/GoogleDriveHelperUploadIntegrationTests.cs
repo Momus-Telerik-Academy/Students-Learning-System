@@ -1,16 +1,19 @@
-﻿#region
-
-using System;
-using System.Net;
-using System.Security.Authentication;
-using Google.Apis.Drive.v2;
-using GoogleDrive.Api;
-using NUnit.Framework;
-
-#endregion
-
-namespace Google_Drive_Api_dotnet.Tests
+﻿namespace Google_Drive_Api_dotnet.Tests
 {
+    #region
+
+    using System;
+    using System.Net;
+    using System.Security.Authentication;
+
+    using Google.Apis.Drive.v2;
+
+    using GoogleDrive.Api;
+
+    using NUnit.Framework;
+
+    #endregion
+
     [TestFixture]
     public class GoogleDriveHelperUploadIntegrationTests
     {
@@ -39,7 +42,7 @@ namespace Google_Drive_Api_dotnet.Tests
         [TestCase("")]
         [TestCase(null)]
         [TestCase("   ")]
-        [ExpectedException(typeof (ArgumentNullException), ExpectedMessage = "Parent folder ID can not be empty!")]
+        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "Parent folder ID can not be empty!")]
         public void UploadEmptyDirectoryIdShouldThrowTest(string id)
         {
             var fileName = TestFile;
@@ -47,7 +50,7 @@ namespace Google_Drive_Api_dotnet.Tests
         }
 
         [TestCase("lizzaARD")]
-        [ExpectedException(typeof (WebException), ExpectedMessage = "Directory not found!")]
+        [ExpectedException(typeof(WebException), ExpectedMessage = "Directory not found!")]
         public void UploadInvalidIdShouldThrowTest(string id)
         {
             var fileName = TestFile;
@@ -70,7 +73,7 @@ namespace Google_Drive_Api_dotnet.Tests
         }
 
         [Test]
-        [ExpectedException(typeof (AuthenticationException),
+        [ExpectedException(typeof(AuthenticationException), 
             ExpectedMessage =
                 "Authentication error! Please use the Authentication class to initialize the Google Drive service!")]
         public void UploadUnauthenticatedServiceShouldThrowTest()
