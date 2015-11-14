@@ -11,7 +11,7 @@
     }
 
     function add(topic) {
-        return ajaxRequester.post('api/topics', { data: topic })
+        return ajaxRequester.post('api/Topics', { data: topic })
     }
 
     function byId(id) {

@@ -2,7 +2,7 @@
 
     function byId(context) {
         var topicId = context.params['id'];
-        
+
         //page, context, element, action, params
         appManager.loadView('topic', context, Constants.CATEGORY_CONTENT_WRAPPER, topicModel.byId, topicId)
         .then(function () {
@@ -11,29 +11,54 @@
     }
 
     function add(context) {
+        console.log("clicked");
         appManager.loadView('add-topic', context, Constants.CATEGORY_CONTENT_WRAPPER)
             .then(function (res) {
-                console.log('after app');
-                $('#btn-section-add').on('click', function (e) {
-                    console.log('click?');
-                    var newSection = {
-                        Name: $('#tb-section-name').val(),
-                        Description: $('#tb-section-description').val(),
-                        CategoryId: categoryModel.currentId()
+                //$('#add-example').on('click', function () {
+                //    $('#topic-examples').load('partials/add-example.html');
+                //});
+
+                $('#btn-topic-add').on('click', function (e) {
+                    console.log("clickedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+                    var newExample = {
+                        description: ($('#tb-example-description').val() ? undefined : ""),
+                        content: ($('#tb-example-content').val() ? undefined : "")
                     };
 
-                    sectionModel.add(newSection)
+                    var newFiles = {
+                        "originalName": "originalName1",
+                        "dbName": "dbName1",
+                        "path": "path"
+                    }
+
+                    var video_id = $('#tb-topic-video').val().split('v=')[1];
+                    var ampersandPosition = video_id.indexOf('&');
+                    if (ampersandPosition != -1) {
+                        video_id = video_id.substring(0, ampersandPosition);
+                    }
+
+                    var newTopic = {
+                        title: $('#tb-topic-title').val(),
+                        content: $('#tb-topic-content').val(),
+                        videoId: video_id,
+                        sectionId: sectionModel.currentId().toString(),
+                        examples: [],
+                        zipFiles: []
+                    };
+
+                    console.log(newTopic);
+                    topicModel.add(newTopic)
                     .then(function () {
-                        var id = categoryModel.currentId() ? categoryModel.currentId() : 1;
-                        categoryModel.currentId(id);
+                        var id = topicModel.currentId() ? topicModel.currentId() : 1;
+                        topicModel.currentId(id);
                         console.log(id);
-                        context.redirect('/#/category/' + categoryModel.currentId());
+                        context.redirect('/#/topics/' + topicModel.currentId());
                     }, function (err) {
-                        alert(err);
+                        console.log(err);
                     })
-                })
+                });
             }, function (err) {
-                alert(err);
+                //console.log(err);
             });
     }
 

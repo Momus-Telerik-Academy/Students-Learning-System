@@ -1,7 +1,7 @@
 ﻿var sectionModel = (function () {
-    var sectionId;
+    var sectionId = 1;
 
-    function sectionId(id) {
+    function currentId(id) {
         if (id) {
             sectionId = id;
         } else {
@@ -20,7 +20,8 @@
 
     return {
         getById: getById,
-        add: add
+        add: add,
+        currentId: currentId
     }
 
 }())

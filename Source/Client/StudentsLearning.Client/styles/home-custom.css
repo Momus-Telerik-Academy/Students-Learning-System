@@ -74,3 +74,6 @@
 #wrapper-sections {
     /*width: 100%;*/
 }
+label, p {
+    color: #FFFFFF;
+}
