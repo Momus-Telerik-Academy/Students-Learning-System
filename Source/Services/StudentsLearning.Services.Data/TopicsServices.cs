@@ -1,6 +1,7 @@
 ﻿namespace StudentsLearning.Services.Data
 {
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
 
     using StudentsLearning.Data.Models;
@@ -20,6 +21,7 @@
         {
             this.topics = topicsRepo;
             this.zipFiles = zipFilesRepo;
+            this.contributors = contributors;
         }
 
         public void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples)
@@ -46,6 +48,11 @@
                 .OrderByDescending(pr => pr.Title)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize);
+        }
+
+        public IQueryable<Topic> All(string contributorId)
+        {
+            return this.topics.All().Where(x => x.CustomUsers.Any(c => c.Id == contributorId));
         }
 
         public IQueryable<Topic> GetById(int id)

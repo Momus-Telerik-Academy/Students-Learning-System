@@ -9,6 +9,8 @@
     {
         IQueryable<Topic> All(int sectionId, int page, int pageSize);
 
+        IQueryable<Topic> All(string contributorId);
+
         IQueryable<Topic> GetById(int id);
 
         IQueryable<Topic> GetByTitle(string title);

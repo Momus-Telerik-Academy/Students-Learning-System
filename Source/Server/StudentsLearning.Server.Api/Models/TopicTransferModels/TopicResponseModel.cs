@@ -4,6 +4,7 @@
 
     using StudentsLearning.Data.Models;
     using StudentsLearning.Server.Api.Models.CommentTransferModels;
+    using StudentsLearning.Server.Api.Models.ContributorTransferModels;
     using StudentsLearning.Server.Api.Models.ExampleTransferModels;
     using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
 
@@ -24,5 +25,7 @@
         public ICollection<ExampleResponseModel> Examples { get; set; }
 
         public ICollection<CommentResponseModel> Comments { get; set; }
+
+        public ICollection<ContributorResponseModel> Contributors { get; set; }
     }
 }

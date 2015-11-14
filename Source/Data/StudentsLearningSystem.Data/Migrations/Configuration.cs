@@ -46,9 +46,9 @@ namespace StudentsLearning.Data.Migrations
                                 new Example() { Description = "Graph example", Content="some content"},
                                 new Example() { Description = "Algo Academy 2012 Task 1", Content="some content"}
                             },
-                            VideoId="Xr21-vMs_XM"
+                          VideoId="Xr21-vMs_XM"
                         },
-                            
+
                     }
                 });
 

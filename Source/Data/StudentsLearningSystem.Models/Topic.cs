@@ -54,7 +54,7 @@
             set { this.zipFiles = value; }
         }
 
-        public virtual ICollection<CustomUser> Contributors
+        public virtual ICollection<CustomUser> CustomUsers
         {
             get { return this.contributors; }
             set { this.contributors = value; }

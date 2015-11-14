@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using StudentsLearning.Server.Api.Models.CommentTransferModels;
+    using StudentsLearning.Server.Api.Models.ContributorTransferModels;
     using StudentsLearning.Server.Api.Models.ExampleTransferModels;
     using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
 
@@ -21,5 +22,7 @@
         public ICollection<ExampleRequestModel> Examples { get; set; }
 
         public ICollection<CommentRequestModel> Comments { get; set; }
+
+        public ICollection<ContributorRequestModel> Contributors { get; set; }
     }
 }

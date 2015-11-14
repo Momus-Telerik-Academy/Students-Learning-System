@@ -9,7 +9,7 @@
     using Models.ExampleTransferModels;
     using Services.Data.Contracts;
     using StudentsLearning.Data.Models;
-
+    using StudentsLearning.Server.Api.Models.ContributorTransferModels;
     using StudentsLearning.Server.Api.Models.TopicTransferModels;
     using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
 
@@ -36,7 +36,7 @@
         public IHttpActionResult Get(int id)
         {
             var topic = this.topics.GetById(id).FirstOrDefault();
-
+            var topicC = topic.CustomUsers;
             if (topic == null)
             {
                 return this.BadRequest();
@@ -59,12 +59,12 @@
                                 })
                                 .ToList(),
                 ZipFiles = topic.ZipFiles
-                                .Select(c => new ZipFileResponseModel
+                                .Select(z => new ZipFileResponseModel
                                 {
-                                    DbName = c.DbName,
-                                    OriginalName = c.OriginalName,
-                                    Path = c.Path,
-                                    TopicId = c.TopicId
+                                    DbName = z.DbName,
+                                    OriginalName = z.OriginalName,
+                                    Path = z.Path,
+                                    TopicId = z.TopicId
                                 }).ToList(),
                 Examples = topic.Examples
                               .Select(e => new ExampleResponseModel
@@ -74,7 +74,12 @@
                                   Id = e.Id,
                                   TopicId = e.TopicId
                               }).ToList(),
-
+                Contributors = topic.CustomUsers
+                                .Select(c => new ContributorResponseModel
+                                {
+                                    Id = c.Id,
+                                    UserName = c.UserName
+                                }).ToList(),
             };
 
             return this.Ok(respone);
@@ -144,7 +149,7 @@
     "path":"path"
   }]
 }      */
-       //TODO:Check if the current category exist and if exist do not let the user the make the same category twice
+        //TODO:Check if the current category exist and if exist do not let the user the make the same category twice
         [HttpPost]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
@@ -158,7 +163,7 @@
                 return this.BadRequest("The section id doesn't exist");
             }
 
-            var topic = new Topic
+            var topic = new Topic()
             {
                 Content = requestTopic.Content,
                 SectionId = requestTopic.SectionId,
@@ -192,7 +197,20 @@
                 newExamples
                     .Add(newExample);
             }
+            var newContributors = new Collection<CustomUser>();
 
+            foreach (var contributor in requestTopic.Contributors)
+            {
+                var newContributor = new CustomUser
+                {
+                    Id = contributor.Id,
+
+                };
+
+                //newContributors
+                //    .Add(newContributor);
+                topic.CustomUsers.Add(newContributor);
+            }
             this.topics
                 .Add(topic, newZipFiles, newExamples);
 
