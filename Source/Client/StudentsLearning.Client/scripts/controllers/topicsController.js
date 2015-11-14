@@ -15,7 +15,12 @@
         appManager.loadView('edit-topic', context, Constants.CATEGORY_CONTENT_WRAPPER, topicModel.byId, topicId)
         .then(function () {
             $('.btn-edit-topic').on('click', function (e) {
-                $(e.currentTarget).parent().append($('<span/>').text('yeyy'));
+                var $target =  $(e.currentTarget);
+                var $parent =$target.parent();
+
+                // $parent, itemName, properties)
+                htmlElementCreator.createForm($parent, 'tb-topic-edit', [$target.attr('id')]);
+
             });
         });
     }

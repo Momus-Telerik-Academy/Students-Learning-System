@@ -136,6 +136,7 @@
     <Content Include="scripts\helpers\ajaxRequester.js" />
     <Content Include="scripts\helpers\appManager.js" />
     <Content Include="scripts\helpers\Constants.js" />
+    <Content Include="scripts\helpers\htmlElementCreator.js" />
     <Content Include="scripts\helpers\templatesManager.js" />
     <Content Include="scripts\helpers\UserConstants.js" />
     <Content Include="scripts\models\categoryModel.js" />

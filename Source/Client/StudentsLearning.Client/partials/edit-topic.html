@@ -6,19 +6,24 @@
     <div class="row">
         <div class="col-md-4">
             <iframe width="480" height="360" src="https://www.youtube.com/embed/{{VideoId}}?enablejsapi=1&version=3" enablejsapi="1" allowfullscreen></iframe>
-            <a class="btn btn-info btn-edit-topic" id="btn-topic-edit-video"><i class="fa fa-pencil-square-o"></i></a>
+            <a class="btn btn-info btn-edit-topic" id="video-url"><i class="fa fa-pencil-square-o"></i></a>
         </div>
         <div class="col-md-8">{{Content}}</div>
-        <a class="btn btn-info btn-edit-topic" id="btn-edit-topic-content"><i class="fa fa-pencil-square-o"></i></a>
+        <a class="btn btn-info btn-edit-topic" id="content"><i class="fa fa-pencil-square-o"></i></a>
     </div>
     <hr style="max-width:80%;border-color:#fff;margin-left: inherit;" />
     <div class="row">
         <div class="col-md-7 examples">
             {{#each this.Examples}}
-            <h3>{{Description}}</h3>
-            <a class="btn btn-info btn-edit-topic" id="btn-edit-topic-desc"><i class="fa fa-pencil-square-o"></i></a>
-            <div>{{Content}}</div>
-            <a class="btn btn-info btn-edit-topic" id="btn-edit-topic-example-content"><i class="fa fa-pencil-square-o"></i></a>
+            <div>
+                <h3>{{Description}}</h3>
+                <a class="btn btn-info btn-edit-topic" id="description"><i class="fa fa-pencil-square-o"></i></a>
+            </div>
+            <br/>
+            <div >
+                <div>{{Content}}</div>
+                <a class="btn btn-info btn-edit-topic" id="example-content"><i class="fa fa-pencil-square-o"></i></a>
+            </div>
             {{/each}}
         </div>
     </div>
