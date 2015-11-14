@@ -210,8 +210,8 @@
                 //newContributors
                 //    .Add(newContributor);
                 topic.CustomUsers.Add(newContributor);
-            }
-            this.topics
+                //}
+                this.topics
                 .Add(topic, newZipFiles, newExamples);
 
             return this.Ok();
