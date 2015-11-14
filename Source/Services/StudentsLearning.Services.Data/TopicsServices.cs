@@ -13,10 +13,8 @@
         private readonly IRepository<Topic> topics;
         private readonly IRepository<ZipFile> zipFiles;
 
-        private readonly IRepository<CustomUser> contributors;
 
-
-        public TopicsServices(IRepository<Topic> topicsRepo, IRepository<ZipFile> zipFilesRepo, IRepository<CustomUser> contributors)
+        public TopicsServices(IRepository<Topic> topicsRepo, IRepository<ZipFile> zipFilesRepo)
         {
             this.topics = topicsRepo;
             this.zipFiles = zipFilesRepo;

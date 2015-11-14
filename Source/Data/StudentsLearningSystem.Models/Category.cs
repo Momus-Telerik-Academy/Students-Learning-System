@@ -15,7 +15,6 @@
             this.sections = new HashSet<Section>();
         }
 
-
         public int Id { get; set; }
 
         [Required]

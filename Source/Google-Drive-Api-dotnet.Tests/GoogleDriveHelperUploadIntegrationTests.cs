@@ -12,7 +12,6 @@ using NUnit.Framework;
 namespace Google_Drive_Api_dotnet.Tests
 {
     [TestFixture]
-
     public class GoogleDriveHelperUploadIntegrationTests
     {
         private static string clientID;

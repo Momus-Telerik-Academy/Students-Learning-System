@@ -17,7 +17,7 @@ namespace GoogleDrive.Api
 {
     #region
 
-    using System;   
+    using System;
     using System.IO;
     using System.Security.Authentication;
     using System.Security.Cryptography.X509Certificates;

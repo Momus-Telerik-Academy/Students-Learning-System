@@ -1,12 +1,6 @@
 ﻿var topicModel = (function () {
     var categoryId;
 
-    var Properties = {
-        VideoId: 'none',
-        Content: 'none',
-        ZipFiles : []
-    };
-
     function currentId(id) {
         if (id) {
             categoryId = id;
@@ -27,8 +21,7 @@
     return {
         add: add,
         byId: byId,
-        currentId: currentId,
-        Properties : Properties
+        currentId: currentId
     }
 
 }())

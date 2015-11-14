@@ -24,7 +24,7 @@
         {
             // Connect with Oauth2 Ask user for permission
             // Environment.UserName can be null
-            DriveService service = Authentication.AuthenticateOauth(CLIENT_ID, CLIENT_SECRET, "dany");
+            DriveService service = Authentication.AuthenticateOauth(CLIENT_ID, CLIENT_SECRET, Environment.UserName);
 
             if (service == null)
             {
