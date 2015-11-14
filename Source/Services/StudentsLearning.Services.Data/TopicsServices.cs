@@ -69,16 +69,18 @@
                 .Where(x => x.Title == title);
         }
 
-        public void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples)
+
+        // TODO: Why public void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples) ??
+        public void Update(Topic topic)
         {
-            topic
-                .Examples
-                .ToList()
-                .ForEach(i => topic.Examples.Remove(i));
-            foreach (var example in newExamples)
-            {
-                topic.Examples.Add(example);
-            }
+            //topic
+            //    .Examples
+            //    .ToList()
+            //    .ForEach(i => topic.Examples.Remove(i));
+            //foreach (var example in newExamples)
+            //{
+            //    topic.Examples.Add(example);
+            //}
 
 
             this.topics

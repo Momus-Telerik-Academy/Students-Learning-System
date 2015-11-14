@@ -11,6 +11,7 @@
                  })
                  .then(function (partial) {
                      templatesManager.fill(context, partial, element, data);
+                     return data;
                  })
         } else {
             return templatesManager.get(page)

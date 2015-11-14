@@ -26,18 +26,18 @@ namespace StudentsLearning.Data.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
 
-            var cukiUser = new CustomUser
-            {
-                UserName = "Cuki"
-            };
+            //var cukiUser = new CustomUser
+            //{
+            //    UserName = "Cuki"
+            //};
 
-            var peshoUser = new CustomUser
-            {
-                UserName = "Pesho"
-            };
+            //var peshoUser = new CustomUser
+            //{
+            //    UserName = "Pesho"
+            //};
 
-            context.Users.AddOrUpdate(cukiUser);
-            context.Users.AddOrUpdate(peshoUser);
+            //context.Users.AddOrUpdate(cukiUser);
+            //context.Users.AddOrUpdate(peshoUser);
 
             var programming = new Category() { Name = "Programming" };
 
