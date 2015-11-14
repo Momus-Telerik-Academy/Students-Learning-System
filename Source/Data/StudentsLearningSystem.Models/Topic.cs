@@ -2,21 +2,24 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using Common;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Topic
     {
         private ICollection<Example> examples;
         private ICollection<Comment> comments;
+        private ICollection<ZipFile> zipFiles;
+        private ICollection<CustomUser> contributors;
 
         public Topic()
         {
             this.examples = new HashSet<Example>();
             this.comments = new HashSet<Comment>();
+            this.zipFiles = new HashSet<ZipFile>();
+            this.contributors = new HashSet<CustomUser>();
         }
 
-        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -33,11 +36,6 @@
 
         public virtual Section Section { get; set; }
 
-        // [Key]
-       // public int? ZipFileId { get; set; }
-
-       // public virtual ZipFile Materials { get; set; }
-
         public virtual ICollection<Example> Examples
         {
             get { return this.examples; }
@@ -49,5 +47,18 @@
             get { return this.comments; }
             set { this.comments = value; }
         }
+
+        public virtual ICollection<ZipFile> ZipFiles
+        {
+            get { return this.zipFiles; }
+            set { this.zipFiles = value; }
+        }
+
+        public virtual ICollection<CustomUser> Contributors
+        {
+            get { return this.contributors; }
+            set { this.contributors = value; }
+        }
+
     }
 }

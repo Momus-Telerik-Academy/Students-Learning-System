@@ -1,4 +1,4 @@
-﻿namespace StudentsLearning.Server.Api.Models
+﻿namespace StudentsLearning.Server.Api.Models.CategoryTransferModels
 {
     public class CategoryRequestModel
     {

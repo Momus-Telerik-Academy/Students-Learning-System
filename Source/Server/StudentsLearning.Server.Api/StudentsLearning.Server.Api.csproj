@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -211,6 +215,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\DatabaseConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\NinjectConfig.cs" />
@@ -223,6 +228,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Mapping\IHaveCustomMappings.cs" />
+    <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Models\AccountBindingModels\AddExternalLoginBindingModel.cs" />
     <Compile Include="Models\AccountBindingModels\ChangePasswordBindingModel.cs" />
     <Compile Include="Models\AccountBindingModels\RegisterBindingModel.cs" />
@@ -233,16 +240,18 @@
     <Compile Include="Models\AccountViewModels\ManageInfoViewModel.cs" />
     <Compile Include="Models\AccountViewModels\UserInfoViewModel.cs" />
     <Compile Include="Models\AccountViewModels\UserLoginInfoViewModel.cs" />
-    <Compile Include="Models\CategoryRequestModel.cs" />
-    <Compile Include="Models\CommentRequestModel.cs" />
-    <Compile Include="Models\CommentResponseModel.cs" />
-    <Compile Include="Models\ExampleRequestModel.cs" />
-    <Compile Include="Models\ExampleResponseModel.cs" />
-    <Compile Include="Models\SectionRequestModel.cs" />
-    <Compile Include="Models\SectionResponsetModel.cs" />
-    <Compile Include="Models\TopicRequestModel.cs" />
-    <Compile Include="Models\TopicResponseMinifiedModel.cs" />
-    <Compile Include="Models\TopicResponseModel.cs" />
+    <Compile Include="Models\CategoryTransferModels\CategoryRequestModel.cs" />
+    <Compile Include="Models\CommentTransferModels\CommentRequestModel.cs" />
+    <Compile Include="Models\CommentTransferModels\CommentResponseModel.cs" />
+    <Compile Include="Models\ExampleTransferModels\ExampleRequestModel.cs" />
+    <Compile Include="Models\ExampleTransferModels\ExampleResponseModel.cs" />
+    <Compile Include="Models\SectionTransferModels\SectionRequestModel.cs" />
+    <Compile Include="Models\SectionTransferModels\SectionResponsetModel.cs" />
+    <Compile Include="Models\TopicTransferModels\TopicRequestModel.cs" />
+    <Compile Include="Models\TopicTransferModels\TopicResponseMinifiedModel.cs" />
+    <Compile Include="Models\TopicTransferModels\TopicResponseModel.cs" />
+    <Compile Include="Models\ZipFileTransferModels\ZipFileRequestModel.cs" />
+    <Compile Include="Models\ZipFileTransferModels\ZipFileResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />

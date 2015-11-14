@@ -2,14 +2,10 @@
 {
     using System.Linq;
     using System.Web.Http;
-
-    using StudentsLearning.Data;
-    using StudentsLearning.Data.Models;
-    using StudentsLearning.Data.Repositories;
-    using StudentsLearning.Services.Data;
-    using StudentsLearning.Services.Data.Contracts;
-    using Models;
     using System.Web.Http.Cors;
+
+    using StudentsLearning.Services.Data.Contracts;
+    using StudentsLearning.Server.Api.Models.CategoryTransferModels;
 
     [RoutePrefix("api/Categories")]
     [EnableCors("*", "*", "*")]

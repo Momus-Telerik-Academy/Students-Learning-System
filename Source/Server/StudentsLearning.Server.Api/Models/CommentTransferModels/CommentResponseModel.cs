@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-namespace StudentsLearning.Server.Api.Models
+﻿namespace StudentsLearning.Server.Api.Models.CommentTransferModels
 {
-    public class CommentRequestModel
+    public class CommentResponseModel
     {
+        public int Id { get; set; }
+
         public string Author { get; set; }
 
         public string Content { get; set; }

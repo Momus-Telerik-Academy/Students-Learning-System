@@ -1,14 +1,17 @@
 ﻿namespace StudentsLearning.Server.Api.Controllers
 {
     using System.Collections.ObjectModel;
-
-    using Services.Data.Contracts;
-    using Models;
     using System.Linq;
     using System.Web.Http;
     using System.Web.Http.Cors;
 
+    using Models.CommentTransferModels;
+    using Models.ExampleTransferModels;
+    using Services.Data.Contracts;
     using StudentsLearning.Data.Models;
+
+    using StudentsLearning.Server.Api.Models.TopicTransferModels;
+    using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
 
     [RoutePrefix("api/Topics")]
     [EnableCors("*", "*", "*")]
@@ -26,7 +29,7 @@
             this.topics = topics;
             this.sections = sections;
             this.examples = examples;
-            // this.zipFiles = zipFiles;
+            this.zipFiles = zipFiles;
         }
 
         [HttpGet]
@@ -53,7 +56,15 @@
                                     Dislikes = c.Dislikes,
                                     Likes = c.Likes,
                                     TopicId = c.TopicId
-
+                                })
+                                .ToList(),
+                ZipFiles = topic.ZipFiles
+                                .Select(c => new ZipFileResponseModel
+                                {
+                                    DbName = c.DbName,
+                                    OriginalName = c.OriginalName,
+                                    Path = c.Path,
+                                    TopicId = c.TopicId
                                 }).ToList(),
                 Examples = topic.Examples
                               .Select(e => new ExampleResponseModel
@@ -62,9 +73,10 @@
                                   Description = e.Description,
                                   Id = e.Id,
                                   TopicId = e.TopicId
-                              }).ToList()
+                              }).ToList(),
 
             };
+
             return this.Ok(respone);
         }
 
@@ -81,7 +93,14 @@
                     Content = x.Content,
                     VideoId = x.VideoId,
                     SectionId = x.SectionId,
-                    // ZipFileId = x.ZipFileId,
+                    ZipFiles = x.ZipFiles
+                                .Select(c => new ZipFileResponseModel
+                                {
+                                    DbName = c.DbName,
+                                    OriginalName = c.OriginalName,
+                                    Path = c.Path,
+                                    TopicId = c.TopicId
+                                }).ToList(),
                     Comments = x.Comments
                                 .Select(c => new CommentResponseModel
                                 {
@@ -91,7 +110,6 @@
                                     Dislikes = c.Dislikes,
                                     Likes = c.Likes,
                                     TopicId = c.TopicId
-
                                 }).ToList(),
                     Examples = x.Examples
                               .Select(e => new ExampleResponseModel
@@ -100,12 +118,33 @@
                                   Description = e.Description,
                                   Id = e.Id,
                                   TopicId = e.TopicId
-                              }).ToList()
-
+                              })
+                              .ToList()
                 });
             return this.Ok(result);
         }
 
+        //http://localhost:56350/api/Topics
+        //body example:
+        /*
+{
+  "title":"neshto",
+  "content":"neshto1",
+  "videoId":"ssidhs",
+  "sectionId":"1",
+  "examples":[
+    {
+      "description":"description",
+      "content":"secitonContent",
+          }
+  ],
+  "zipFiles":[{
+    "originalName":"originalName1",
+    "dbName":"dbName1",
+    "path":"path"
+  }]
+}      */
+       //TODO:Check if the current category exist and if exist do not let the user the make the same category twice
         [HttpPost]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
@@ -124,8 +163,23 @@
                 Content = requestTopic.Content,
                 SectionId = requestTopic.SectionId,
                 Title = requestTopic.Title,
-                VideoId = requestTopic.VideoId,
+                VideoId = requestTopic.VideoId
             };
+
+            var newZipFiles = new Collection<ZipFile>();
+            foreach (var zipFile in requestTopic.ZipFiles)
+            {
+                var newFile = new ZipFile
+                {
+                    DbName = zipFile.DbName,
+                    OriginalName = zipFile.OriginalName,
+                    Path = zipFile.Path,
+                    Topic = topic
+                };
+                newZipFiles
+                    .Add(newFile);
+            }
+
             var newExamples = new Collection<Example>();
             foreach (var example in requestTopic.Examples)
             {
@@ -137,11 +191,10 @@
                 };
                 newExamples
                     .Add(newExample);
-
             }
 
             this.topics
-                .Add(topic, newExamples);
+                .Add(topic, newZipFiles, newExamples);
 
             return this.Ok();
         }

@@ -1,31 +1,37 @@
 ﻿namespace StudentsLearning.Services.Data
 {
-    using System.Linq;
-    using StudentsLearning.Data.Models;
-    using StudentsLearning.Services.Data.Contracts;
-    using StudentsLearning.Data.Repositories;
     using System.Collections.Generic;
+    using System.Linq;
+
+    using StudentsLearning.Data.Models;
+    using StudentsLearning.Data.Repositories;
+    using StudentsLearning.Services.Data.Contracts;
+
 
     public class TopicsServices : ITopicsServices
     {
         private readonly IRepository<Topic> topics;
         private readonly IRepository<ZipFile> zipFiles;
-        // private readonly IRepository<Example> examples;
+
+        private readonly IRepository<CustomUser> contributors;
 
 
-        public TopicsServices(IRepository<Topic> topicsRepo, IRepository<ZipFile> zipFilesRepo)
+        public TopicsServices(IRepository<Topic> topicsRepo, IRepository<ZipFile> zipFilesRepo, IRepository<CustomUser> contributors)
         {
             this.topics = topicsRepo;
             this.zipFiles = zipFilesRepo;
         }
 
-        public void Add(Topic topic, ICollection<Example> examples)
+        public void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples)
         {
-            // this.zipFiles.Add(file);
-            //topic.ZipFileId = this.GetZipFileId(topic, file);
             foreach (var example in examples)
             {
                 topic.Examples.Add(example);
+            }
+
+            foreach (var file in files)
+            {
+                topic.ZipFiles.Add(file);
             }
 
             this.topics.Add(topic);
@@ -56,7 +62,7 @@
                 .Where(x => x.Title == title);
         }
 
-        public void Update(Topic topic, /*ZipFile newfile,*/ ICollection<Example> newExamples)
+        public void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples)
         {
             topic
                 .Examples
@@ -66,7 +72,7 @@
             {
                 topic.Examples.Add(example);
             }
-            //topic.ZipFileId = this.GetZipFileId(topic, newfile);
+
 
             this.topics
                 .Update(topic);

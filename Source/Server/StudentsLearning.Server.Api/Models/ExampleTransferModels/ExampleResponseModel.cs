@@ -1,4 +1,4 @@
-﻿namespace StudentsLearning.Server.Api.Models
+﻿namespace StudentsLearning.Server.Api.Models.ExampleTransferModels
 {
     public class ExampleResponseModel
     {

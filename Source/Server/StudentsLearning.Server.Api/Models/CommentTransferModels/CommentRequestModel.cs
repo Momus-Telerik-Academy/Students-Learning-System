@@ -1,9 +1,7 @@
-﻿namespace StudentsLearning.Server.Api.Models
+﻿namespace StudentsLearning.Server.Api.Models.CommentTransferModels
 {
-    public class CommentResponseModel
+    public class CommentRequestModel
     {
-        public int Id { get; set; }
-
         public string Author { get; set; }
 
         public string Content { get; set; }
