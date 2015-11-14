@@ -9,7 +9,7 @@
 
         [Required]
         [MinLength(ValidationConstants.MinStringLength)]
-        public string Author { get; set; }
+        public string UserId { get; set; }
 
         [Required]
         [MinLength(ValidationConstants.MinStringLength)]

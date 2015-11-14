@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     using Common;
 
@@ -11,12 +10,14 @@
         private ICollection<Example> examples;
         private ICollection<Comment> comments;
         private ICollection<ZipFile> zipFiles;
+        private ICollection<CustomUser> contributors;
 
         public Topic()
         {
             this.examples = new HashSet<Example>();
             this.comments = new HashSet<Comment>();
             this.zipFiles = new HashSet<ZipFile>();
+            this.contributors = new HashSet<CustomUser>();
         }
 
         public int Id { get; set; }
@@ -52,5 +53,12 @@
             get { return this.zipFiles; }
             set { this.zipFiles = value; }
         }
+
+        public virtual ICollection<CustomUser> Contributors
+        {
+            get { return this.contributors; }
+            set { this.contributors = value; }
+        }
+
     }
 }

@@ -51,7 +51,7 @@
                                 .Select(c => new CommentResponseModel
                                 {
                                     Id = c.Id,
-                                    Author = c.Author,
+                                    UserId = c.UserId,
                                     Content = c.Content,
                                     Dislikes = c.Dislikes,
                                     Likes = c.Likes,
@@ -73,7 +73,8 @@
                                   Description = e.Description,
                                   Id = e.Id,
                                   TopicId = e.TopicId
-                              }).ToList()
+                              }).ToList(),
+
             };
 
             return this.Ok(respone);
@@ -104,7 +105,7 @@
                                 .Select(c => new CommentResponseModel
                                 {
                                     Id = c.Id,
-                                    Author = c.Author,
+                                    UserId = c.UserId,
                                     Content = c.Content,
                                     Dislikes = c.Dislikes,
                                     Likes = c.Likes,
