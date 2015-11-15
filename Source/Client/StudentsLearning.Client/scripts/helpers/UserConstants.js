@@ -1,7 +1,8 @@
-﻿var USER_CONSTANTS = (function() {
+﻿var USER_CONSTANTS = (function () {
 
     var BTN_REGISTER = "#btn-register";
     var BTN_LOGIN = "#btn-login-custom";
+    var TB_USERNAME = "#tb-username";
     var TB_EMAIL = "#tb-email";
     var TB_PASSWORD = "#tb-password";
     var TB_CONFIRM_PASSWORD = "#tb-confirm-password";
