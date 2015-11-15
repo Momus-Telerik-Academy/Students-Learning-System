@@ -82,7 +82,7 @@
 
                 // $parent, itemName, properties)
                 htmlElementCreator.createForm($parent, 'tb-topic-edit', [targetId]);
-                htmlElementCreator.createButton($parent, 'Ok', editBtnId);
+              //  htmlElementCreator.createButton($parent, 'Ok', editBtnId);
 
             });
 
