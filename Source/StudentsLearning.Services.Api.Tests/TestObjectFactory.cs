@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
-using StudentsLearning.Data.Models;
-using StudentsLearning.Services.Data.Contracts;
-
-namespace StudentsLearning.Services.Api.Tests
+﻿namespace StudentsLearning.Services.Api.Tests
 {
+    #region
+
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Moq;
+
+    using StudentsLearning.Data.Models;
+    using StudentsLearning.Services.Data.Contracts;
+
+    #endregion
+
     public class TestObjectFactory
     {
-        private static IQueryable<Category> categories = new List<Category>
-        {
-            new Category()
-            {
-                Name="TestCategory"
-            },
-            new Category()
-            {
-                Name="TestCategory2"
-            }
-        }.AsQueryable();
+        private static readonly IQueryable<Category> categories =
+            new List<Category> { new Category { Id=1, Name = "TestCategory" }, new Category { Id = 2, Name = "TestCategory2" } }
+                .AsQueryable();
 
         public static ICategoriesService GetCategoriesService()
         {
@@ -29,7 +24,7 @@ namespace StudentsLearning.Services.Api.Tests
 
             mockedCategoriesService.Setup(s => s.All()).Returns(categories);
 
-            mockedCategoriesService.Setup(s => s.Add(It.IsAny<string>()));//returns
+            mockedCategoriesService.Setup(s => s.Add(It.IsAny<string>())); // returns
 
             mockedCategoriesService.Setup(s => s.GetById(It.IsAny<int>())).Returns(categories.First());
 

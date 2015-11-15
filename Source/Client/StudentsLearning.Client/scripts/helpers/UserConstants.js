@@ -2,6 +2,7 @@
 
     var BTN_REGISTER = "#btn-register";
     var BTN_LOGIN = "#btn-login-custom";
+    var TB_USERNAME = "#tb-username";
     var TB_EMAIL = "#tb-email";
     var TB_PASSWORD = "#tb-password";
     var TB_CONFIRM_PASSWORD = "#tb-confirm-password";
@@ -16,6 +17,5 @@
         BTN_LOGIN: BTN_LOGIN,
         LOCAL_STORAGE_TOKEN: LOCAL_STORAGE_TOKEN,
         LOCAL_STORAGE_USERNAME: LOCAL_STORAGE_USERNAME
-    }
-
+    };
 }())

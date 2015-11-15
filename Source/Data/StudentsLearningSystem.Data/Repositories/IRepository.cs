@@ -1,9 +1,14 @@
 ﻿namespace StudentsLearning.Data.Repositories
 {
+    #region
+
     using System;
     using System.Linq;
 
-    public interface IRepository<T> : IDisposable where T : class
+    #endregion
+
+    public interface IRepository<T> : IDisposable
+        where T : class
     {
         IQueryable<T> All();
 

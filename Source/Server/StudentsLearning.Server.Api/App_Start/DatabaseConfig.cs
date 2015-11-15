@@ -1,8 +1,13 @@
 ﻿namespace StudentsLearning.Server.Api
 {
+    #region
+
     using System.Data.Entity;
+
     using StudentsLearning.Data;
     using StudentsLearning.Data.Migrations;
+
+    #endregion
 
     public static class DatabaseConfig
     {

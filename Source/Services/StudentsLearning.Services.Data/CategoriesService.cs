@@ -1,23 +1,27 @@
 ﻿namespace StudentsLearning.Services.Data
 {
+    #region
+
     using System.Linq;
-    using Contracts;
+
     using StudentsLearning.Data.Models;
     using StudentsLearning.Data.Repositories;
+    using StudentsLearning.Services.Data.Contracts;
+
+    #endregion
 
     public class CategoriesService : ICategoriesService
     {
         private readonly IRepository<Category> categories;
 
-        public CategoriesService(
-            IRepository<Category> categoriesRepository)
+        public CategoriesService(IRepository<Category> categoriesRepository)
         {
             this.categories = categoriesRepository;
         }
 
         public void Add(string name)
         {
-            this.categories.Add(new Category() { Name = name });
+            this.categories.Add(new Category { Name = name });
             this.categories.SaveChanges();
         }
 
@@ -28,10 +32,7 @@
 
         public int? GetId(string name)
         {
-            return this.categories.All()
-                .Where(x => x.Name == name)
-                .Select(c => c.Id)
-                .FirstOrDefault();
+            return this.categories.All().Where(x => x.Name == name).Select(c => c.Id).FirstOrDefault();
         }
 
         public Category GetById(int id)

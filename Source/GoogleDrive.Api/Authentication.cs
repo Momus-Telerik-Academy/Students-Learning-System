@@ -76,7 +76,8 @@ namespace GoogleDrive.Api
             }
             catch (Exception ex)
             {
-                throw new AuthenticationException("Failed to authenticate! Please check credentials and internet access!");
+                throw new AuthenticationException(
+                    "Failed to authenticate! Please check credentials and internet access!");
             }
         }
 

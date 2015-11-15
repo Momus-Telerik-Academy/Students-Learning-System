@@ -1,7 +1,12 @@
 ﻿namespace StudentsLearning.Data.Models
 {
+    #region
+
     using System.ComponentModel.DataAnnotations;
+
     using StudentsLearning.Common;
+
+    #endregion
 
     public class Comment
     {
@@ -11,7 +16,7 @@
         [MinLength(ValidationConstants.MinStringLength)]
         public string UserId { get; set; }
 
-        public virtual CustomUser User { get; set; }
+        public virtual User User { get; set; }
 
         [Required]
         [MinLength(ValidationConstants.MinStringLength)]

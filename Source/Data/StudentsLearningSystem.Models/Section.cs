@@ -1,8 +1,13 @@
 ﻿namespace StudentsLearning.Data.Models
 {
+    #region
+
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Common;
+
+    using StudentsLearning.Common;
+
+    #endregion
 
     public class Section
     {
@@ -29,8 +34,15 @@
 
         public virtual ICollection<Topic> Topics
         {
-            get { return this.topics; }
-            set { this.topics = value; }
+            get
+            {
+                return this.topics;
+            }
+
+            set
+            {
+                this.topics = value;
+            }
         }
     }
 }

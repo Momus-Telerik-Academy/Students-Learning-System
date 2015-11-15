@@ -1,17 +1,31 @@
 ﻿namespace StudentsLearning.Server.Api.Controllers
 {
+    #region
+
     using System.Linq;
     using System.Web.Http;
     using System.Web.Http.Cors;
 
-    using StudentsLearning.Services.Data.Contracts;
+    using StudentsLearning.Data;
+    using StudentsLearning.Data.Models;
+    using StudentsLearning.Data.Repositories;
     using StudentsLearning.Server.Api.Models.CategoryTransferModels;
+    using StudentsLearning.Services.Data;
+    using StudentsLearning.Services.Data.Contracts;
+
+    #endregion
 
     [RoutePrefix("api/Categories")]
     [EnableCors("*", "*", "*")]
     public class CategoriesController : ApiController
     {
         private readonly ICategoriesService categories;
+
+        // for integration tests
+        public CategoriesController()
+            : this(new CategoriesService(new EfGenericRepository<Category>(new StudentsLearningDbContext())))
+        {
+        }
 
         public CategoriesController(ICategoriesService categoryService)
         {
@@ -29,7 +43,7 @@
         }
 
         // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
-        public IHttpActionResult Put(int id, [FromBody]CategoryRequestModel updates)
+        public IHttpActionResult Put(int id, [FromBody] CategoryRequestModel updates)
         {
             if (!this.ModelState.IsValid)
             {

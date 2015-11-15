@@ -1,13 +1,17 @@
 ﻿namespace StudentsLearning.Server.Api.Controllers
 {
+    #region
+
     using System.Linq;
     using System.Web.Http;
     using System.Web.Http.Cors;
 
-    using Data.Models;
-    using Models;
-    using Services.Data.Contracts;
+    using StudentsLearning.Data.Models;
+    using StudentsLearning.Server.Api.Models;
     using StudentsLearning.Server.Api.Models.SectionTransferModels;
+    using StudentsLearning.Services.Data.Contracts;
+
+    #endregion
 
     [RoutePrefix("api/Sections")]
     [EnableCors("*", "*", "*")]
@@ -22,38 +26,40 @@
 
         public IHttpActionResult Get()
         {
-            var sections = this.sections.All()
-                               .Select(x => new SectionResponsetModel
-                               {
-                                   Name = x.Name,
-                                   Description = x.Description
-                               })
-                               .ToList();
+            var sections =
+                this.sections.All()
+                    .Select(x => new SectionResponsetModel { Name = x.Name, Description = x.Description })
+                    .ToList();
 
             return this.Ok(sections);
         }
 
         public IHttpActionResult Get(int id)
         {
-            var sectionResult = this.sections.GetById(id)
-                                    .Select(x => new SectionResponsetModel
-                                    {
-                                        Name = x.Name,
-                                        Description = x.Description,
-                                        Topics = x.Topics
-                                                   .Select(t => new TopicResponseMinifiedModel()
-                                                   {
-                                                       Id = t.Id,
-                                                       Title = t.Title
-                                                   }).ToList()
-                                    })
-                                   .FirstOrDefault();
+            var sectionResult =
+                this.sections.GetById(id)
+                    .Select(
+                        x =>
+                        new SectionResponsetModel
+                            {
+                                Name = x.Name, 
+                                Description = x.Description, 
+                                Topics =
+                                    x.Topics.Select(
+                                        t =>
+                                        new TopicResponseMinifiedModel
+                                            {
+                                                Id = t.Id, 
+                                                Title = t.Title
+                                            }).ToList()
+                            })
+                    .FirstOrDefault();
 
             return this.Ok(sectionResult);
         }
 
         // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
-        public IHttpActionResult Put(int id, [FromBody]SectionRequestModel updates)
+        public IHttpActionResult Put(int id, [FromBody] SectionRequestModel updates)
         {
             if (!this.ModelState.IsValid)
             {
@@ -61,12 +67,12 @@
             }
 
             var newSection = new Section
-            {
-                Id = id,
-                Name = updates.Name,
-                Description = updates.Description,
-                CategoryId = updates.CategoryId
-            };
+                                 {
+                                     Id = id, 
+                                     Name = updates.Name, 
+                                     Description = updates.Description, 
+                                     CategoryId = updates.CategoryId
+                                 };
 
             this.sections.Update(newSection);
 
@@ -82,11 +88,11 @@
             }
 
             var section = new Section
-            {
-                Name = sectionModel.Name,
-                Description = sectionModel.Description,
-                CategoryId = sectionModel.CategoryId
-            };
+                              {
+                                  Name = sectionModel.Name, 
+                                  Description = sectionModel.Description, 
+                                  CategoryId = sectionModel.CategoryId
+                              };
 
             this.sections.Add(section);
             return this.Ok(section);

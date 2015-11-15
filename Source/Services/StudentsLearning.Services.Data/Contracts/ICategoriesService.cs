@@ -1,8 +1,12 @@
 ﻿namespace StudentsLearning.Services.Data.Contracts
 {
-    using System.Collections.Generic;
+    #region
+
     using System.Linq;
+
     using StudentsLearning.Data.Models;
+
+    #endregion
 
     public interface ICategoriesService
     {

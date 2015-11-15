@@ -1,14 +1,15 @@
-﻿#region
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using StudentsLearning.Data.Repositories;
-
-#endregion
-
-namespace StudentsLearning.Services.Data.Tests.TestObjects
+﻿namespace StudentsLearning.Services.Data.Tests.TestObjects
 {
+    #region
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using StudentsLearning.Data.Repositories;
+
+    #endregion
+
     public class InMemoryRepository<T> : IRepository<T>
         where T : class
     {
@@ -16,17 +17,17 @@ namespace StudentsLearning.Services.Data.Tests.TestObjects
 
         public InMemoryRepository()
         {
-            data = new List<T>();
-            AttachedEntities = new List<T>();
-            DetachedEntities = new List<T>();
-            UpdatedEntities = new List<T>();
+            this.data = new List<T>();
+            this.AttachedEntities = new List<T>();
+            this.DetachedEntities = new List<T>();
+            this.UpdatedEntities = new List<T>();
         }
 
         public IList<T> AttachedEntities { get; }
 
         public IList<T> DetachedEntities { get; }
 
-        public IList<T> UpdatedEntities { get; private set; }
+        public IList<T> UpdatedEntities { get; }
 
         public bool IsDisposed { get; private set; }
 
@@ -34,69 +35,69 @@ namespace StudentsLearning.Services.Data.Tests.TestObjects
 
         public void Add(T entity)
         {
-            data.Add(entity);
+            this.data.Add(entity);
         }
 
         public IQueryable<T> All()
         {
-            return data.AsQueryable();
+            return this.data.AsQueryable();
         }
 
         public T Attach(T entity)
         {
-            AttachedEntities.Add(entity);
+            this.AttachedEntities.Add(entity);
             return entity;
         }
 
         public void Delete(object id)
         {
-            if (data.Count == 0)
+            if (this.data.Count == 0)
             {
                 throw new InvalidOperationException("Nothing to delete");
             }
 
-            data.Remove(data[0]);
+            this.data.Remove(this.data[0]);
         }
 
         public void Delete(T entity)
         {
-            if (!data.Contains(entity))
+            if (!this.data.Contains(entity))
             {
                 throw new InvalidOperationException("Entity not found");
             }
 
-            data.Remove(entity);
+            this.data.Remove(entity);
         }
 
         public void Detach(T entity)
         {
-            DetachedEntities.Add(entity);
+            this.DetachedEntities.Add(entity);
         }
 
         public void Dispose()
         {
-            IsDisposed = true;
+            this.IsDisposed = true;
         }
 
         public T GetById(object id)
         {
-            if (data.Count == 0)
+            if (this.data.Count == 0)
             {
                 throw new InvalidOperationException("No objects in database");
             }
 
-            return data[0];
+            return this.data[0];
         }
 
         public int SaveChanges()
         {
-            NumberOfSaves++;
+            this.NumberOfSaves++;
             return 1;
         }
 
         public void Update(T entity)
         {
-            UpdatedEntities.Add(entity);
+            this.UpdatedEntities.Add(entity);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿var categoryModel = (function () {
+﻿var categoryModel = (function() {
     var categoryId;
 
     function currentId(id) {
@@ -7,19 +7,19 @@
         } else {
             return categoryId;
         }
-        
+
     }
 
     function all() {
-        return ajaxRequester.get('api/categories');
+        return ajaxRequester.get("api/categories");
     }
 
     function add(name) {
-        return ajaxRequester.post('api/categories', {data:name})
+        return ajaxRequester.post("api/categories", { data: name });
     }
 
     function byId(id) {
-        return ajaxRequester.get('api/categories/' + id);
+        return ajaxRequester.get("api/categories/" + id);
     }
 
     return {
@@ -27,6 +27,5 @@
         add: add,
         byId: byId,
         currentId: currentId
-    }
-
+    };
 }())

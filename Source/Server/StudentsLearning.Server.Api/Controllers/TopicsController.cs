@@ -1,26 +1,24 @@
 ﻿namespace StudentsLearning.Server.Api.Controllers
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Cors;
+
+    using Microsoft.AspNet.Identity;
 
     using Models.CommentTransferModels;
     using Models.ExampleTransferModels;
     using Services.Data.Contracts;
+    using Services.GoogleDrive.Contracts;
+    using Services.GoogleDrive.Models;
     using StudentsLearning.Data.Models;
     using StudentsLearning.Server.Api.Models.ContributorTransferModels;
     using StudentsLearning.Server.Api.Models.TopicTransferModels;
     using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
-    using System;
-    using Services.GoogleDrive.Contracts;
-    using Services.GoogleDrive;
-    using System.Net.Http;
-    using System.IO;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Collections.Generic;
-    using Services.GoogleDrive.Models;
 
     [RoutePrefix("api/Topics")]
     [EnableCors("*", "*", "*")]
@@ -34,14 +32,17 @@
 
         private readonly IExamplesService examples;
 
+        private readonly IUsersService users;
+
         private readonly ICloudStorageService cloudStorage;
 
-        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles, ISectionService sections, IExamplesService examples, ICloudStorageService drive)
+        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles, ISectionService sections, IExamplesService examples, IUsersService usersService, ICloudStorageService drive)
         {
             this.topics = topics;
             this.sections = sections;
             this.examples = examples;
             this.zipFiles = zipFiles;
+            this.users = usersService;
             this.cloudStorage = drive;
         }
 
@@ -49,50 +50,59 @@
         public IHttpActionResult Get(int id)
         {
             var topic = this.topics.GetById(id).FirstOrDefault();
-            var topicC = topic.CustomUsers;
+
             if (topic == null)
             {
                 return this.BadRequest();
             }
+
             var respone = new TopicResponseModel
             {
                 Id = topic.Id,
                 Title = topic.Title,
                 Content = topic.Content,
                 VideoId = topic.VideoId,
-                Comments = topic.Comments
-                                .Select(c => new CommentResponseModel
-                                {
-                                    Id = c.Id,
-                                    UserId = c.UserId,
-                                    Content = c.Content,
-                                    Dislikes = c.Dislikes,
-                                    Likes = c.Likes,
-                                    TopicId = c.TopicId
-                                })
-                                .ToList(),
-                ZipFiles = topic.ZipFiles
-                                .Select(z => new ZipFileResponseModel
-                                {
-                                    DbName = z.DbName,
-                                    OriginalName = z.OriginalName,
-                                    Path = z.Path,
-                                    TopicId = z.TopicId
-                                }).ToList(),
-                Examples = topic.Examples
-                              .Select(e => new ExampleResponseModel
-                              {
-                                  Content = e.Content,
-                                  Description = e.Description,
-                                  Id = e.Id,
-                                  TopicId = e.TopicId
-                              }).ToList(),
-                Contributors = topic.CustomUsers
-                                .Select(c => new ContributorResponseModel
-                                {
-                                    Id = c.Id,
-                                    UserName = c.UserName
-                                }).ToList(),
+                Comments =
+                                      topic.Comments.Select(
+                                          c =>
+                                          new CommentResponseModel
+                                          {
+                                              Id = c.Id,
+                                              UserId = c.UserId,
+                                              Content = c.Content,
+                                              Dislikes = c.Dislikes,
+                                              Likes = c.Likes,
+                                              TopicId = c.TopicId
+                                          }).ToList(),
+                ZipFiles =
+                                      topic.ZipFiles.Select(
+                                          z =>
+                                          new ZipFileResponseModel
+                                          {
+                                              DbName = z.DbName,
+                                              OriginalName = z.OriginalName,
+                                              Path = z.Path,
+                                              TopicId = z.TopicId
+                                          }).ToList(),
+                Examples =
+                                      topic.Examples.Select(
+                                          e =>
+                                          new ExampleResponseModel
+                                          {
+                                              Content = e.Content,
+                                              Description = e.Description,
+                                              Id = e.Id,
+                                              TopicId = e.TopicId
+                                          }).ToList(),
+                Contributors =
+                                      topic.Contributors.Select(
+                                          c =>
+                                          new ContributorResponseModel
+                                          {
+                                              Id = c.Id,
+                                              UserName = c.UserName
+                                          })
+                                      .ToList()
             };
 
             return this.Ok(respone);
@@ -102,43 +112,58 @@
         public IHttpActionResult Get(int sectionId, int page = 1, int pageSize = 10)
         {
             var result =
-                this.topics
-                .All(sectionId, page, pageSize)
-                .Select(x => new TopicResponseModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Content = x.Content,
-                    VideoId = x.VideoId,
-                    SectionId = x.SectionId,
-                    ZipFiles = x.ZipFiles
-                                .Select(c => new ZipFileResponseModel
-                                {
-                                    DbName = c.DbName,
-                                    OriginalName = c.OriginalName,
-                                    Path = c.Path,
-                                    TopicId = c.TopicId
-                                }).ToList(),
-                    Comments = x.Comments
-                                .Select(c => new CommentResponseModel
-                                {
-                                    Id = c.Id,
-                                    UserId = c.UserId,
-                                    Content = c.Content,
-                                    Dislikes = c.Dislikes,
-                                    Likes = c.Likes,
-                                    TopicId = c.TopicId
-                                }).ToList(),
-                    Examples = x.Examples
-                              .Select(e => new ExampleResponseModel
-                              {
-                                  Content = e.Content,
-                                  Description = e.Description,
-                                  Id = e.Id,
-                                  TopicId = e.TopicId
-                              })
-                              .ToList()
-                });
+                this.topics.All(sectionId, page, pageSize)
+                    .Select(
+                        x =>
+                        new TopicResponseModel
+                        {
+                            Id = x.Id,
+                            Title = x.Title,
+                            Content = x.Content,
+                            VideoId = x.VideoId,
+                            SectionId = x.SectionId,
+                            ZipFiles =
+                                    x.ZipFiles.Select(
+                                        c =>
+                                        new ZipFileResponseModel
+                                        {
+                                            DbName = c.DbName,
+                                            OriginalName = c.OriginalName,
+                                            Path = c.Path,
+                                            TopicId = c.TopicId
+                                        }).ToList(),
+                            Comments =
+                                    x.Comments.Select(
+                                        c =>
+                                        new CommentResponseModel
+                                        {
+                                            Id = c.Id,
+                                            UserId = c.UserId,
+                                            Content = c.Content,
+                                            Dislikes = c.Dislikes,
+                                            Likes = c.Likes,
+                                            TopicId = c.TopicId
+                                        }).ToList(),
+                            Examples =
+                                    x.Examples.Select(
+                                        e =>
+                                        new ExampleResponseModel
+                                        {
+                                            Content = e.Content,
+                                            Description = e.Description,
+                                            Id = e.Id,
+                                            TopicId = e.TopicId
+                                        }).ToList(),
+                            Contributors =
+                                      x.Contributors.Select(
+                                          c =>
+                                          new ContributorResponseModel
+                                          {
+                                              Id = c.Id,
+                                              UserName = c.UserName
+                                          })
+                                      .ToList()
+                        });
             return this.Ok(result);
         }
 
@@ -163,6 +188,7 @@
   }]
 }      */
         //TODO:Check if the current category exist and if exist do not let the user the make the same category twice
+
         [HttpPost]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
@@ -176,7 +202,7 @@
                 return this.BadRequest("The section id doesn't exist");
             }
 
-            var topic = new Topic()
+            var topic = new Topic
             {
                 Content = requestTopic.Content,
                 SectionId = requestTopic.SectionId,
@@ -194,8 +220,7 @@
                     Path = zipFile.Path,
                     Topic = topic
                 };
-                newZipFiles
-                    .Add(newFile);
+                newZipFiles.Add(newFile);
             }
 
             var newExamples = new Collection<Example>();
@@ -207,25 +232,11 @@
                     Description = example.Description,
                     Topic = topic
                 };
-                newExamples
-                    .Add(newExample);
+                newExamples.Add(newExample);
             }
-            var newContributors = new Collection<CustomUser>();
 
-            foreach (var contributor in requestTopic.Contributors)
-            {
-                var newContributor = new CustomUser
-                {
-                    Id = contributor.Id,
-
-                };
-
-                //newContributors
-                //    .Add(newContributor);
-                topic.CustomUsers.Add(newContributor);
-            }
-            this.topics
-                .Add(topic, newZipFiles, newExamples);
+            var newContributor = this.users.GetUserById(this.User.Identity.GetUserId());
+            this.topics.Add(topic, newZipFiles, newExamples, newContributor);
 
             return this.Ok();
         }
@@ -270,9 +281,8 @@
             return this.Ok();
         }
 
-        [EnableCors("*", "*", "*")]
-        [Route("upload/{topicId}")]
         [HttpPut]
+        [Route("upload/{topicId}")]
         public async Task<IHttpActionResult> Put(int topicId, HttpRequestMessage upload)
         {
             var provider = new MultipartMemoryStreamProvider();
@@ -287,7 +297,7 @@
                 Console.WriteLine();
 
                 ZipFileGoogleDriveResponseModel response = this.cloudStorage.Upload(new ZipFileGoogleDriveRequestModel { OriginalName = name, Content = stream });
-                // TODO: Change evereywhere DbName to GoogleDriveId
+                // TODO: Change evereywhere DbName to GoogleDriveId ?
                 try
                 {
                     this.zipFiles.Add(new ZipFile() { OriginalName = name, Path = response.DownloadLink, DbName = response.Id, TopicId = topicId });
@@ -300,6 +310,6 @@
             }
 
             return this.Ok();
-        }      
+        }
     }
 }

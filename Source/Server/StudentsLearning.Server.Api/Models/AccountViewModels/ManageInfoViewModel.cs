@@ -1,6 +1,10 @@
 ﻿namespace StudentsLearning.Server.Api.Models.AccountViewModels
 {
+    #region
+
     using System.Collections.Generic;
+
+    #endregion
 
     public class ManageInfoViewModel
     {

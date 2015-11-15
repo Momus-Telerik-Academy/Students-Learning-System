@@ -2,30 +2,38 @@
     <div class="row">
         <h2>{{Title}}</h2>
     </div>
-    <hr style="max-width:80%;border-color:#fff;margin-left: inherit;" />
+    <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;"/>
     <div class="row">
         <div class="col-md-4">
             <iframe width="480" height="360" src="https://www.youtube.com/embed/{{VideoId}}?enablejsapi=1&version=3" enablejsapi="1" allowfullscreen></iframe>
-            <a class="btn btn-info btn-edit-topic" id="video-url"><i class="fa fa-pencil-square-o"></i></a>
+            <a class="btn btn-info btn-edit-topic" id="video-url">
+                <i class="fa fa-pencil-square-o"></i>
+            </a>
         </div>
         <div class="col-md-8">{{Content}}</div>
-        <a class="btn btn-info btn-edit-topic" id="content"><i class="fa fa-pencil-square-o"></i></a>
+        <a class="btn btn-info btn-edit-topic" id="content">
+            <i class="fa fa-pencil-square-o"></i>
+        </a>
     </div>
-    <hr style="max-width:80%;border-color:#fff;margin-left: inherit;" />
+    <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;"/>
     <div class="row">
         <div class="col-md-7 examples">
             {{#each this.Examples}}
-           <div class="example" id={{Id}}>
-               <div>
-                   <h3>{{Description}}</h3>
-                   <a class="btn btn-info btn-edit-topic" id="description"><i class="fa fa-pencil-square-o"></i></a>
-               </div>
-               <br />
-               <div>
-                   <div>{{Content}}</div>
-                   <a class="btn btn-info btn-edit-topic" id="example-content"><i class="fa fa-pencil-square-o"></i></a>
-               </div>
-           </div>
+            <div class="example" id="{{Id}}">
+                <div>
+                    <h3>{{Description}}</h3>
+                    <a class="btn btn-info btn-edit-topic" id="description">
+                        <i class="fa fa-pencil-square-o"></i>
+                    </a>
+                </div>
+                <br/>
+                <div>
+                    <div>{{Content}}</div>
+                    <a class="btn btn-info btn-edit-topic" id="example-content">
+                        <i class="fa fa-pencil-square-o"></i>
+                    </a>
+                </div>
+            </div>
             {{/each}}
         </div>
     </div>
@@ -34,7 +42,7 @@
             <h4>Add Materials</h4>
             <label for="opmlFile"></label>
             <div>
-                <input class="btn btn-primary" type="file" id="opmlFile" />
+                <input class="btn btn-primary" type="file" id="opmlFile"/>
             </div>
         </div>
         <!--<button class="btn btn-primary" type="submit">Upload TODO: Remove?</button>-->

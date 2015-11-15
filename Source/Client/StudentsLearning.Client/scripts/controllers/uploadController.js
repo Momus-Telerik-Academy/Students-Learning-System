@@ -22,15 +22,10 @@
             }
         });
 
-        // Returning false will prevent the event from
-        // bubbling and re-posting the form (synchronously).
         return false;
     }
-
-
 
     return {
         upload: upload
     }
-
 }())

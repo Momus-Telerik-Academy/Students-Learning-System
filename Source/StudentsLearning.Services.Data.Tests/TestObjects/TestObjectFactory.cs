@@ -1,13 +1,13 @@
-﻿#region
-
-using System;
-using StudentsLearning.Data.Models;
-using StudentsLearning.Models;
-
-#endregion
-
-namespace StudentsLearning.Services.Data.Tests.TestObjects
+﻿namespace StudentsLearning.Services.Data.Tests.TestObjects
 {
+    #region
+
+    using System;
+
+    using StudentsLearning.Data.Models;
+
+    #endregion
+
     public static class TestObjectFactory
     {
         public static InMemoryRepository<User> GetUsersRepository(int numberOfUsers = 25)
@@ -19,12 +19,13 @@ namespace StudentsLearning.Services.Data.Tests.TestObjects
                 var date = new DateTime(2015, 11, 5, 23, 47, 12);
                 date.AddDays(i);
 
-                repo.Add(new User
-                {
-                    UserName = "Test User " + i,
-                    Email = "Test Email " + i,
-                    PasswordHash = Guid.NewGuid().ToString()
-                });
+                repo.Add(
+                    new User
+                    {
+                        UserName = "Test User " + i,
+                        Email = "Test Email " + i,
+                        PasswordHash = Guid.NewGuid().ToString()
+                    });
             }
 
             return repo;
@@ -38,6 +39,7 @@ namespace StudentsLearning.Services.Data.Tests.TestObjects
             {
                 var category = new Category
                 {
+                    Id=i+1,
                     Name = "TestCategory" + i
                 };
 

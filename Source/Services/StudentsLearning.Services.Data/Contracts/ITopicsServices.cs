@@ -1,9 +1,13 @@
 ﻿namespace StudentsLearning.Services.Data.Contracts
 {
+    #region
+
     using System.Collections.Generic;
     using System.Linq;
 
     using StudentsLearning.Data.Models;
+
+    #endregion
 
     public interface ITopicsServices
     {
@@ -15,9 +19,9 @@
 
         IQueryable<Topic> GetByTitle(string title);
 
-        void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples);
+        void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples, User contributor);
 
-        //void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples);
+        // void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples);
         void Update(Topic topic);
     }
 }

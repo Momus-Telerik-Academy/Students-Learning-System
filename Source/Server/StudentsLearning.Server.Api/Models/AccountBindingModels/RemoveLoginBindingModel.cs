@@ -1,6 +1,10 @@
 ﻿namespace StudentsLearning.Server.Api.Models.AccountBindingModels
 {
+    #region
+
     using System.ComponentModel.DataAnnotations;
+
+    #endregion
 
     public class RemoveLoginBindingModel
     {

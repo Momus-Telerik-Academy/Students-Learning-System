@@ -11,8 +11,7 @@
 
         public string Path { get; set; }
 
-        //public string FileExtension { get; set; }
-
+        // public string FileExtension { get; set; }
         public int TopicId { get; set; }
 
         public virtual Topic Topic { get; set; }
