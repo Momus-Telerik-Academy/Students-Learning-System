@@ -84,7 +84,7 @@
 
             var id = this.categoriesService.GetId(categoryName);
 
-            Assert.AreEqual(id, null);
+            Assert.AreEqual(null, id);
         }
 
         [Test]
