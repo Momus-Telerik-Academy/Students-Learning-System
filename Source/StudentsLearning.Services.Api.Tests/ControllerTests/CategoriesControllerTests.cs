@@ -1,4 +1,6 @@
-﻿namespace StudentsLearning.Services.Api.Tests
+﻿using System.Web.Http;
+
+namespace StudentsLearning.Services.Api.Tests
 {
     #region
 
@@ -29,8 +31,8 @@
         [TestCase(-3)]
         public void CategoriesControllerGetWithInvalidIdShouldNotReturnOkResultWithData(int id)
         {
-            // var controller = new CategoriesController(this.categoriesService);
-            // IHttpActionResult result = controller.Get(id);
+             var controller = new CategoriesController(this.categoriesService);
+             IHttpActionResult result = controller.Get(id);
             MyWebApi.Controller<CategoriesController>()
                 .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesService())
                 .Calling(c => c.Get(id))

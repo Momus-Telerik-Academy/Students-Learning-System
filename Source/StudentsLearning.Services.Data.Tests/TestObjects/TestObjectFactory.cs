@@ -21,11 +21,11 @@
 
                 repo.Add(
                     new User
-                        {
-                            UserName = "Test User " + i, 
-                            Email = "Test Email " + i, 
-                            PasswordHash = Guid.NewGuid().ToString()
-                        });
+                    {
+                        UserName = "Test User " + i,
+                        Email = "Test Email " + i,
+                        PasswordHash = Guid.NewGuid().ToString()
+                    });
             }
 
             return repo;
@@ -37,7 +37,11 @@
 
             for (var i = 0; i < numberOfCategories; i++)
             {
-                var category = new Category { Name = "TestCategory" + i };
+                var category = new Category
+                {
+                    Id=i+1,
+                    Name = "TestCategory" + i
+                };
 
                 repo.Add(category);
             }

@@ -15,7 +15,7 @@
     public class TestObjectFactory
     {
         private static readonly IQueryable<Category> categories =
-            new List<Category> { new Category { Name = "TestCategory" }, new Category { Name = "TestCategory2" } }
+            new List<Category> { new Category { Id=1, Name = "TestCategory" }, new Category { Id = 2, Name = "TestCategory2" } }
                 .AsQueryable();
 
         public static ICategoriesService GetCategoriesService()
