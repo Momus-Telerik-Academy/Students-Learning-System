@@ -1,15 +1,11 @@
 ﻿namespace StudentsLearning.Services.Data
 {
-    #region
-
     using System.Collections.Generic;
     using System.Linq;
 
     using StudentsLearning.Data.Models;
     using StudentsLearning.Data.Repositories;
     using StudentsLearning.Services.Data.Contracts;
-
-    #endregion
 
     public class TopicsServices : ITopicsServices
     {
@@ -20,8 +16,8 @@
         private readonly IRepository<ZipFile> zipFiles;
 
         public TopicsServices(
-            IRepository<Topic> topicsRepo, 
-            IRepository<ZipFile> zipFilesRepo, 
+            IRepository<Topic> topicsRepo,
+            IRepository<ZipFile> zipFilesRepo,
             IRepository<User> contributors)
         {
             this.topics = topicsRepo;

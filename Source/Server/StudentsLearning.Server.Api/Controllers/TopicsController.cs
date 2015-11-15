@@ -35,10 +35,10 @@
         private readonly IZipFilesService zipFiles;
 
         public TopicsController(
-            ITopicsServices topics, 
-            IZipFilesService zipFiles, 
-            ISectionService sections, 
-            IExamplesService examples, 
+            ITopicsServices topics,
+            IZipFilesService zipFiles,
+            ISectionService sections,
+            IExamplesService examples,
             IUsersService usersService)
         {
             this.topics = topics;
@@ -52,60 +52,60 @@
         public IHttpActionResult Get(int id)
         {
             var topic = this.topics.GetById(id).FirstOrDefault();
-            var topicC = topic.Contributors;
+
             if (topic == null)
             {
                 return this.BadRequest();
             }
 
             var respone = new TopicResponseModel
-                              {
-                                  Id = topic.Id, 
-                                  Title = topic.Title, 
-                                  Content = topic.Content, 
-                                  VideoId = topic.VideoId, 
-                                  Comments =
+            {
+                Id = topic.Id,
+                Title = topic.Title,
+                Content = topic.Content,
+                VideoId = topic.VideoId,
+                Comments =
                                       topic.Comments.Select(
                                           c =>
                                           new CommentResponseModel
-                                              {
-                                                  Id = c.Id, 
-                                                  UserId = c.UserId, 
-                                                  Content = c.Content, 
-                                                  Dislikes = c.Dislikes, 
-                                                  Likes = c.Likes, 
-                                                  TopicId = c.TopicId
-                                              }).ToList(), 
-                                  ZipFiles =
+                                          {
+                                              Id = c.Id,
+                                              UserId = c.UserId,
+                                              Content = c.Content,
+                                              Dislikes = c.Dislikes,
+                                              Likes = c.Likes,
+                                              TopicId = c.TopicId
+                                          }).ToList(),
+                ZipFiles =
                                       topic.ZipFiles.Select(
                                           z =>
                                           new ZipFileResponseModel
-                                              {
-                                                  DbName = z.DbName, 
-                                                  OriginalName = z.OriginalName, 
-                                                  Path = z.Path, 
-                                                  TopicId = z.TopicId
-                                              }).ToList(), 
-                                  Examples =
+                                          {
+                                              DbName = z.DbName,
+                                              OriginalName = z.OriginalName,
+                                              Path = z.Path,
+                                              TopicId = z.TopicId
+                                          }).ToList(),
+                Examples =
                                       topic.Examples.Select(
                                           e =>
                                           new ExampleResponseModel
-                                              {
-                                                  Content = e.Content, 
-                                                  Description = e.Description, 
-                                                  Id = e.Id, 
-                                                  TopicId = e.TopicId
-                                              }).ToList(), 
-                                  Contributors =
+                                          {
+                                              Content = e.Content,
+                                              Description = e.Description,
+                                              Id = e.Id,
+                                              TopicId = e.TopicId
+                                          }).ToList(),
+                Contributors =
                                       topic.Contributors.Select(
                                           c =>
                                           new ContributorResponseModel
-                                              {
-                                                  Id = c.Id, 
-                                                  UserName = c.UserName
-                                              })
+                                          {
+                                              Id = c.Id,
+                                              UserName = c.UserName
+                                          })
                                       .ToList()
-                              };
+            };
 
             return this.Ok(respone);
         }
@@ -118,45 +118,54 @@
                     .Select(
                         x =>
                         new TopicResponseModel
-                            {
-                                Id = x.Id, 
-                                Title = x.Title, 
-                                Content = x.Content, 
-                                VideoId = x.VideoId, 
-                                SectionId = x.SectionId, 
-                                ZipFiles =
+                        {
+                            Id = x.Id,
+                            Title = x.Title,
+                            Content = x.Content,
+                            VideoId = x.VideoId,
+                            SectionId = x.SectionId,
+                            ZipFiles =
                                     x.ZipFiles.Select(
                                         c =>
                                         new ZipFileResponseModel
-                                            {
-                                                DbName = c.DbName, 
-                                                OriginalName = c.OriginalName, 
-                                                Path = c.Path, 
-                                                TopicId = c.TopicId
-                                            }).ToList(), 
-                                Comments =
+                                        {
+                                            DbName = c.DbName,
+                                            OriginalName = c.OriginalName,
+                                            Path = c.Path,
+                                            TopicId = c.TopicId
+                                        }).ToList(),
+                            Comments =
                                     x.Comments.Select(
                                         c =>
                                         new CommentResponseModel
-                                            {
-                                                Id = c.Id, 
-                                                UserId = c.UserId, 
-                                                Content = c.Content, 
-                                                Dislikes = c.Dislikes, 
-                                                Likes = c.Likes, 
-                                                TopicId = c.TopicId
-                                            }).ToList(), 
-                                Examples =
+                                        {
+                                            Id = c.Id,
+                                            UserId = c.UserId,
+                                            Content = c.Content,
+                                            Dislikes = c.Dislikes,
+                                            Likes = c.Likes,
+                                            TopicId = c.TopicId
+                                        }).ToList(),
+                            Examples =
                                     x.Examples.Select(
                                         e =>
                                         new ExampleResponseModel
-                                            {
-                                                Content = e.Content, 
-                                                Description = e.Description, 
-                                                Id = e.Id, 
-                                                TopicId = e.TopicId
-                                            }).ToList()
-                            });
+                                        {
+                                            Content = e.Content,
+                                            Description = e.Description,
+                                            Id = e.Id,
+                                            TopicId = e.TopicId
+                                        }).ToList(),
+                            Contributors =
+                                      x.Contributors.Select(
+                                          c =>
+                                          new ContributorResponseModel
+                                          {
+                                              Id = c.Id,
+                                              UserName = c.UserName
+                                          })
+                                      .ToList()
+                        });
             return this.Ok(result);
         }
 
@@ -195,23 +204,23 @@
             }
 
             var topic = new Topic
-                            {
-                                Content = requestTopic.Content, 
-                                SectionId = requestTopic.SectionId, 
-                                Title = requestTopic.Title, 
-                                VideoId = requestTopic.VideoId
-                            };
+            {
+                Content = requestTopic.Content,
+                SectionId = requestTopic.SectionId,
+                Title = requestTopic.Title,
+                VideoId = requestTopic.VideoId
+            };
 
             var newZipFiles = new Collection<ZipFile>();
             foreach (var zipFile in requestTopic.ZipFiles)
             {
                 var newFile = new ZipFile
-                                  {
-                                      DbName = zipFile.DbName, 
-                                      OriginalName = zipFile.OriginalName, 
-                                      Path = zipFile.Path, 
-                                      Topic = topic
-                                  };
+                {
+                    DbName = zipFile.DbName,
+                    OriginalName = zipFile.OriginalName,
+                    Path = zipFile.Path,
+                    Topic = topic
+                };
                 newZipFiles.Add(newFile);
             }
 
@@ -219,11 +228,11 @@
             foreach (var example in requestTopic.Examples)
             {
                 var newExample = new Example
-                                     {
-                                         Content = example.Content, 
-                                         Description = example.Description, 
-                                         Topic = topic
-                                     };
+                {
+                    Content = example.Content,
+                    Description = example.Description,
+                    Topic = topic
+                };
                 newExamples.Add(newExample);
             }
 
