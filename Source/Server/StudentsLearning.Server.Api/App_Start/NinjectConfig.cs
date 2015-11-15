@@ -76,6 +76,11 @@ namespace StudentsLearning.Server.Api.App_Start
             kernel.Bind(b => b.From("StudentsLearning.Services.Data")
                 .SelectAllClasses()
                 .BindDefaultInterface());
-        }        
+
+            kernel.Bind(b => b.From("StudentsLearning.Services.GoogleDrive")
+                            .SelectAllClasses()
+                            .BindDefaultInterface());
+
+        }
     }
 }

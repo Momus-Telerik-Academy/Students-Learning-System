@@ -13,24 +13,36 @@
     using StudentsLearning.Server.Api.Models.TopicTransferModels;
     using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
     using System;
+    using Services.GoogleDrive.Contracts;
+    using Services.GoogleDrive;
+    using System.Net.Http;
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using Services.GoogleDrive.Models;
 
     [RoutePrefix("api/Topics")]
     [EnableCors("*", "*", "*")]
     public class TopicsController : ApiController
     {
         private readonly ITopicsServices topics;
+
         private readonly IZipFilesService zipFiles;
 
         private readonly ISectionService sections;
 
         private readonly IExamplesService examples;
 
-        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles, ISectionService sections, IExamplesService examples)
+        private readonly ICloudStorageService cloudStorage;
+
+        public TopicsController(ITopicsServices topics, IZipFilesService zipFiles, ISectionService sections, IExamplesService examples, ICloudStorageService drive)
         {
             this.topics = topics;
             this.sections = sections;
             this.examples = examples;
             this.zipFiles = zipFiles;
+            this.cloudStorage = drive;
         }
 
         [HttpGet]
@@ -226,36 +238,68 @@
             }
 
             var topic = this.topics.GetById(id).FirstOrDefault();
-           
-            if(topic == null)
+
+            if (topic == null)
             {
                 return this.BadRequest();
             }
 
-            Func<ExampleRequestModel, Example> mapToExample = c => {
+            Func<ExampleRequestModel, Example> mapToExample = c =>
+            {
                 var example = this.examples.GetById(c.Id).FirstOrDefault();
-                
-                if(example == null)
+
+                if (example == null)
                 {
-                    example = new Example{ Id = c.Id };
+                    example = new Example { Id = c.Id };
                 }
 
                 example.Description = c.Description;
                 example.Content = c.Content;
-               
+
                 this.examples.Update(example);
                 return example;
-                };
-            
+            };
+
             topic.Title = requestTopic.Title;
             topic.Content = requestTopic.Content;
             topic.VideoId = requestTopic.VideoId;
             topic.Examples = requestTopic.Examples.Select(mapToExample).ToList();
-            // topic.ZipFiles = requestTopic.ZipFiles;
 
             this.topics.Update(topic);
 
             return this.Ok();
         }
+
+        [EnableCors("*", "*", "*")]
+        [Route("upload/{topicId}")]
+        [HttpPut]
+        public async Task<IHttpActionResult> Put(int topicId, HttpRequestMessage upload)
+        {
+            var provider = new MultipartMemoryStreamProvider();
+
+            await upload.Content.ReadAsMultipartAsync(provider);
+
+            foreach (var file in provider.Contents)
+            {
+                string name = file.Headers.ContentDisposition.FileName;
+                var stream = await file.ReadAsStreamAsync();
+
+                Console.WriteLine();
+
+                ZipFileGoogleDriveResponseModel response = this.cloudStorage.Upload(new ZipFileGoogleDriveRequestModel { OriginalName = name, Content = stream });
+                // TODO: Change evereywhere DbName to GoogleDriveId
+                try
+                {
+                    this.zipFiles.Add(new ZipFile() { OriginalName = name, Path = response.DownloadLink, DbName = response.Id, TopicId = topicId });
+                }
+
+                catch (System.Exception ex)
+                {
+                    return this.BadRequest(ex.Message);
+                }
+            }
+
+            return this.Ok();
+        }      
     }
 }
