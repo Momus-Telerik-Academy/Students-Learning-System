@@ -1,5 +1,6 @@
 ﻿#region
 
+using System.Web.Http;
 using Microsoft.Owin;
 
 using StudentsLearning.Server.Api;
@@ -22,8 +23,11 @@ namespace StudentsLearning.Server.Api
     {
         public void Configuration(IAppBuilder app)
         {
+            var config = new HttpConfiguration();
+            WebApiConfig.Register(config);
             app.UseCors(CorsOptions.AllowAll);
             this.ConfigureAuth(app);
+            app.UseWebApi(config);
         }
     }
 }

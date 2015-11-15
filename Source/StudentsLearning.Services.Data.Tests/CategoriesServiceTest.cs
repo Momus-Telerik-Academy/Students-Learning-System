@@ -82,7 +82,7 @@
         {
             var categoryName = "Bad Wolf";
 
-            var id = this.categoriesService.GetId(categoryName);
+            int? id = this.categoriesService.GetId(categoryName);
 
             Assert.AreEqual(null, id);
         }
