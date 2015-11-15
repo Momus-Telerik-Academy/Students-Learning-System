@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{A9A491FA-280C-4424-89F1-43E4DD89BC27}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{7B378925-E73D-4A9E-B36D-0C50DC04D0F3}"
+	ProjectSection(SolutionItems) = preProject
+		E:\Downloads\client_secret_871825794413-ela6t4rvqu62kejksfn7vh0sgfnet7n1.apps.googleusercontent.com.json = E:\Downloads\client_secret_871825794413-ela6t4rvqu62kejksfn7vh0sgfnet7n1.apps.googleusercontent.com.json
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsLearning.Server.Api", "Server\StudentsLearning.Server.Api\StudentsLearning.Server.Api.csproj", "{9FCEBAAD-F43F-4988-9BD2-79FECC2D8592}"
 EndProject
@@ -34,6 +37,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsLearning.Services.Data.Tests", "StudentsLearning.Services.Data.Tests\StudentsLearning.Services.Data.Tests.csproj", "{F3B21FE2-DB83-4F7B-8969-DF5032F270F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsLearning.Services.Api.Tests", "StudentsLearning.Services.Api.Tests\StudentsLearning.Services.Api.Tests.csproj", "{F105B17B-6B3C-4819-B2AF-21E3BCDFCCD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsLearning.Services.GoogleDrive", "Services\StudentLearning.Services.GoogleDrive\StudentsLearning.Services.GoogleDrive.csproj", "{2A37B54F-52E9-4888-92A1-CF650CADE0E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,6 +127,14 @@ Global
 		{F105B17B-6B3C-4819-B2AF-21E3BCDFCCD3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F105B17B-6B3C-4819-B2AF-21E3BCDFCCD3}.Release|x86.ActiveCfg = Release|Any CPU
 		{F105B17B-6B3C-4819-B2AF-21E3BCDFCCD3}.Release|x86.Build.0 = Release|Any CPU
+		{2A37B54F-52E9-4888-92A1-CF650CADE0E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A37B54F-52E9-4888-92A1-CF650CADE0E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A37B54F-52E9-4888-92A1-CF650CADE0E4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2A37B54F-52E9-4888-92A1-CF650CADE0E4}.Debug|x86.Build.0 = Debug|Any CPU
+		{2A37B54F-52E9-4888-92A1-CF650CADE0E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A37B54F-52E9-4888-92A1-CF650CADE0E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A37B54F-52E9-4888-92A1-CF650CADE0E4}.Release|x86.ActiveCfg = Release|Any CPU
+		{2A37B54F-52E9-4888-92A1-CF650CADE0E4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,5 +149,6 @@ Global
 		{28AE41EE-37B5-4D02-9A04-D1E081BB8F1D} = {8B967382-DCEC-486A-A4B7-984B21B3AB08}
 		{F3B21FE2-DB83-4F7B-8969-DF5032F270F3} = {8B967382-DCEC-486A-A4B7-984B21B3AB08}
 		{F105B17B-6B3C-4819-B2AF-21E3BCDFCCD3} = {8B967382-DCEC-486A-A4B7-984B21B3AB08}
+		{2A37B54F-52E9-4888-92A1-CF650CADE0E4} = {7B378925-E73D-4A9E-B36D-0C50DC04D0F3}
 	EndGlobalSection
 EndGlobal

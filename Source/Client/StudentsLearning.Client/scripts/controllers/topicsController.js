@@ -86,26 +86,18 @@
                 htmlElementCreator.createForm($parent, 'tb-topic-edit', [targetId]);
                 htmlElementCreator.createButton($parent, 'Ok', editBtnId);
 
-
-                //$('#upload').submit(function () {
-                //    var opmlFile = $('#opmlFile')[0];
-
-                //    formData.append("opmlFile", opmlFile.files[0]);
-
-                //});
-
-
-
             });
 
             $saveBtn.on('click', function () {
 
-                var formData = new FormData();
+               
+                uploadController.upload(topicModel.currentId());
+                //var formData = new FormData();
 
-                var opmlFile = $('#opmlFile')[0];
+                //var opmlFile = $('#opmlFile')[0];
 
-                formData.append("opmlFile", opmlFile.files[0]);
-                topicModel.Properties.ZipFiles.push(formData);
+                //formData.append("opmlFile", opmlFile.files[0]);
+               // topicModel.Properties.ZipFiles.push(formData);
 
                 // editing already ezisting examples
                 var updatedExamplesContent = $('.tb-topic-edit-example-content'),
@@ -128,7 +120,7 @@
                     Content: $('.tb-topic-edit-content').val() || topicModel.Properties.Content,
                     VideoId: $('.tb-topic-edit-video-url').val() || topicModel.Properties.VideoId,
                     SectionId: sectionModel.currentId(), // or topicModel.SectionId
-                    ZipFiles: topicModel.Properties.ZipFiles,
+                  //  Zip: topicModel.Properties.ZipFiles,
                     Examples: updatedExamples
                 }
 
