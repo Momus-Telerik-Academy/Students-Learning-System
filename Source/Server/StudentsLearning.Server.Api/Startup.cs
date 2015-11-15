@@ -23,11 +23,11 @@ namespace StudentsLearning.Server.Api
     {
         public void Configuration(IAppBuilder app)
         {
-            var config = new HttpConfiguration();
-            WebApiConfig.Register(config);
+            //var config = new HttpConfiguration();
+            //WebApiConfig.Register(config);
             app.UseCors(CorsOptions.AllowAll);
             this.ConfigureAuth(app);
-            app.UseWebApi(config);
+            //app.UseWebApi(config);
         }
     }
 }
