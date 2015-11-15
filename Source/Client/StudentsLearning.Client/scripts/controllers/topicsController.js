@@ -3,11 +3,13 @@
     function byId(context) {
         var topicId = context.params['id'];
 
+        console.log('here');
+
         appManager.loadView('topic', context, Constants.CATEGORY_CONTENT_WRAPPER, topicModel.byId, topicId)
         .then(function (data) {
             topicModel.Properties = data;
         }, function (err) {
-            alert('TODO: toastr' + arr);
+            alert('TODO: toastr' + err);
         });
     }
 
@@ -131,4 +133,4 @@
         add: add,
         edit: edit
     }
-});
+}());
