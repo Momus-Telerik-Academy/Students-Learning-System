@@ -6,21 +6,26 @@
     using System.Web.Http;
     using System.Web.Http.Cors;
 
+    using Microsoft.AspNet.Identity;
+
     using StudentsLearning.Data.Models;
     using StudentsLearning.Server.Api.Models.CommentTransferModels;
     using StudentsLearning.Services.Data.Contracts;
 
     #endregion
 
-    [RoutePrefix("api/Commnets")]
+    [RoutePrefix("api/Comments")]
     [EnableCors("*", "*", "*")]
     public class CommentsController : ApiController
     {
         private readonly ICommentService commnents;
 
-        public CommentsController(ICommentService commnentService)
+        private readonly IUsersService users;
+
+        public CommentsController(ICommentService commnentService, IUsersService users)
         {
             this.commnents = commnentService;
+            this.users = users;
         }
 
         public IHttpActionResult Get()
@@ -30,13 +35,13 @@
                     .Select(
                         x =>
                         new CommentResponseModel
-                            {
-                                UserId = x.UserId, 
-                                Content = x.Content, 
-                                Dislikes = x.Dislikes, 
-                                Likes = x.Likes, 
-                                TopicId = x.TopicId
-                            })
+                        {
+                            UserId = x.UserId,
+                            Content = x.Content,
+                            Dislikes = x.Dislikes,
+                            Likes = x.Likes,
+                            TopicId = x.TopicId
+                        })
                     .ToList();
 
             return this.Ok(comments);
@@ -49,57 +54,65 @@
                     .Select(
                         x =>
                         new CommentResponseModel
-                            {
-                                UserId = x.UserId, 
-                                Content = x.Content, 
-                                Likes = x.Likes, 
-                                Dislikes = x.Dislikes, 
-                                TopicId = x.TopicId
-                            })
+                        {
+                            UserId = x.UserId,
+                            Content = x.Content,
+                            Likes = x.Likes,
+                            Dislikes = x.Dislikes,
+                            TopicId = x.TopicId
+                        })
                     .FirstOrDefault();
 
             return this.Ok(commentResult);
         }
 
-        // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
-        public IHttpActionResult Put(int id, [FromBody] CommentRequestModel updates)
+        /* Body for the comment post
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
 
-            var newComment = new Comment
-                                 {
-                                     Id = id, 
-                                     UserId = updates.UserId, 
-                                     Content = updates.Content, 
-                                     Dislikes = updates.Dislikes, 
-                                     Likes = updates.Likes, 
-                                     TopicId = updates.TopicId
-                                 };
+ "content":"aaaaaaaaaa",
+ "topicId":"1"
+ }*/
+        //TODO:Do we need update of comments..I guess no(Aleks :))
+        //// TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
+        //public IHttpActionResult Put(int id, [FromBody] CommentRequestModel updates)
+        //{
+        //    if (!this.ModelState.IsValid)
+        //    {
+        //        return this.BadRequest();
+        //    }
 
-            this.commnents.Update(newComment);
+        //    var newComment = new Comment
+        //    {
+        //        Id = id,
+        //        UserId = updates.UserId,
+        //        Content = updates.Content,
+        //        Dislikes = updates.Dislikes,
+        //        Likes = updates.Likes,
+        //        TopicId = updates.TopicId
+        //    };
 
-            return this.Ok(newComment);
-        }
+        //    this.commnents.Update(newComment);
+
+        //    return this.Ok(newComment);
+        //}
 
         [HttpPost]
         public IHttpActionResult Post([FromBody] CommentRequestModel commentModel)
         {
+            var userId = this.User.Identity.GetUserId();
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest();
             }
 
             var comment = new Comment
-                              {
-                                  UserId = commentModel.UserId, 
-                                  Content = commentModel.Content, 
-                                  Likes = 0, 
-                                  Dislikes = 0, 
-                                  TopicId = commentModel.TopicId
-                              };
+            {
+                UserId = userId,
+                Content = commentModel.Content,
+                Likes = 0,
+                Dislikes = 0,
+                TopicId = commentModel.TopicId
+            };
 
             this.commnents.Add(comment);
             return this.Ok(comment);
