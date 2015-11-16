@@ -5,6 +5,11 @@
         var opmlFile = $('#opmlFile')[0];
 
         formData.append("opmlFile", opmlFile.files[0]);
+        console.log(formData);
+
+        if (!opmlFile.files[0]) {
+            return false;
+        }
 
         $.ajax({
             url: 'http://localhost:56350/api/topics/upload/' + id,

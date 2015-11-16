@@ -292,6 +292,12 @@
             foreach (var file in provider.Contents)
             {
                 string name = file.Headers.ContentDisposition.FileName;
+
+                if(name == null)
+                {
+                    return this.BadRequest("Empty file");
+                }
+
                 var stream = await file.ReadAsStreamAsync();
 
                 Console.WriteLine();
