@@ -2,6 +2,8 @@
 {
     #region
 
+    using System.Linq;
+
     using StudentsLearning.Data.Models;
     using StudentsLearning.Data.Repositories;
     using StudentsLearning.Services.Data.Contracts;
@@ -17,9 +19,9 @@
             this.users = users;
         }
 
-        public User GetUserById(string id)
+        public IQueryable<User> GetUserById(string id)
         {
-            return this.users.GetById(id);
+            return this.users.All().Where(x=>x.Id==id);
         }
     }
 }

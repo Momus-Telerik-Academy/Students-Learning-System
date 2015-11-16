@@ -2,12 +2,14 @@
 {
     #region
 
+    using System.Linq;
+
     using StudentsLearning.Data.Models;
 
     #endregion
 
     public interface IUsersService
     {
-        User GetUserById(string id);
+        IQueryable<User> GetUserById(string id);
     }
 }
