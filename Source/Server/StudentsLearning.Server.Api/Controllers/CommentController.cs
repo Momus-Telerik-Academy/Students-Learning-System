@@ -31,20 +31,21 @@
         public IHttpActionResult Get()
         {
             var comments =
-                this.commnents.All()
-                    .Select(
-                        x =>
-                        new CommentResponseModel
-                        {
-                            UserId = x.UserId,
-                            Content = x.Content,
-                            Dislikes = x.Dislikes,
-                            Likes = x.Likes,
-                            TopicId = x.TopicId
-                        })
-                    .ToList();
+                this.commnents.All();
 
-            return this.Ok(comments);
+            var result = comments.Select(
+                 x =>
+                 new CommentResponseModel
+                 {
+                     Username = this.users.GetUserById(x.UserId).FirstOrDefault().UserName,
+                     Content = x.Content,
+                     Dislikes = x.Dislikes,
+                     Likes = x.Likes,
+                     TopicId = x.TopicId
+                 })
+             .ToList();
+
+            return this.Ok(result);
         }
 
         public IHttpActionResult Get(int id)
@@ -55,7 +56,7 @@
                         x =>
                         new CommentResponseModel
                         {
-                            UserId = x.UserId,
+                            Username = x.UserId,
                             Content = x.Content,
                             Likes = x.Likes,
                             Dislikes = x.Dislikes,

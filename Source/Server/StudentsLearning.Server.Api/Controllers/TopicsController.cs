@@ -68,7 +68,7 @@
                                           new CommentResponseModel
                                           {
                                               Id = c.Id,
-                                              UserId = c.UserId,
+                                              Username = c.UserId,
                                               Content = c.Content,
                                               Dislikes = c.Dislikes,
                                               Likes = c.Likes,
@@ -138,7 +138,7 @@
                                         new CommentResponseModel
                                         {
                                             Id = c.Id,
-                                            UserId = c.UserId,
+                                            Username = c.UserId,
                                             Content = c.Content,
                                             Dislikes = c.Dislikes,
                                             Likes = c.Likes,
