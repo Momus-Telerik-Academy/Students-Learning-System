@@ -1,4 +1,4 @@
-﻿namespace StudentsLearning.Server.Api.Models.SectionTransferModels
+﻿namespace StudentsLearning.Services.Data.Models.SectionTransferModels
 {
     public class SectionRequestModel
     {

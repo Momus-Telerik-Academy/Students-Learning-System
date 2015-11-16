@@ -1,4 +1,4 @@
-﻿namespace StudentsLearning.Server.Api.Models.SectionTransferModels
+﻿namespace StudentsLearning.Services.Data.SectionTransferModels
 {
     #region
 
@@ -12,6 +12,6 @@
 
         public string Description { get; set; }
 
-        public ICollection<TopicResponseMinifiedModel> Topics { get; set; }
+       // public ICollection<TopicResponseMinifiedModel> Topics { get; set; }
     }
 }

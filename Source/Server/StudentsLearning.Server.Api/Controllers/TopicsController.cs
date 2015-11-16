@@ -235,9 +235,9 @@
                 newExamples.Add(newExample);
             }
 
-            var newContributor = this.users.GetUserById(this.User.Identity.GetUserId());
+            var newContributor = this.users.GetUserById(this.User.Identity.GetUserId()).First();
             this.topics.Add(topic, newZipFiles, newExamples, newContributor);
-
+           
             return this.Ok();
         }
 

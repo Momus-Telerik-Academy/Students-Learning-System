@@ -59,7 +59,7 @@
         }
 
         // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
-        public IHttpActionResult Put(int id, [FromBody] SectionRequestModel updates)
+        public IHttpActionResult Put(int id, [FromBody] Api.Models.SectionTransferModels.SectionRequestModel updates)
         {
             if (!this.ModelState.IsValid)
             {
