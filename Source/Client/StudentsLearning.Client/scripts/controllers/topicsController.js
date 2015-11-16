@@ -82,6 +82,7 @@
 
                 // $parent, itemName, properties)
                 htmlElementCreator.createForm($parent, 'tb-topic-edit', [targetId]);
+                $('.tb-topic-edit-content').attr('maxlength', '500');
               //  htmlElementCreator.createButton($parent, 'Ok', editBtnId);
 
             });
