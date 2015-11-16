@@ -131,6 +131,7 @@
     <Content Include="partials\topic.html" />
     <Content Include="scripts\controllers\categoriesController.js" />
     <Content Include="scripts\controllers\homeController.js" />
+    <Content Include="scripts\controllers\notificationController.js" />
     <Content Include="scripts\controllers\sectionController.js" />
     <Content Include="scripts\controllers\topicsController.js" />
     <Content Include="scripts\controllers\uploadController.js" />
@@ -139,6 +140,7 @@
     <Content Include="scripts\helpers\appManager.js" />
     <Content Include="scripts\helpers\Constants.js" />
     <Content Include="scripts\helpers\htmlElementCreator.js" />
+    <Content Include="scripts\helpers\notificationConfig.js" />
     <Content Include="scripts\helpers\templatesManager.js" />
     <Content Include="scripts\helpers\UserConstants.js" />
     <Content Include="scripts\models\categoryModel.js" />

@@ -5,6 +5,8 @@
     var PARTIALS_FILE_EXTENSION = ".html";
     var CATEGORY_CONTENT_WRAPPER = "#category-content";
 
+  
+
     return {
         DOMAIN: DOMAIN,
         PARTIALS_DIRECTORY: PARTIALS_DIRECTORY,
