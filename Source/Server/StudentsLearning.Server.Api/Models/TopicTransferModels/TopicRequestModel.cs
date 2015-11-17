@@ -20,12 +20,6 @@
 
         public int SectionId { get; set; }
 
-        public ICollection<ZipFileRequestModel> ZipFiles { get; set; }
-
         public ICollection<ExampleRequestModel> Examples { get; set; }
-
-        public ICollection<CommentRequestModel> Comments { get; set; }
-
-        // public ICollection<ContributorRequestModel> Contributors { get; set; }
     }
 }

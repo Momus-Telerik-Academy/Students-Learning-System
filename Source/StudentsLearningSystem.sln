@@ -8,9 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{A9A491FA-280C-4424-89F1-43E4DD89BC27}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{7B378925-E73D-4A9E-B36D-0C50DC04D0F3}"
-	ProjectSection(SolutionItems) = preProject
-		E:\Downloads\client_secret_871825794413-ela6t4rvqu62kejksfn7vh0sgfnet7n1.apps.googleusercontent.com.json = E:\Downloads\client_secret_871825794413-ela6t4rvqu62kejksfn7vh0sgfnet7n1.apps.googleusercontent.com.json
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsLearning.Server.Api", "Server\StudentsLearning.Server.Api\StudentsLearning.Server.Api.csproj", "{9FCEBAAD-F43F-4988-9BD2-79FECC2D8592}"
 EndProject

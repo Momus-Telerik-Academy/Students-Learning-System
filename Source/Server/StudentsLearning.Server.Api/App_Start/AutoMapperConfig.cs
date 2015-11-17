@@ -10,6 +10,9 @@
     using AutoMapper;
 
     using StudentsLearning.Server.Api.Infrastructure.Mapping;
+    using Models.ExampleTransferModels;
+    using Data.Models;
+    using Models.TopicTransferModels;
 
     #endregion
 
@@ -25,6 +28,13 @@
 
             LoadStandardMappings(types);
             LoadCustomMappings(types);
+            ConfigureCustomMappings();
+        }
+
+        private static void ConfigureCustomMappings()
+        {
+            AutoMapper.Mapper.CreateMap<ExampleRequestModel, Example>();
+            AutoMapper.Mapper.CreateMap<TopicRequestModel, Topic>();
         }
 
         private static void LoadStandardMappings(IEnumerable<Type> types)
