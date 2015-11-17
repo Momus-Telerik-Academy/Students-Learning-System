@@ -189,6 +189,7 @@
 }      */
         //TODO:Check if the current category exist and if exist do not let the user the make the same category twice
 
+        [Authorize]
         [HttpPost]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
@@ -235,7 +236,7 @@
                 newExamples.Add(newExample);
             }
 
-            var newContributor = this.users.GetUserById(this.User.Identity.GetUserId()).First();
+            var newContributor = this.users.GetUserById(this.User.Identity.GetUserId()).FirstOrDefault();
             this.topics.Add(topic, newZipFiles, newExamples, newContributor);
 
             return this.Ok();
