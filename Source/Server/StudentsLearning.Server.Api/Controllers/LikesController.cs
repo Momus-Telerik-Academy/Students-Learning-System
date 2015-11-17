@@ -18,12 +18,12 @@
         {
             var userId = this.User.Identity.GetUserId();
 
-            if (this.likesService.CommentIsLikedByUser(id, userId))
+            if (this.likesService.CommentIsLikesByUser(id, userId, true))
             {
                 return this.BadRequest("You already have liked this comment.");
             }
 
-            this.likesService.LikeComment(id, userId);
+            this.likesService.ChangeLikeStatus(id, userId, true);
             return this.Ok();
         }
     }
