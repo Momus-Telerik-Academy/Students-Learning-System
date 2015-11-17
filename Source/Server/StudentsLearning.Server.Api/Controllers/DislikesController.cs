@@ -1,6 +1,5 @@
 ﻿namespace StudentsLearning.Server.Api.Controllers
 {
-    using System.Linq;
     using System.Web.Http;
 
     using Microsoft.AspNet.Identity;
@@ -10,12 +9,10 @@
     public class DislikesController : ApiController
     {
         private readonly ILikesService likesService;
-        private readonly ICommentService commentService;
 
-        public DislikesController(ILikesService likeService, ICommentService commentsSevice)
+        public DislikesController(ILikesService likeService)
         {
             this.likesService = likeService;
-            this.commentService = commentsSevice;
         }
 
         [Authorize]
@@ -24,15 +21,12 @@
         {
             var userId = this.User.Identity.GetUserId();
 
-            if (this.likesService.CommentIsDislikedByUser(id, userId))
+            if (this.likesService.CommentIsLikesByUser(id, userId, false))
             {
                 return this.BadRequest("You have already disliked this comment.");
             }
-
-            var comment = this.commentService.GetById(id)
-                              .FirstOrDefault();
-
-            this.likesService.DislikeComment(id, userId);
+            
+            this.likesService.ChangeLikeStatus(id, userId, false);
 
             return this.Ok();
         }

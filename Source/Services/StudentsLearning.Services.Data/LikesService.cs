@@ -25,7 +25,7 @@
                 .Where(l => l.CommentId == commentId);
         }
 
-        public void LikeComment(int commentId, string userId)
+        public void ChangeLikeStatus(int commentId, string userId, bool isPositive)
         {
             if (userId != null)
             {
@@ -40,7 +40,7 @@
                     {
                         CommentId = commentId,
                         UserId = userId,
-                        IsPositive = true
+                        IsPositive = isPositive
                     };
 
                     this.likesRepo.Add(newlike);
@@ -48,58 +48,18 @@
                 }
                 else
                 {
-                    like.IsPositive = true;
+                    like.IsPositive = isPositive;
                     this.likesRepo.Update(like);
                     this.likesRepo.SaveChanges();
                 }
 
             }
         }
-
-        public void DislikeComment(int commentId, string userId)
-        {
-            if (userId != null)
-            {
-                var like = this.likesRepo
-                    .All()
-                    .Where(l => l.UserId == userId && l.CommentId == commentId)
-                    .FirstOrDefault();
-
-                if (like != null)
-                {
-                    if (like.IsPositive)
-                    {
-                        like.IsPositive = false;
-
-                        this.likesRepo.Update(like);
-                        this.likesRepo.SaveChanges();
-                    }
-                }
-                else
-                {
-                    var newLike = new Like
-                    {
-                        CommentId = commentId,
-                        UserId = userId,
-                        IsPositive = false
-                    };
-
-                    this.likesRepo.Add(newLike);
-                    this.likesRepo.SaveChanges();
-                }
-            }
-        }
-
-        public bool CommentIsLikedByUser(int commentId, string userId)
+        
+        public bool CommentIsLikesByUser(int commentId, string userId, bool isPositive)
         {
             return this.AllLikesForComment(commentId)
-                        .Any(l => l.User.Id == userId && l.IsPositive);
-        }
-
-        public bool CommentIsDislikedByUser(int commentId, string userId)
-        {
-            return this.AllLikesForComment(commentId)
-                        .Any(l => l.User.Id == userId && !l.IsPositive);
+                        .Any(l => l.User.Id == userId && l.IsPositive== isPositive);
         }
     }
 }

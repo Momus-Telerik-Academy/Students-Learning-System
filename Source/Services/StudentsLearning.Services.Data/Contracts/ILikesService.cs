@@ -7,12 +7,8 @@
     {
         IQueryable<Like> AllLikesForComment(int commentId);
 
-        void LikeComment(int commentId, string username);
-
-        void DislikeComment(int commentId, string username);
-
-        bool CommentIsLikedByUser(int commentId, string username);
-
-        bool CommentIsDislikedByUser(int commentId, string userId);
+        void ChangeLikeStatus(int commentId, string username, bool isPositive);
+        
+        bool CommentIsLikesByUser(int commentId, string username, bool isPositive);
     }
 }
