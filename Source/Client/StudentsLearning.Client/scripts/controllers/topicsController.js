@@ -22,22 +22,19 @@
         console.log("clicked");
         appManager.loadView("add-topic", context, Constants.CATEGORY_CONTENT_WRAPPER)
             .then(function (res) {
+                var formDataFile;
                 $("#add-example").on("click", function () {
                     $("#topic-examples").load("partials/add-example.html");
                 });
 
                 $("#btn-topic-add").on("click", function (e) {
                     console.log("clickedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
                     var newExample = {
                         description: $("#tb-example-description").val(),
                         content: $("#tb-example-content").val()
                     };
 
-                    var newFiles = {
-                        "originalName": "originalName1",
-                        "dbName": "dbName1",
-                        "path": "path"
-                    };
                     var video_id = $("#tb-topic-video").val().split("v=")[1];
                     var ampersandPosition = video_id.indexOf("&");
                     if (ampersandPosition != -1) {
@@ -51,16 +48,20 @@
                         sectionId: sectionModel.currentId().toString(),
                         examples: [
                             newExample
-                        ],
-                        zipFiles: []
+                        ]
                     };
+
+                    formDataFile = new FormData();
+                    var opmlFile = $('#opmlFile')[0];
+                    formDataFile.append("opmlFile", opmlFile.files[0]);
 
                     console.log(newTopic);
                     topicModel.add(newTopic)
-                        .then(function () {
-                            var id = topicModel.currentId() ? topicModel.currentId() : 1;
+                        .then(function (id) {
+                            // var id = topicModel.currentId() ? topicModel.currentId() : 1;
                             topicModel.currentId(id);
                             console.log(id);
+                            uploadController.upload(id, formDataFile);
                             context.redirect("/#/topics/" + topicModel.currentId());
                         }, function (err) {
                             console.log(err);

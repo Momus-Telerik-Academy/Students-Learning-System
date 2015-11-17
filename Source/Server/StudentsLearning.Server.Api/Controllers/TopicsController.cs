@@ -211,18 +211,18 @@
                 VideoId = requestTopic.VideoId
             };
 
-            var newZipFiles = new Collection<ZipFile>();
-            foreach (var zipFile in requestTopic.ZipFiles)
-            {
-                var newFile = new ZipFile
-                {
-                    DbName = zipFile.DbName,
-                    OriginalName = zipFile.OriginalName,
-                    Path = zipFile.Path,
-                    Topic = topic
-                };
-                newZipFiles.Add(newFile);
-            }
+            //var newZipFiles = new Collection<ZipFile>();
+            //foreach (var zipFile in requestTopic.ZipFiles)
+            //{
+            //    var newFile = new ZipFile
+            //    {
+            //        DbName = zipFile.DbName,
+            //        OriginalName = zipFile.OriginalName,
+            //        Path = zipFile.Path,
+            //        Topic = topic
+            //    };
+            //    newZipFiles.Add(newFile);
+            //}
 
             var newExamples = new Collection<Example>();
             foreach (var example in requestTopic.Examples)
@@ -237,11 +237,12 @@
             }
 
             var newContributor = this.users.GetUserById(this.User.Identity.GetUserId()).FirstOrDefault();
-            this.topics.Add(topic, newZipFiles, newExamples, newContributor);
+            this.topics.Add(topic, newExamples, newContributor);
 
-            return this.Ok();
+            return this.Ok(topic.Id);
         }
 
+        [Authorize]
         public IHttpActionResult Put(int id, TopicRequestModel requestTopic)
         {
             if (!this.ModelState.IsValid)
@@ -276,6 +277,11 @@
             topic.Content = requestTopic.Content;
             topic.VideoId = requestTopic.VideoId;
             topic.Examples = requestTopic.Examples.Select(mapToExample).ToList();
+
+            if(!topic.Contributors.Any(c=>c.Id == this.User.Identity.GetUserId()))
+            {
+                topic.Contributors.Add(this.users.GetUserById(this.User.Identity.GetUserId()).FirstOrDefault());
+            }
 
             this.topics.Update(topic);
 
