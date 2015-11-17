@@ -256,6 +256,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Filters\CheckNullAttribute.cs" />
+    <Compile Include="Infrastructure\Filters\ValidateModelStateAttribute.cs" />
     <Compile Include="Infrastructure\Mapping\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Models\AccountBindingModels\AddExternalLoginBindingModel.cs" />

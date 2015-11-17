@@ -2,13 +2,12 @@
 {
     #region
 
-    using System.Linq;
     using System.Web.Http;
     using System.Web.Http.Cors;
 
     using AutoMapper;
+    using Infrastructure.Filters;
     using Microsoft.AspNet.Identity;
-
     using StudentsLearning.Data.Models;
     using StudentsLearning.Server.Api.Models.CommentTransferModels;
     using StudentsLearning.Services.Data.Contracts;
@@ -35,13 +34,11 @@
 
         [Authorize]
         [HttpPost]
+        [ValidateModelState]
+        [CheckNull]
         public IHttpActionResult Post([FromBody] CommentRequestModel commentModel)
         {
             var userId = this.User.Identity.GetUserId();
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
             var comment = Mapper.Map<CommentRequestModel, Comment>(commentModel);
             comment.UserId = userId;
 
