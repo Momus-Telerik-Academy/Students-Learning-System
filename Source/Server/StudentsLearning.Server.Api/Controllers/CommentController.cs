@@ -44,14 +44,6 @@
             }
             var comment = Mapper.Map<CommentRequestModel, Comment>(commentModel);
             comment.UserId = userId;
-            //var comment = new Comment
-            //{
-            //    UserId = userId,
-            //    Content = commentModel.Content,
-            //    Likes = 0,
-            //    Dislikes = 0,
-            //    TopicId = commentModel.TopicId
-            //};
 
             this.commnents.Add(comment);
             return this.Ok(comment);
