@@ -144,6 +144,7 @@
     <Content Include="scripts\helpers\templatesManager.js" />
     <Content Include="scripts\helpers\UserConstants.js" />
     <Content Include="scripts\models\categoryModel.js" />
+    <Content Include="scripts\models\commentModel.js" />
     <Content Include="scripts\models\sectionModel.js" />
     <Content Include="scripts\models\topicModel.js" />
     <Content Include="scripts\models\userModel.js" />

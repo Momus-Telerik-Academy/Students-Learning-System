@@ -8,6 +8,11 @@
         appManager.loadView('topic', context, Constants.CATEGORY_CONTENT_WRAPPER, topicModel.byId, topicId)
         .then(function (data) {
             topicModel.Properties = data;
+
+            $('#btn-comment').on('click', function () {
+                var comment = $('#tb-comment').val();
+                commentModel.add({ content: comment, topicid: topicModel.currentId() })
+            });
         }, function (err) {
             alert('TODO: toastr' + err);
         });
@@ -83,7 +88,7 @@
                 // $parent, itemName, properties)
                 htmlElementCreator.createForm($parent, 'tb-topic-edit', [targetId]);
                 $('.tb-topic-edit-content').attr('maxlength', '500');
-              //  htmlElementCreator.createButton($parent, 'Ok', editBtnId);
+                //  htmlElementCreator.createButton($parent, 'Ok', editBtnId);
 
             });
 

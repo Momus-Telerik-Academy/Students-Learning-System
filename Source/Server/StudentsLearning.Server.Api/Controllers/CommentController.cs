@@ -96,7 +96,7 @@
 
         //    return this.Ok(newComment);
         //}
-
+        [Authorize]
         [HttpPost]
         public IHttpActionResult Post([FromBody] CommentRequestModel commentModel)
         {

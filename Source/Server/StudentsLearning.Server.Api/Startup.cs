@@ -25,6 +25,7 @@ namespace StudentsLearning.Server.Api
         {
             //var config = new HttpConfiguration();
             //WebApiConfig.Register(config);
+            
             app.UseCors(CorsOptions.AllowAll);
             this.ConfigureAuth(app);
             //app.UseWebApi(config);

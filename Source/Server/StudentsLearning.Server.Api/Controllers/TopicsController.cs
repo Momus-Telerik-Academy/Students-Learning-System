@@ -68,7 +68,7 @@
                                           new CommentResponseModel
                                           {
                                               Id = c.Id,
-                                              Username = c.UserId,
+                                              Username = this.users.GetUserById(c.UserId).FirstOrDefault().UserName,
                                               Content = c.Content,
                                               Dislikes = c.Dislikes,
                                               Likes = c.Likes,
@@ -237,7 +237,7 @@
 
             var newContributor = this.users.GetUserById(this.User.Identity.GetUserId()).First();
             this.topics.Add(topic, newZipFiles, newExamples, newContributor);
-           
+
             return this.Ok();
         }
 
@@ -293,7 +293,7 @@
             {
                 string name = file.Headers.ContentDisposition.FileName;
 
-                if(name == null)
+                if (name == null)
                 {
                     return this.BadRequest("Empty file");
                 }
