@@ -1,21 +1,21 @@
-﻿var appManager = function() {
+﻿var appManager = function () {
 
     function loadView(page, context, element, action, params) {
         var data;
 
         if (action) {
             return action(params)
-                .then(function(res) {
+                .then(function (res) {
                     data = res;
                     return templatesManager.get(page);
                 })
-                .then(function(partial) {
+                .then(function (partial) {
                     templatesManager.fill(context, partial, element, data);
                     return data;
                 });
         } else {
             return templatesManager.get(page)
-                .then(function(partial) {
+                .then(function (partial) {
                     templatesManager.fill(context, partial, element);
                 });
         }
@@ -33,7 +33,7 @@
             }
 
             element.text("Log Out");
-            element.attr("href", "#/logout");
+            element.attr("href", "/#/logout");
 
         } else {
 
@@ -46,8 +46,16 @@
 
     }
 
+    function preloadCategory() {
+        var promise = new Promise(function (resolve, reject) {
+           categoriesController.byId;
+        });
+        return promise;
+    }
+
     return {
         loadView: loadView,
-        toggleUserState: toggleUserState
+        toggleUserState: toggleUserState,
+        preloadCategory: preloadCategory
     };
 }();

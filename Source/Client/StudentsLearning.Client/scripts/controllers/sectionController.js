@@ -1,27 +1,35 @@
 ﻿var sectionsController = (function () {
 
     function byId(context) {
-        var sectionId = context.params["id"];
+        console.log('in section');
+        var sectionId = context.params["sectionId"];
+        sectionModel.currentId(sectionId);
 
-        appManager.loadView("section", context, Constants.CATEGORY_CONTENT_WRAPPER, sectionModel.getById, sectionId)
-            .then(function () {
-                sectionModel.currentId(sectionId);
-                console.log("Hooray");
-            }, function (err) {
-                var id = categoryModel.currentId() ? categoryModel.currentId() : 1;
-                categoryModel.currentId(id);
-                console.log(id);
-                context.redirect("/#/category/" + categoryModel.currentId());
-            })
-            .then(function () {
-                $(".btn-topic-show").on("click", function (e) {
+        appManager.loadView("category", context, false, categoryModel.getById, +context.params["categoryId"])
+        .then(function () {
+            return appManager.loadView("section", context, Constants.CATEGORY_CONTENT_WRAPPER, sectionModel.getById, sectionId);
+        })
+       
+          .then(function () {
+              sectionModel.currentId(sectionId);
+              return true;
+              console.log("Hooray");
+          }, function (err) {
+              var id = categoryModel.currentId() ? categoryModel.currentId() : 1;
+              categoryModel.currentId(id);
+              console.log(err);
+              context.redirect("/#/category/" + categoryModel.currentId());
+          })
+          .then(function () {
+              $(".btn-topic-show").on("click", function (e) {
 
-                    var target = e.currentTarget;
-                    // TODO: Save on localeStorage for better behave on refresh
-                    topicModel.currentId(+$(target).attr("id"));
-                    context.redirect("/#/topics/" + topicModel.currentId());
-                });
-            });
+                  var target = e.currentTarget;
+                  // TODO: Save on localeStorage for better behave on refresh
+                  topicModel.currentId(+$(target).attr("id"));
+                  context.redirect('/#/category/' + categoryModel.currentId() + '/sections/' + sectionModel.currentId() + "/topics/" + topicModel.currentId());
+                  //context.redirect("/#/topics/" + topicModel.currentId());
+              });
+          });
     }
 
     function add(context) {

@@ -1,17 +1,29 @@
 ﻿var topicsController = (function () {
 
     function byId(context) {
-        var topicId = context.params['id'];
-
+        var topicId = context.params['topicId'];
+        categoryModel.currentId(+context.params['categoryId']);
+       
         console.log('here');
-
-        appManager.loadView('topic', context, Constants.CATEGORY_CONTENT_WRAPPER, topicModel.byId, topicId)
+        appManager.loadView("category", context, false, categoryModel.getById, categoryModel.currentId())
+       .then(function () {
+           return true; 
+       })
+        .then(function () {
+            return appManager.loadView('topic', context, Constants.CATEGORY_CONTENT_WRAPPER, topicModel.byId, topicId);
+        })
         .then(function (data) {
             topicModel.Properties = data;
 
             $('#btn-comment').on('click', function () {
                 var comment = $('#tb-comment').val();
                 commentModel.add({ content: comment, topicid: topicModel.currentId() })
+                .then(function (res) {
+                    console.log(res);
+                }, function (err) {
+                    console.log(err);
+                    toastr.error(err);
+                });
             });
         }, function (err) {
             alert('TODO: toastr' + err);

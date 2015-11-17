@@ -3,24 +3,33 @@
     function all(context) {
         var categories;
 
-        categoryModel.all()
-            .then(function(res) {
-                categories = res;
-                console.log(categories);
-                return templatesManager.get("home");
-            })
-            .then(function(partial) {
-                templatesManager.fill(context, partial, categories);
-            })
+        //categoryModel.all()
+        //    .then(function(res) {
+        //        categories = res;
+        //        console.log(categories);
+        //        return templatesManager.get("categories");
+        //    })
+        //    .then(function(partial) {
+        //        templatesManager.fill(context, partial, categories);
+        //    })
+        appManager.loadView("categories", context, false, categoryModel.all, false)
             .then(function() {
                 $("#btn-add").on("click", function() {
                     categoryModel.add($("#tb-new-category-name").val());
                 });
+
+                $(".btn-category-show").on("click", function (e) {
+                    var target = e.currentTarget;
+                    // TODO: Save on localeStorage for better behave on refresh
+                    categoryModel.currentId(+$(target).attr("id"));
+                    context.redirect("/#/category/" + categoryModel.currentId());
+                });               
             });
     }
 
     function byId(context) {
-        categoryModel.currentId(+context.params["id"]);
+        console.log('categories');
+        categoryModel.currentId(+context.params["categoryId"]);
         var category;
 
         appManager.loadView("category", context, false, categoryModel.byId, categoryModel.currentId())
@@ -28,13 +37,14 @@
                 sidebarController.config;
 
                 $(".btn-section-show").on("click", function(e) {
-                    context.redirect("/#/sections/" + $(e.currentTarget).attr("id"));
+                    context.redirect('/#/category/' + categoryModel.currentId() + '/sections/' + $(e.currentTarget).attr("id"));
                 });
 
                 $(".btn-section-add").on("click", function() {
                     context.redirect("/#/add/section");
                 });
             });
+        return false;
     }
 
     function add(context) {
