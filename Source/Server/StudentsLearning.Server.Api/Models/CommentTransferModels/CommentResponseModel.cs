@@ -1,6 +1,6 @@
 ﻿namespace StudentsLearning.Server.Api.Models.CommentTransferModels
 {
-    using System;
+    using System.Linq;
     using AutoMapper;
     using StudentsLearning.Data.Models;
     using StudentsLearning.Server.Api.Infrastructure.Mapping;
@@ -22,7 +22,9 @@
         public void CreateMappings(IConfiguration config)
         {
             config.CreateMap<Comment, CommentResponseModel>()
-                .ForMember(m => m.Username, opt => opt.MapFrom(u => u.User.UserName));
+                .ForMember(m => m.Username, opt => opt.MapFrom(u => u.User.UserName))
+                .ForMember(t => t.Likes, opt => opt.MapFrom(c => c.Likes.Where(l => l.IsPositive).Count()))
+                .ForMember(d => d.Dislikes, opt => opt.MapFrom(c => c.Likes.Where(l => !l.IsPositive).Count()));
         }
     }
 }

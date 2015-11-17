@@ -14,6 +14,8 @@
     using StudentsLearning.Services.Data.Contracts;
     using System.Collections.Generic;
 
+    using StudentsLearning.Server.Api.Infrastructure.Filters;
+
     #endregion
 
     [RoutePrefix("api/Sections")]
@@ -44,14 +46,11 @@
 
             return this.Ok(response);
         }
-     
+
+        [ValidateModelState]
+        [CheckNull]
         public IHttpActionResult Put(int id, [FromBody] SectionRequestModel updates)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             var newSection = new Section
             {
                 Id = id,
@@ -66,13 +65,10 @@
         }
 
         [HttpPost]
+        [ValidateModelState]
+        [CheckNull]
         public IHttpActionResult Post([FromBody] SectionRequestModel sectionModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             var section = Mapper.Map<SectionRequestModel, Section>(sectionModel);
 
             this.sections.Add(section);

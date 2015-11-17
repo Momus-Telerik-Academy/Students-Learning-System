@@ -3,6 +3,7 @@
     #region
 
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using StudentsLearning.Server.Api.Models.CommentTransferModels;
     using StudentsLearning.Server.Api.Models.ExampleTransferModels;
@@ -12,10 +13,13 @@
 
     public class TopicRequestModel
     {
+        [Required]
         public string Title { get; set; }
 
+        [Required]
         public string Content { get; set; }
 
+        [Required]
         public string VideoId { get; set; }
 
         public int SectionId { get; set; }

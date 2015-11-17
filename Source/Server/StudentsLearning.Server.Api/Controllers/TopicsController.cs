@@ -23,6 +23,8 @@
     using AutoMapper.QueryableExtensions;
     using System.Collections.Generic;
 
+    using StudentsLearning.Server.Api.Infrastructure.Filters;
+
     [RoutePrefix("api/Topics")]
     [EnableCors("*", "*", "*")]
     public class TopicsController : ApiController
@@ -87,13 +89,10 @@
 
         [Authorize]
         [HttpPost]
+        [ValidateModelState]
+        [CheckNull]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(this.ModelState);
-            }
-
             if (this.sections.GetById(requestTopic.SectionId) == null)
             {
                 return this.BadRequest("The section id doesn't exist");
@@ -109,13 +108,10 @@
         }
 
         [Authorize]
+        [ValidateModelState]
+        [CheckNull]
         public IHttpActionResult Put(int id, TopicRequestModel requestTopic)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             var topic = this.topics.GetById(id).FirstOrDefault();
 
             if (topic == null)

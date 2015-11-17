@@ -9,6 +9,7 @@
     using StudentsLearning.Data;
     using StudentsLearning.Data.Models;
     using StudentsLearning.Data.Repositories;
+    using StudentsLearning.Server.Api.Infrastructure.Filters;
     using StudentsLearning.Server.Api.Models.CategoryTransferModels;
     using StudentsLearning.Services.Data;
     using StudentsLearning.Services.Data.Contracts;
@@ -43,13 +44,10 @@
         }
 
         // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
+        [ValidateModelState]
+        [CheckNull]
         public IHttpActionResult Put(int id, [FromBody] CategoryRequestModel updates)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             var updatedCategory = this.categories.GetById(id);
 
             if (this.categories.GetId(updates.Name) != 0)
@@ -64,13 +62,10 @@
         }
 
         [HttpPost]
+        [ValidateModelState]
+        [CheckNull]
         public IHttpActionResult Post([FromBody] CategoryRequestModel categoryModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             this.categories.Add(categoryModel.Name);
             return this.Ok(this.categories.GetId(categoryModel.Name));
         }

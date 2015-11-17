@@ -14,13 +14,14 @@
     public class User : IdentityUser
     {
         private ICollection<Comment> comments;
-
+        private ICollection<Like> likes;
         private ICollection<Topic> topicsContributions;
 
         public User()
         {
             this.topicsContributions = new HashSet<Topic>();
             this.comments = new HashSet<Comment>();
+            this.likes = new HashSet<Like>();
         }
 
         public virtual ICollection<Topic> TopicsContibutions
@@ -46,6 +47,19 @@
             set
             {
                 this.comments = value;
+            }
+        }
+
+        public virtual ICollection<Like> Likes
+        {
+            get
+            {
+                return this.likes;
+            }
+
+            set
+            {
+                this.likes = value;
             }
         }
 
