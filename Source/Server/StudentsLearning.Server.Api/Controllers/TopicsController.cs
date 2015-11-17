@@ -59,56 +59,8 @@
                 return this.BadRequest();
             }
 
-            var respone = new TopicResponseModel
-            {
-                Id = topic.Id,
-                Title = topic.Title,
-                Content = topic.Content,
-                VideoId = topic.VideoId,
-                Comments =
-                                      topic.Comments.Select(
-                                          c =>
-                                          new CommentResponseModel
-                                          {
-                                              Id = c.Id,
-                                              Username = this.users.GetUserById(c.UserId).FirstOrDefault().UserName,
-                                              Content = c.Content,
-                                              Dislikes = c.Dislikes,
-                                              Likes = c.Likes,
-                                              TopicId = c.TopicId
-                                          }).ToList(),
-                ZipFiles =
-                                      topic.ZipFiles.Select(
-                                          z =>
-                                          new ZipFileResponseModel
-                                          {
-                                              DbName = z.DbName,
-                                              OriginalName = z.OriginalName,
-                                              Path = z.Path,
-                                              TopicId = z.TopicId
-                                          }).ToList(),
-                Examples =
-                                      topic.Examples.Select(
-                                          e =>
-                                          new ExampleResponseModel
-                                          {
-                                              Content = e.Content,
-                                              Description = e.Description,
-                                              Id = e.Id,
-                                              TopicId = e.TopicId
-                                          }).ToList(),
-                Contributors =
-                                      topic.Contributors.Select(
-                                          c =>
-                                          new ContributorResponseModel
-                                          {
-                                              Id = c.Id,
-                                              UserName = c.UserName
-                                          })
-                                      .ToList()
-            };
-
-            return this.Ok(respone);
+            var response = Mapper.Map<Topic, TopicResponseModel>(topic);
+            return this.Ok(response);
         }
 
         //http://localhost:56350/api/Topics

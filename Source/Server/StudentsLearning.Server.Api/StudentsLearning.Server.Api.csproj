@@ -274,7 +274,8 @@
     <Compile Include="Models\ExampleTransferModels\ExampleRequestModel.cs" />
     <Compile Include="Models\ExampleTransferModels\ExampleResponseModel.cs" />
     <Compile Include="Models\SectionTransferModels\SectionRequestModel.cs" />
-    <Compile Include="Models\SectionTransferModels\SectionResponsetModel.cs" />
+    <Compile Include="Models\SectionTransferModels\SectionResponseMinifiedModel.cs" />
+    <Compile Include="Models\SectionTransferModels\SectionResponseModel.cs" />
     <Compile Include="Models\TopicTransferModels\TopicRequestModel.cs" />
     <Compile Include="Models\TopicTransferModels\TopicResponseMinifiedModel.cs" />
     <Compile Include="Models\TopicTransferModels\TopicResponseModel.cs" />
