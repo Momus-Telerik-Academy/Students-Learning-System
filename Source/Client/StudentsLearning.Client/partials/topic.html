@@ -12,6 +12,13 @@
         </div>
         <div class="col-md-8">
             {{Content}}
+
+        </div>
+
+    </div>
+    <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;" />
+    <div class="row">
+        <div class="col-md-6">
             <ul class="materials">
                 <h4>Materials</h4>
                 <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;" />
@@ -23,41 +30,45 @@
                 {{/each}}
             </ul>
         </div>
-
+        <div class="col-md-6 examples">
+            {{#each this.Examples}}
+            <h3>{{Description}}</h3>
+            <div>{{Content}}</div>
+            {{/each}}
+        </div>
     </div>
-    <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;" />
     <div class="row">
-        <div class="row">
-            <div class="col-md-5 comments">
-                <div class="form-horizontal comments-bg">
-                </div>
-                <div>
-                    Comments:
-                    {{#each this.Comments}}
-                    <div class="container">
-                        <blockquote class="quote-box">
-                            <p class="quotation-mark">
-                                “
+
+        <div class="col-md-9 comments">
+            <div class="form-horizontal comments-bg">
+            </div>
+            <div>
+                Comments:
+                {{#each this.Comments}}
+                <div class="container">
+                    <blockquote class="quote-box">
+                        <p class="quotation-mark">
+                            “
+                        </p>
+                        <p class="quote-text">
+                            {{Content}}
+                        </p>
+                        <hr>
+                        <div class="blog-post-actions">
+                            <p class="blog-post-bottom pull-left">
+                                {{Username}}
                             </p>
-                            <p class="quote-text">
-                                {{Content}}
+                            <p class="blog-post-bottom pull-right">
+                                <span class="badge quote-badge">{{Likes}}</span>  ❤
+                                <span class="badge quote-badge">{{Dislikes}}</span>
                             </p>
-                            <hr>
-                            <div class="blog-post-actions">
-                                <p class="blog-post-bottom pull-left">
-                                    {{Username}}
-                                </p>
-                                <p class="blog-post-bottom pull-right">
-                                    <span class="badge quote-badge">{{Likes}}</span>  ❤
-                                    <span class="badge quote-badge">{{Dislikes}}</span>
-                                </p>
-                            </div>
-                        </blockquote>
-                    </div>
-                    {{/each}}
+                        </div>
+                    </blockquote>
                 </div>
+                {{/each}}
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-10">
                 <input id="tb-comment" class="form-control col-md-12" placeholder="comment" style="width: 50%;">
@@ -68,11 +79,12 @@
 
 
         </div>
-        <div class="col-md-7 examples">
-            {{#each this.Examples}}
-            <h3>{{Description}}</h3>
-            <div>{{Content}}</div>
+        <div class="col-md-3">
+            <h6>Contributers</h6>
+            {{#each Contributors}}
+            <span class="label">{{UserName}}</span>
             {{/each}}
         </div>
+
     </div>
 </div>
