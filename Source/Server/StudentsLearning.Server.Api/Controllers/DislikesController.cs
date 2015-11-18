@@ -5,7 +5,7 @@
     using Microsoft.AspNet.Identity;
     using Services.Data.Contracts;
 
-
+    [RoutePrefix("api/Dislikes/")]
     public class DislikesController : ApiController
     {
         private readonly ILikesService likesService;
@@ -25,7 +25,7 @@
             {
                 return this.BadRequest("You have already disliked this comment.");
             }
-            
+
             this.likesService.ChangeLikeStatus(id, userId, false);
 
             return this.Ok();

@@ -66,8 +66,11 @@
                             <p class="blog-post-bottom pull-left">
                                 {{Username}}
                             </p>
-                            <p class="blog-post-bottom pull-right">
-                                <span class="badge quote-badge">{{Likes}}</span>  ❤
+                            <!-- classes btn-like and btn dislike are used for events =)  -->
+                            <p id={{Id}} class="blog-post-bottom pull-right">
+                                <a class="fa fa-thumbs-o-up btn-like"></a>
+                                <span class="badge quote-badge">{{Likes}}</span>
+                                <a class="fa fa-thumbs-o-down btn-dislike"></a>
                                 <span class="badge quote-badge">{{Dislikes}}</span>
                             </p>
                         </div>

@@ -36,13 +36,9 @@
             .then(function() {
                 sidebarController.config;
 
-                $(".btn-section-show").on("click", function(e) {
-                    context.redirect('/#/category/' + categoryModel.currentId() + '/sections/' + $(e.currentTarget).attr("id"));
-                });
-
-                $(".btn-section-add").on("click", function() {
-                    context.redirect("/#/add/section");
-                });
+                eventManager.attachShowSection(context);
+                eventManager.attachAddSection(context);
+               
             });
         return false;
     }

@@ -8,13 +8,10 @@
         appManager.loadView("category", context, false, categoryModel.byId, categoryModel.currentId())
        .then(function () {
            sidebarController.config;
-           $(".btn-section-show").on("click", function (e) {
-               context.redirect('/#/category/' + categoryModel.currentId() + '/sections/' + $(e.currentTarget).attr("id"));
-           });
 
-           $(".btn-section-add").on("click", function () {
-               context.redirect("/#/add/section");
-           });
+           eventManager.attachShowSection(context);
+           eventManager.attachAddSection(context);
+
            return appManager.loadView("section", context, Constants.CATEGORY_CONTENT_WRAPPER, sectionModel.getById, sectionModel.currentId());;
        })
         .then(function () {
@@ -22,18 +19,12 @@
         })
         .then(function (data) {
             topicModel.Properties = data;
-            $('#btn-comment').on('click', function () {
-                var comment = $('#tb-comment').val();
-                commentModel.add({ content: comment, topicid: topicModel.currentId() })
-                .then(function (res) {
-                    console.log(res);
-                }, function (err) {
-                    console.log(err);
-                    toastr.error(err);
-                });
-            });
+            eventManager.attachCommentAdd();
+            eventManager.attachLikeEvent();
+            eventManager.attachDislikeEvent();
         }, function (err) {
-            alert('TODO: toastr' + err);
+            toastr.error(err);
+            console.log(err);
         });
     }
 

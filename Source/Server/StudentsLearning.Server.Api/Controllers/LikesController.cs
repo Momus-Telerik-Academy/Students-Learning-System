@@ -4,6 +4,7 @@
     using Services.Data.Contracts;
     using Microsoft.AspNet.Identity;
 
+    [RoutePrefix("api/Likes")]
     public class LikesController : ApiController
     {
         private readonly ILikesService likesService;
