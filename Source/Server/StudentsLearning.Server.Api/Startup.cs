@@ -4,6 +4,7 @@ using System.Web.Http;
 using Microsoft.Owin;
 
 using StudentsLearning.Server.Api;
+using StudentsLearning.Server.Api.App_Start;
 
 #endregion
 
@@ -14,7 +15,8 @@ namespace StudentsLearning.Server.Api
     #region
 
     using Microsoft.Owin.Cors;
-
+    using Ninject.Web.Common.OwinHost;
+    using Ninject.Web.WebApi.OwinHost;
     using Owin;
     using System.Reflection;
 
@@ -24,12 +26,19 @@ namespace StudentsLearning.Server.Api
     {
         public void Configuration(IAppBuilder app)
         {
-            //var config = new HttpConfiguration();
-            //WebApiConfig.Register(config);
             AutoMapperConfig.RegisterMappings(Assembly.Load("StudentsLearning.Server.Api"));
             app.UseCors(CorsOptions.AllowAll);
             this.ConfigureAuth(app);
-            //app.UseWebApi(config);
+
+            var httpConfig = new HttpConfiguration();
+
+            WebApiConfig.Register(httpConfig);
+
+            httpConfig.EnsureInitialized();
+
+            app
+                .UseNinjectMiddleware(NinjectConfig.CreateKernel)
+                .UseNinjectWebApi(httpConfig);
         }
     }
 }
