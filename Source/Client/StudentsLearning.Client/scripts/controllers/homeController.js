@@ -1,6 +1,4 @@
 ﻿var homeController = (function () {
-
-
     function showHome(context) {
         //toastr.options.progressBar = true;
         toastr.options.closeButton = true;
