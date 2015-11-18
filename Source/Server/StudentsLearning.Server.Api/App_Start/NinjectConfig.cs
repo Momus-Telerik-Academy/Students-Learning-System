@@ -6,9 +6,6 @@ using WebActivatorEx;
 
 #endregion
 
-[assembly: PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
-[assembly: ApplicationShutdownMethod(typeof(NinjectConfig), "Stop")]
-
 namespace StudentsLearning.Server.Api.App_Start
 {
     #region
@@ -19,9 +16,8 @@ namespace StudentsLearning.Server.Api.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
-    using Ninject.Extensions.Conventions;
     using Ninject.Web.Common;
-
+    using Ninject.Extensions.Conventions;
     using StudentsLearning.Data;
     using StudentsLearning.Data.Repositories;
 
@@ -29,31 +25,13 @@ namespace StudentsLearning.Server.Api.App_Start
 
     public static class NinjectConfig
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
-
-        /// <summary>
-        ///     Starts the application
-        /// </summary>
-        public static void Start()
+        public static Action<IKernel> DependenciesRegistration = kernel =>
         {
-            DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
-            DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
-        }
+            kernel.Bind<IStudentsLearningDbContext>().To<StudentsLearningDbContext>();
+            kernel.Bind(typeof(IRepository<>)).To(typeof(EfGenericRepository<>));
+        };
 
-        /// <summary>
-        ///     Stops the application.
-        /// </summary>
-        public static void Stop()
-        {
-            bootstrapper.ShutDown();
-        }
-
-        /// <summary>
-        ///     Creates the kernel that will manage your application.
-        /// </summary>
-        /// <returns>The created kernel.</returns>
-        private static IKernel CreateKernel()
+        public static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
             try
@@ -77,9 +55,7 @@ namespace StudentsLearning.Server.Api.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IStudentsLearningDbContext>().To<StudentsLearningDbContext>().InRequestScope();
-
-            kernel.Bind(typeof(IRepository<>)).To(typeof(EfGenericRepository<>));
+            DependenciesRegistration(kernel);
 
             kernel.Bind(b => b.From("StudentsLearning.Services.Data")
                 .SelectAllClasses()

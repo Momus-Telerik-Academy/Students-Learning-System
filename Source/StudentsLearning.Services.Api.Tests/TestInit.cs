@@ -6,8 +6,11 @@ using System.Web.Http;
 using MyTested.WebApi;
 
 using NUnit.Framework;
-
+using StudentsLearning.Data.Models;
+using StudentsLearning.Data.Repositories;
 using StudentsLearning.Server.Api;
+using StudentsLearning.Server.Api.App_Start;
+using StudentsLearning.Services.Data.Tests.TestObjects;
 
 #endregion
 
@@ -19,10 +22,12 @@ public class TestInit
     [SetUp]
     public static void AssemblyInit()
     {
-        AutoMapperConfig.RegisterMappings(Assembly.Load("StudentsLearning.Server.Api"));
+        NinjectConfig.DependenciesRegistration = kernel =>
+        {
+            kernel.Bind<IRepository<User>>().ToConstant(TestObjectFactory.GetUsersRepository());
+        };
 
-        var config = new HttpConfiguration();
-        WebApiConfig.Register(config);
-        MyWebApi.IsUsing(config);
+        AutoMapperConfig.RegisterMappings(Assembly.Load("StudentsLearning.Server.Api"));
+        MyWebApi.IsRegisteredWith(WebApiConfig.Register);
     }
 }
