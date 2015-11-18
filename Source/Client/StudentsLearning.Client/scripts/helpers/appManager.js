@@ -1,21 +1,21 @@
-﻿var appManager = function() {
+﻿var appManager = function () {
 
     function loadView(page, context, element, action, params) {
         var data;
 
         if (action) {
             return action(params)
-                .then(function(res) {
+                .then(function (res) {
                     data = res;
                     return templatesManager.get(page);
                 })
-                .then(function(partial) {
+                .then(function (partial) {
                     templatesManager.fill(context, partial, element, data);
                     return data;
                 });
         } else {
             return templatesManager.get(page)
-                .then(function(partial) {
+                .then(function (partial) {
                     templatesManager.fill(context, partial, element);
                 });
         }
@@ -35,15 +35,10 @@
             element.text("Log Out");
             element.attr("href", "#/logout");
 
-        } else {
-
-            if (state.indexOf("In") == -1) {
-                element.text("Log In");
-                element.attr("href", "/#/login");
-            }
+        } else if (state.indexOf("In") == -1) {
+            element.text("Log In");
+            element.attr("href", "/#/login");
         }
-
-
     }
 
     return {
