@@ -4,7 +4,7 @@
             <h1 id="main-heading">E-Academy - study freely.</h1>
             <hr>
             <p>E-Academy is an amazing place for everyone who is interested in learning. Here you may find solutions to your problems that have already been solved by another users. You can also add new materials and share them with everyone. E-Academy is here. Now. Freely.</p>
-            <a href="/#/register" class="btn btn-primary btn-xl page-scroll register-container">Sign up</a>
+            <a href="/#/register" class="btn btn-primary btn-xl page-scroll register-container wow bounceIn">Sign up</a>
         </div>
     </div>
 </div>
@@ -18,6 +18,7 @@
     </div>
     <div class="container">
         <div class="row">
+            
             {{#each this}}
             <a class="col-lg-3 col-md-6 text-center btn-category-show" id="{{this.Id}}">
                 <div class="service-box">
@@ -28,9 +29,9 @@
             </a>
             {{/each}}
             <a href="#/add/category" class="col-lg-3 col-md-6 text-center btn-category-add">
-                <div class="service-box">
-                    <i class="fa fa-4x fa-plus-circle wow bounceIn text-primary"></i>
-                    <h3>Add</h3>
+                <div class="service-box black">
+                    <i class="fa fa-4x fa-plus-circle wow bounceIn text-primary black"></i>
+                    <h3>Add new</h3>
                 </div>
             </a>
         </div>
