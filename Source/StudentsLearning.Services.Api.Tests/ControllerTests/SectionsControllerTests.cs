@@ -1,6 +1,4 @@
-﻿using StudentsLearning.Server.Api.Models.SectionTransferModels;
-
-namespace StudentsLearning.Services.Api.Tests.ControllerTests
+﻿namespace StudentsLearning.Services.Api.Tests.ControllerTests
 {
     #region
 
@@ -13,6 +11,8 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
     using StudentsLearning.Data.Models;
     using StudentsLearning.Server.Api.Controllers;
     using StudentsLearning.Services.Data.Contracts;
+    using StudentsLearning.Server.Api.Models.SectionTransferModels;
+    using StudentsLearning.Services.Data.SectionTransferModels;
 
     #endregion
 
