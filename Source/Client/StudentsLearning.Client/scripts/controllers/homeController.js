@@ -2,6 +2,8 @@
 
 
     function showHome(context) {
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
         var categories;
         notificationController.init();
         // Login
@@ -23,7 +25,6 @@
 
     function aboutPage(context) {
         appManager.loadView('about', context, false);
-        console.log("about")
     }
 
     function contactPage(context) {

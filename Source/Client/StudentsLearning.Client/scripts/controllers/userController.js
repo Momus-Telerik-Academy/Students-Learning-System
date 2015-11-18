@@ -11,18 +11,38 @@
                         Password: $(USER_CONSTANTS.TB_PASSWORD).val(),
                         ConfirmPassword: $(USER_CONSTANTS.TB_CONFIRM_PASSWORD).val()
                     };
-                    console.log(user);
-                    userModel.register(user)
+                    if ($("#tb-username").val() === "") {
+                        toastr.warning("Username field cannot be empty");
+                    }
+                    else if ($(USER_CONSTANTS.TB_EMAIL).val() === "") {
+                        toastr.warning("Email field cannot be empty");
+                    }
+                    else if ($(USER_CONSTANTS.TB_PASSWORD).val() === "") {
+                        toastr.warning("Password field cannot be empty");
+                    }
+                    else if ($(USER_CONSTANTS.TB_CONFIRM_PASSWORD).val() === "") {
+                        toastr.warning("Confirm password field cannot be empty");
+                    }
+                    else if (!appManager.validateEmail($(USER_CONSTANTS.TB_EMAIL).val())) {
+                        toastr.warning('Invalid email address');
+                    }
+                    else if ($(USER_CONSTANTS.TB_PASSWORD).val().length < 6) {
+                        toastr.warning('Password must be longer than 6 symbols')
+                    }
+                    else if ($(USER_CONSTANTS.TB_PASSWORD).val() !== $(USER_CONSTANTS.TB_CONFIRM_PASSWORD).val()) {
+                        toastr.warning('Password does not match the confirm password');
+                    }
+                    else {
+                        userModel.register(user)
                         .then(function () {
                             context.redirect("/#/login");
+                            toastr.success('Successful register! Redirecting to login page..');
                         },
                             function (err) {
-
-                                alert("TODO: Insert toastr" + "");
+                                toastr.error('Invalid username or password.');
                             });
-
-                    console.log(user);
-                    return false;
+                        return false;
+                    }
                 });
             });
     }
@@ -50,13 +70,11 @@
                             appManager.toggleUserState();
 
                             context.redirect("/#/");
+                            toastr.success('Successful login');
                         },
                             function (err) {
-
-                                alert("TODO: Insert toastr" + "");
+                                toastr.error('Invalid username or password');
                             });
-
-                    console.log(user);
                     return false;
                 });
 
@@ -71,6 +89,7 @@
 
         appManager.toggleUserState();
         context.redirect("/#/");
+        location.reload();
     }
 
 
