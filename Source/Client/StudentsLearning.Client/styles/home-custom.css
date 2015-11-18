@@ -51,7 +51,8 @@
 }
 
 .with-header-bg {
-    background-image: url('../images/header.jpg');
+    background: url('../images/header.jpg') no-repeat center center fixed; 
+    background-size: cover;
     height: 100%;
     width: 100%;
 }
