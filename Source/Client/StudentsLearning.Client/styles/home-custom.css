@@ -50,7 +50,7 @@
     position: relative;
 }
 
-.with-header-bg, .with-education {
+.with-header-bg, .with-education, .with-header-library, .with-header-hall {
     background: url('../images/header.jpg') no-repeat center center fixed; 
     background-size: cover;
     height: 100%;
@@ -60,6 +60,12 @@
 .with-education {
     background-image: url('../images/education.jpg');
     color: #fff;
+}
+.with-header-library {
+    background-image: url('../images/library.jpg');
+}
+.with-header-hall {
+    background-image: url('../images/hall.jpg');
 }
 /*.white {
     color: #FFF;
