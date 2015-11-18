@@ -6,7 +6,7 @@
         notificationController.init();
         // Login
 
-        appManager.loadView("home", context, false, categoryModel.all)
+        appManager.loadView('home', context, false, categoryModel.all)
             .then(function () {
                 // set events
                 $(".btn-category-show").on("click", function (e) {
@@ -20,7 +20,18 @@
             });
     }
 
+    function aboutPage(context) {
+        appManager.loadView('about', context, false);
+        console.log("about")
+    }
+
+    function contactPage(context) {
+        appManager.loadView('contact', context, false);
+    }
+
     return {
-        startUp: showHome
+        startUp: showHome,
+        about: aboutPage,
+        contact: contactPage
     };
 }())

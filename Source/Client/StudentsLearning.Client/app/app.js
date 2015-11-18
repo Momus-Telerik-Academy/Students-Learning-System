@@ -8,8 +8,10 @@
     var sammyApp = Sammy("#main-content", function () {
 
         // this.get('#/', {controller.method});
-        this.get("#/home", homeController.startUp);
+        this.get("#/", homeController.startUp);
         this.get("#/categories", categoriesController.all);
+        this.get("#/about", homeController.about);
+        this.get("#/contact", homeController.contact);
         this.get("#/category/:categoryId/sections/:sectionId/topics/:topicId", topicsController.byId);
         this.get("#/category/:categoryId", categoriesController.current);
         this.get("#/category/:categoryId/sections/:sectionId", sectionsController.byId);
