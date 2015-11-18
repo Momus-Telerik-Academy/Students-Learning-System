@@ -8,8 +8,6 @@
 
         appManager.loadView("category", context, false, categoryModel.byId, categoryModel.currentId())
         .then(function () {
-
-
             eventManager.attachShowSection(context);
             eventManager.attachAddSection(context);
 
@@ -30,6 +28,9 @@
     }
 
     function add(context) {
+        var sectionId = context.params["sectionId"];
+        sectionModel.currentId(sectionId);
+        categoryModel.currentId(+context.params["categoryId"]);
         if (appManager.checkIfLogged() === false) {
             toastr.warning('You must be logged in to add sections');
         }
@@ -49,14 +50,14 @@
                             .then(function () {
                                 var id = categoryModel.currentId() ? categoryModel.currentId() : 1;
                                 categoryModel.currentId(id);
-                                console.log(id);
                                 context.redirect("/#/category/" + categoryModel.currentId());
+                                toastr.success('Successfully added new category ' + newSection.Name);
                             }, function (err) {
-                                alert(err);
+                                toastr.error("Invalid data");
                             });
                     });
                 }, function (err) {
-                    alert(err);
+                    
                 });
         }
 
