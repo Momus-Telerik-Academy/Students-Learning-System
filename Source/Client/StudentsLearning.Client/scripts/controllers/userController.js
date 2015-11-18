@@ -59,23 +59,28 @@
                         Password: $(USER_CONSTANTS.TB_PASSWORD).val()
                     };
 
-                    console.log(user);
-
-                    userModel.login(user)
+                    if ($("#tb-username").val() === "") {
+                        toastr.warning('Username field cannot be empty');
+                    }
+                    else if ($(USER_CONSTANTS.TB_PASSWORD).val() === "") {
+                        toastr.warning('Password field cannot be empty');
+                    }
+                    else {
+                        userModel.login(user)
                         .then(function (res) {
-                            console.log(res);
                             localStorage.setItem(USER_CONSTANTS.LOCAL_STORAGE_TOKEN, res.access_token);
                             localStorage.setItem(USER_CONSTANTS.LOCAL_STORAGE_USERNAME, res.userName);
 
                             appManager.toggleUserState();
 
                             context.redirect("/#/");
-                            toastr.success('Successful login');
+                            toastr.success('Welcome back ' + res.userName + '!');
                         },
                             function (err) {
                                 toastr.error('Invalid username or password');
                             });
-                    return false;
+                        return false;
+                    }
                 });
 
             }, function (err) {

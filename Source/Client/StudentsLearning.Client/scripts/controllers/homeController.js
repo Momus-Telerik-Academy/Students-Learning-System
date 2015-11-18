@@ -2,7 +2,7 @@
 
 
     function showHome(context) {
-        toastr.options.progressBar = true;
+        //toastr.options.progressBar = true;
         toastr.options.closeButton = true;
         var categories;
         notificationController.init();
