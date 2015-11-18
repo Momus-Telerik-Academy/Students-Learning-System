@@ -33,29 +33,18 @@
             }
 
             element.text("Log Out");
-            element.attr("href", "/#/logout");
 
-        } else {
+            element.attr("href", "#/logout");
 
-            if (state.indexOf("In") == -1) {
-                element.text("Log In");
-                element.attr("href", "/#/login");
-            }
+        } else if (state.indexOf("In") == -1) {
+            element.text("Log In");
+            element.attr("href", "/#/login");
         }
-
-
-    }
-
-    function preloadCategory() {
-        var promise = new Promise(function (resolve, reject) {
-           categoriesController.byId;
-        });
-        return promise;
     }
 
     return {
         loadView: loadView,
-        toggleUserState: toggleUserState,
-        preloadCategory: preloadCategory
+        toggleUserState: toggleUserState
+
     };
 }();
