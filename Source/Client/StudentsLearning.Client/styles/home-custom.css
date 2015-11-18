@@ -1,8 +1,14 @@
-﻿#main-content { display: inline; }
+﻿#main-content {
+    display: inline;
+}
 
-#contact { background-color: #C2BCBC; }
+#contact {
+    background-color: #C2BCBC;
+}
 
-#mainNav { background-color: #4B4340; }
+#mainNav {
+    background-color: #4B4340;
+}
 
 /*TODO: move*/
 
@@ -16,15 +22,19 @@
     width: 88%;
 }
 
-#category-content .section { font: #ffffff; }
+    #category-content .section {
+        font: #ffffff;
+    }
 
-#category-content a {
-    color: #fff;
-    text-decoration: none;
-    /*width: 20%;*/
-}
+    #category-content a {
+        color: #fff;
+        text-decoration: none;
+        /*width: 20%;*/
+    }
 
-#category-content h2 { color: #fff; }
+    #category-content h2 {
+        color: #fff;
+    }
 
 .topic-box {
     display: inline-block;
@@ -32,7 +42,9 @@
     width: 20%;
 }
 
-#categories a { text-decoration: none; }
+#categories a {
+    text-decoration: none;
+}
 
 #add-category {
     height: 80%;
@@ -42,7 +54,9 @@
     width: 100%;
 }
 
-.with-header-bg span { color: #fff; }
+.with-header-bg span {
+    color: #fff;
+}
 
 .add-category div {
     display: inline-block;
@@ -50,8 +64,8 @@
     position: relative;
 }
 
-.with-header-bg, .with-education, .with-header-library, .with-header-hall {
-    background: url('../images/header.jpg') no-repeat center center fixed; 
+.with-header-bg, .with-education, .with-header-library, .with-header-hall, .with-header-book, .with-header-university {
+    background: url('../images/header.jpg') no-repeat center center fixed;
     background-size: cover;
     height: 100%;
     width: 100%;
@@ -61,11 +75,24 @@
     background-image: url('../images/education.jpg');
     color: #fff;
 }
+
 .with-header-library {
     background-image: url('../images/library.jpg');
 }
+
 .with-header-hall {
     background-image: url('../images/hall.jpg');
+}
+
+.with-header-book {
+    background-image: url('../images/book.jpg');
+}
+
+.with-header-university {
+    background-image: url('../images/university.jpg');
+}
+#main-heading {
+    background-color: rgba(0,0,0,0.5);
 }
 /*.white {
     color: #FFF;
@@ -74,4 +101,6 @@
     background-color: #000;
     opacity: 0.7;
 }
-#wrapper-sections { /*width: 100%;*/ }
+
+#wrapper-sections { /*width: 100%;*/
+}
