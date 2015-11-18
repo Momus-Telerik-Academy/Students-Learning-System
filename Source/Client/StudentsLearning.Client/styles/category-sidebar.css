@@ -34,8 +34,6 @@ html { height: 100%; }
     border: none;
     display: inline-table;
     height: 100%;
-    left: 220px;
-    margin-left: -220px;
     overflow-x: hidden;
     overflow-y: auto;
     position: absolute;

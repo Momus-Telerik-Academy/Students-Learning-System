@@ -3,18 +3,25 @@
     function byId(context) {
         var topicId = context.params['topicId'];
         categoryModel.currentId(+context.params['categoryId']);
-       
-        console.log('here');
-        appManager.loadView("category", context, false, categoryModel.getById, categoryModel.currentId())
+        sectionModel.currentId(+context.params['sectionId'])
+
+        appManager.loadView("category", context, false, categoryModel.byId, categoryModel.currentId())
        .then(function () {
-           return true; 
+           sidebarController.config;
+           $(".btn-section-show").on("click", function (e) {
+               context.redirect('/#/category/' + categoryModel.currentId() + '/sections/' + $(e.currentTarget).attr("id"));
+           });
+
+           $(".btn-section-add").on("click", function () {
+               context.redirect("/#/add/section");
+           });
+           return appManager.loadView("section", context, Constants.CATEGORY_CONTENT_WRAPPER, sectionModel.getById, sectionModel.currentId());;
        })
         .then(function () {
             return appManager.loadView('topic', context, Constants.CATEGORY_CONTENT_WRAPPER, topicModel.byId, topicId);
         })
         .then(function (data) {
             topicModel.Properties = data;
-
             $('#btn-comment').on('click', function () {
                 var comment = $('#tb-comment').val();
                 commentModel.add({ content: comment, topicid: topicModel.currentId() })
@@ -34,12 +41,13 @@
         console.log("clicked");
         appManager.loadView("add-topic", context, Constants.CATEGORY_CONTENT_WRAPPER)
             .then(function (res) {
-                var formDataFile;
-                $("#add-example").on("click", function () {
+                $("#add-example").on("click", function (e) {
+                    e.preventDefault();
                     $("#topic-examples").load("partials/add-example.html");
                 });
 
                 $("#btn-topic-add").on("click", function (e) {
+                    e.preventDefault();
                     console.log("clickedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
                     var newExample = {
@@ -63,25 +71,23 @@
                         ]
                     };
 
-                    formDataFile = new FormData();
-                    var opmlFile = $('#opmlFile')[0];
-                    formDataFile.append("opmlFile", opmlFile.files[0]);
-
-                    console.log(newTopic);
                     topicModel.add(newTopic)
                         .then(function (id) {
                             // var id = topicModel.currentId() ? topicModel.currentId() : 1;
                             topicModel.currentId(id);
-                            console.log(id);
-                            uploadController.upload(id, formDataFile);
-                            context.redirect("/#/topics/" + topicModel.currentId());
+                            uploadController.upload(id);
+
                         }, function (err) {
                             console.log(err);
+                        }).then(function () {
+                            notificationController.publish('new topic added');
                         });
+
                 });
             }, function (err) {
                 //console.log(err);
             });
+
     }
 
     function edit(context) {

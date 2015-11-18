@@ -4,9 +4,18 @@
         console.log('in section');
         var sectionId = context.params["sectionId"];
         sectionModel.currentId(sectionId);
+        categoryModel.currentId(+context.params["categoryId"]);
 
-        appManager.loadView("category", context, false, categoryModel.getById, +context.params["categoryId"])
+        appManager.loadView("category", context, false, categoryModel.byId, categoryModel.currentId())
         .then(function () {
+            console.log(+context.params["categoryId"]);
+            $(".btn-section-show").on("click", function (e) {
+                context.redirect('/#/category/' + categoryModel.currentId() + '/sections/' + $(e.currentTarget).attr("id"));
+            });
+
+            $(".btn-section-add").on("click", function () {
+                context.redirect("/#/add/section");
+            });
             return appManager.loadView("section", context, Constants.CATEGORY_CONTENT_WRAPPER, sectionModel.getById, sectionId);
         })
        

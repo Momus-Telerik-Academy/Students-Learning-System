@@ -1,9 +1,12 @@
-﻿blockquote { border-left: none }
+﻿blockquote {
+    border-left: none;
+}
 
-.quote-badge { background-color: rgba(0, 0, 0, 0.2); }
+.quote-badge {
+    background-color: rgba(0, 0, 0, 0.2);
+}
 
 .quote-box {
-    
     background-color: #4ADFCC;
     border-radius: 17px;
     box-shadow: 2px 2px 2px 2px #E0E0E0;
@@ -12,20 +15,18 @@
     margin-top: 25px;
     overflow: hidden;
     padding-top: -100px;
-    width: 50%;    
+    width: 50%;
 }
 
 .quotation-mark {
-    
     color: white;
     font-family: "Times New Roman", Georgia, Serif;
     font-size: 50px;
     font-weight: bold;
-    margin-top: -10px;    
+    margin-top: -10px;
 }
 
 .quote-text {
-    
     font-size: 19px;
     margin-top: -55px;
 }
@@ -39,4 +40,61 @@
     width: 90%;
 }
 
-.topics-container-custom .row { color: #fff; }
+.topics-container-custom .row {
+    color: #fff;
+    margin:0;   
+}
+.topics-container-custom {
+ margin-left: -20px;
+ background: #fff;
+}
+
+iframe {
+    border: none;
+    width: 600px;
+}
+
+.opacity-bg {
+    opacity: 0.3;
+}
+
+.video-bg {
+    background: #000;
+}
+
+.video-wrapper {
+    background: #171514;
+    text-align: center;
+}
+hr {
+margin:0;
+}
+
+#title-wrapper{
+    background: #4B4340;
+    margin: 0 0 15px;
+    border-bottom: 4px solid #f05f40;
+}
+
+#topic-content-box{
+        height: 340px;
+    background: #4B4340;
+    color: white;
+    margin: 25px 0;
+    border-bottom: 3px solid #f05f40;
+    border-top: 3px solid #f05f40;
+     width: 98%;
+    overflow-y: scroll;
+}
+#materials-examples-wrapper{
+    background: #4B4340;
+}
+#materials-examples-wrapper ul li a {
+    color: #f05f40;
+}
+
+.comments{
+    overflow-y: scroll;
+    height: 400px;
+    width: 98%;
+}

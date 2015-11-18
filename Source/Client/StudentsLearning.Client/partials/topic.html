@@ -1,27 +1,27 @@
 ﻿<div class="topics-container-custom">
-    <div class="row">
+    <div class="row" id="title-wrapper">
         <h2>{{Title}}</h2>
         <a class="btn btn-info" href="/#/topic/edit/{{Id}}">
             <i class="fa fa-pencil-square-o"></i>
         </a>
     </div>
-    <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;" />
-    <div class="row">
-        <div class="col-md-4">
-            <iframe width="480" height="360" src="https://www.youtube.com/embed/{{VideoId}}?enablejsapi=1&version=3" enablejsapi="1" allowfullscreen></iframe>
-        </div>
-        <div class="col-md-8">
-            {{Content}}
-
-        </div>
-
+    <hr style="border-color: #fff; max-width: 100%;" />
+    <div class="video-wrapper">
+        <iframe width="480" height="360" src="https://www.youtube.com/embed/{{VideoId}}?enablejsapi=1&version=3" enablejsapi="1" allowfullscreen></iframe>
     </div>
-    <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;" />
-    <div class="row">
-        <div class="col-md-6">
+    <div class="opacity-bg video-bg"></div>
+
+    <hr style="border-color: #fff; max-width: 100%;" />
+
+    <div data-spy="scroll" class="scrollable" id="topic-content-box">
+        {{Content}}
+    </div>
+
+    <div class="row" id="materials-examples-wrapper">
+        <div class="col-md-5">
             <ul class="materials">
                 <h4>Materials</h4>
-                <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;" />
+                <hr style="border-color: #fff; max-width: 80%;" />
                 {{#each ZipFiles}}
                 <li style="list-style-type:none">
                     <a target="_blank" href="https://drive.google.com/file/d/{{this.DbName}}/view?pli=1"><span class="glyphicon glyphicon-download-alt"></span></a>
@@ -30,16 +30,24 @@
                 {{/each}}
             </ul>
         </div>
-        <div class="col-md-6 examples">
-            {{#each this.Examples}}
-            <h3>{{Description}}</h3>
-            <div>{{Content}}</div>
-            {{/each}}
+        <div class="col-md-7 examples">
+            <ul class="nav nav-tabs">
+                {{#each this.Examples}}
+                <li><a href="#{{Id}}" data-toggle="tab">{{Description}}</a></li>
+                {{/each}}
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                {{#each this.Examples}}
+                <div class="tab-pane fade active in" id={{Id}}>
+                    <p>{{Content}}</p>
+                </div>
+                {{/each}}
+            </div>
         </div>
     </div>
     <div class="row">
 
-        <div class="col-md-9 comments">
+        <div class="col-md-12 comments">
             <div class="form-horizontal comments-bg">
             </div>
             <div>

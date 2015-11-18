@@ -1,20 +1,21 @@
 ﻿var uploadController = (function () {
 
-    function upload(id, formDataFile) {
-
+    function upload(id, file) {
+        console.log('upload');
+        var formDataFile = file;
         if (!formDataFile) {
             var formData = new FormData();
             var opmlFile = $('#opmlFile')[0];
+            console.log(opmlFile);
+            if (!opmlFile || !opmlFile.files[0]) {
+                return false;
+            }
 
             formData.append("opmlFile", opmlFile.files[0]);
             formDataFile = formData;
+           
         }
-        console.log(formData);
-        console.log(opmlFile.files[0]);
-        if (!opmlFile.files[0]) {
-            return false;
-        }
-
+        
         $.ajax({
             url: 'http://localhost:56350/api/topics/upload/' + id,
             data: formDataFile,
