@@ -6,10 +6,15 @@
     using System.Web.Http;
     using System.Web.Http.Cors;
 
+    using AutoMapper;
+
     using StudentsLearning.Data.Models;
     using StudentsLearning.Server.Api.Models;
     using StudentsLearning.Server.Api.Models.SectionTransferModels;
     using StudentsLearning.Services.Data.Contracts;
+    using System.Collections.Generic;
+
+    using StudentsLearning.Server.Api.Infrastructure.Filters;
 
     #endregion
 
@@ -26,53 +31,33 @@
 
         public IHttpActionResult Get()
         {
-            var sections =
-                this.sections.All()
-                    .Select(x => new SectionResponsetModel { Name = x.Name, Description = x.Description })
-                    .ToList();
+            var sections = this.sections.All().ToList();
 
-            return this.Ok(sections);
+            var response =
+                 Mapper.Map<IEnumerable<Section>, IEnumerable<SectionResponseMinifiedModel>>(sections);
+
+            return this.Ok(response);
         }
 
         public IHttpActionResult Get(int id)
         {
-            var sectionResult =
-                this.sections.GetById(id)
-                    .Select(
-                        x =>
-                        new SectionResponsetModel
-                            {
-                                Name = x.Name, 
-                                Description = x.Description, 
-                                Topics =
-                                    x.Topics.Select(
-                                        t =>
-                                        new TopicResponseMinifiedModel
-                                            {
-                                                Id = t.Id, 
-                                                Title = t.Title
-                                            }).ToList()
-                            })
-                    .FirstOrDefault();
+            Section section = this.sections.GetById(id).FirstOrDefault();
+            SectionResponseModel response = Mapper.Map<Section, SectionResponseModel>(section);
 
-            return this.Ok(sectionResult);
+            return this.Ok(response);
         }
 
-        // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
+        [ValidateModelState]
+        [CheckNull]
         public IHttpActionResult Put(int id, [FromBody] SectionRequestModel updates)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
             var newSection = new Section
-                                 {
-                                     Id = id, 
-                                     Name = updates.Name, 
-                                     Description = updates.Description, 
-                                     CategoryId = updates.CategoryId
-                                 };
+            {
+                Id = id,
+                Name = updates.Name,
+                Description = updates.Description,
+                CategoryId = updates.CategoryId
+            };
 
             this.sections.Update(newSection);
 
@@ -80,19 +65,11 @@
         }
 
         [HttpPost]
+        [ValidateModelState]
+        [CheckNull]
         public IHttpActionResult Post([FromBody] SectionRequestModel sectionModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
-            var section = new Section
-                              {
-                                  Name = sectionModel.Name, 
-                                  Description = sectionModel.Description, 
-                                  CategoryId = sectionModel.CategoryId
-                              };
+            var section = Mapper.Map<SectionRequestModel, Section>(sectionModel);
 
             this.sections.Add(section);
             return this.Ok(section);

@@ -1,4 +1,4 @@
-﻿var topicModel = (function() {
+﻿var topicModel = (function () {
     var categoryId;
 
     var Properties = {
@@ -20,7 +20,9 @@
     }
 
     function add(topic) {
-        return ajaxRequester.post("api/Topics", { data: topic });
+        var headers = {};
+        headers.Authorization = 'Bearer ' + localStorage.getItem(USER_CONSTANTS.LOCAL_STORAGE_TOKEN);
+        return ajaxRequester.post("api/Topics", { data: topic, headers: headers });
     }
 
     function byId(id) {
@@ -28,7 +30,9 @@
     }
 
     function edit(id, topic) {
-        return ajaxRequester.put("api/topics/" + id, { data: topic });
+        var headers = {};
+        headers.Authorization = 'Bearer ' + localStorage.getItem(USER_CONSTANTS.LOCAL_STORAGE_TOKEN);
+        return ajaxRequester.put("api/topics/" + id, { data: topic , headers:headers});
     }
 
     return {

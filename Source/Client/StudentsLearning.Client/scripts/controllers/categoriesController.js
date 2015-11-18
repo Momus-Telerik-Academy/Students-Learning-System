@@ -43,7 +43,9 @@
                 $("#btn-category-add").on("click", function() {
                     console.log($("#tb-category-add").val());
                     categoryModel.add({ name: $("#tb-category-add").val() })
-                        .then(function() {
+                        .then(function () {
+                            notificationController.publish('new category added');
+
                             context.redirect("/#/");
                         });
                 });

@@ -1,14 +1,11 @@
 ﻿namespace StudentsLearning.Server.Api.Models.CommentTransferModels
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class CommentRequestModel
     {
-        public string UserId { get; set; }
-
+        [Required]
         public string Content { get; set; }
-
-        public int Likes { get; set; }
-
-        public int Dislikes { get; set; }
 
         public int TopicId { get; set; }
     }

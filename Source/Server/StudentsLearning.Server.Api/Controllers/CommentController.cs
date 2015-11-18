@@ -2,17 +2,19 @@
 {
     #region
 
-    using System.Linq;
     using System.Web.Http;
     using System.Web.Http.Cors;
 
+    using AutoMapper;
+    using Infrastructure.Filters;
+    using Microsoft.AspNet.Identity;
     using StudentsLearning.Data.Models;
     using StudentsLearning.Server.Api.Models.CommentTransferModels;
     using StudentsLearning.Services.Data.Contracts;
 
     #endregion
 
-    [RoutePrefix("api/Commnets")]
+    [RoutePrefix("api/Comments")]
     [EnableCors("*", "*", "*")]
     public class CommentsController : ApiController
     {
@@ -21,85 +23,24 @@
         public CommentsController(ICommentService commnentService)
         {
             this.commnents = commnentService;
-        }
 
-        public IHttpActionResult Get()
+        }
+        /* Body for the comment post
         {
-            var comments =
-                this.commnents.All()
-                    .Select(
-                        x =>
-                        new CommentResponseModel
-                            {
-                                UserId = x.UserId, 
-                                Content = x.Content, 
-                                Dislikes = x.Dislikes, 
-                                Likes = x.Likes, 
-                                TopicId = x.TopicId
-                            })
-                    .ToList();
 
-            return this.Ok(comments);
-        }
+ "content":"aaaaaaaaaa",
+ "topicId":"1"
+ }*/
 
-        public IHttpActionResult Get(int id)
-        {
-            var commentResult =
-                this.commnents.GetById(id)
-                    .Select(
-                        x =>
-                        new CommentResponseModel
-                            {
-                                UserId = x.UserId, 
-                                Content = x.Content, 
-                                Likes = x.Likes, 
-                                Dislikes = x.Dislikes, 
-                                TopicId = x.TopicId
-                            })
-                    .FirstOrDefault();
-
-            return this.Ok(commentResult);
-        }
-
-        // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
-        public IHttpActionResult Put(int id, [FromBody] CommentRequestModel updates)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
-            var newComment = new Comment
-                                 {
-                                     Id = id, 
-                                     UserId = updates.UserId, 
-                                     Content = updates.Content, 
-                                     Dislikes = updates.Dislikes, 
-                                     Likes = updates.Likes, 
-                                     TopicId = updates.TopicId
-                                 };
-
-            this.commnents.Update(newComment);
-
-            return this.Ok(newComment);
-        }
-
+        [Authorize]
         [HttpPost]
+        [ValidateModelState]
+        [CheckNull]
         public IHttpActionResult Post([FromBody] CommentRequestModel commentModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
-            var comment = new Comment
-                              {
-                                  UserId = commentModel.UserId, 
-                                  Content = commentModel.Content, 
-                                  Likes = 0, 
-                                  Dislikes = 0, 
-                                  TopicId = commentModel.TopicId
-                              };
+            var userId = this.User.Identity.GetUserId();
+            var comment = Mapper.Map<CommentRequestModel, Comment>(commentModel);
+            comment.UserId = userId;
 
             this.commnents.Add(comment);
             return this.Ok(comment);

@@ -79,6 +79,19 @@ namespace StudentsLearning.Data.Migrations
                                                                     "some content"
                                                             }
                                                     }, 
+                                            ZipFiles = new HashSet<ZipFile>
+                                            {
+                                                new ZipFile
+                                                {
+                                                    OriginalName = "Recursion.zip",
+                                                    DbName = "0B9xztR8jvpkhUlAwQ213aDJtZXc"
+                                                },
+                                                new ZipFile
+                                                {
+                                                    OriginalName = "Friday13.LiveDemo.zip",
+                                                    DbName = "0B9xztR8jvpkhYTlpb2dxeHZwd2M"
+                                                }
+                                            },
                                             VideoId = "Xr21-vMs_XM"
                                         }
                                 }

@@ -16,6 +16,7 @@ namespace StudentsLearning.Server.Api
     using Microsoft.Owin.Cors;
 
     using Owin;
+    using System.Reflection;
 
     #endregion
 
@@ -25,6 +26,7 @@ namespace StudentsLearning.Server.Api
         {
             //var config = new HttpConfiguration();
             //WebApiConfig.Register(config);
+            AutoMapperConfig.RegisterMappings(Assembly.Load("StudentsLearning.Server.Api"));
             app.UseCors(CorsOptions.AllowAll);
             this.ConfigureAuth(app);
             //app.UseWebApi(config);

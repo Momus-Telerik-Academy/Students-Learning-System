@@ -5,48 +5,86 @@
             <i class="fa fa-pencil-square-o"></i>
         </a>
     </div>
-    <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;"/>
+    <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;" />
     <div class="row">
         <div class="col-md-4">
             <iframe width="480" height="360" src="https://www.youtube.com/embed/{{VideoId}}?enablejsapi=1&version=3" enablejsapi="1" allowfullscreen></iframe>
         </div>
-        <div class="col-md-8">{{Content}}</div>
-    </div>
-    <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;"/>
-    <div class="row">
-        <div class="col-md-5 comments">
-            <div class="form-horizontal comments-bg">
-            </div>
-            Comments:
-            {{#each this.Comments}}
-            <div class="container">
-                <blockquote class="quote-box">
-                    <p class="quotation-mark">
-                        “
-                    </p>
-                    <p class="quote-text">
-                        {{Content}}
-                    </p>
-                    <hr>
-                    <div class="blog-post-actions">
-                        <p class="blog-post-bottom pull-left">
-                            {{Author}}
-                        </p>
-                        <p class="blog-post-bottom pull-right">
-                            <span class="badge quote-badge">{{Likes}}</span>  ❤
-                            <span class="badge quote-badge">{{Dislikes}}</span>
-                        </p>
-                    </div>
-                </blockquote>
-            </div>
-            {{/each}}
+        <div class="col-md-8">
+            {{Content}}
+
         </div>
 
-        <div class="col-md-7 examples">
+    </div>
+    <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;" />
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="materials">
+                <h4>Materials</h4>
+                <hr style="border-color: #fff; margin-left: inherit; max-width: 80%;" />
+                {{#each ZipFiles}}
+                <li style="list-style-type:none">
+                    <a target="_blank" href="https://drive.google.com/file/d/{{this.DbName}}/view?pli=1"><span class="glyphicon glyphicon-download-alt"></span></a>
+                    <span>{{this.OriginalName}}</span>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col-md-6 examples">
             {{#each this.Examples}}
             <h3>{{Description}}</h3>
             <div>{{Content}}</div>
             {{/each}}
         </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-9 comments">
+            <div class="form-horizontal comments-bg">
+            </div>
+            <div>
+                Comments:
+                {{#each this.Comments}}
+                <div class="container">
+                    <blockquote class="quote-box">
+                        <p class="quotation-mark">
+                            “
+                        </p>
+                        <p class="quote-text">
+                            {{Content}}
+                        </p>
+                        <hr>
+                        <div class="blog-post-actions">
+                            <p class="blog-post-bottom pull-left">
+                                {{Username}}
+                            </p>
+                            <p class="blog-post-bottom pull-right">
+                                <span class="badge quote-badge">{{Likes}}</span>  ❤
+                                <span class="badge quote-badge">{{Dislikes}}</span>
+                            </p>
+                        </div>
+                    </blockquote>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-10">
+                <input id="tb-comment" class="form-control col-md-12" placeholder="comment" style="width: 50%;">
+            </div>
+            <div class="col-lg-3">
+                <a class="btn btn-primary" id="btn-comment">Comment</a>
+            </div>
+
+
+        </div>
+        <div class="col-md-3">
+            <h6>Contributers</h6>
+            {{#each Contributors}}
+            <span class="label">{{UserName}}</span>
+            {{/each}}
+        </div>
+
     </div>
 </div>

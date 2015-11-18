@@ -249,11 +249,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\DislikesController.cs" />
+    <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Filters\CheckNullAttribute.cs" />
+    <Compile Include="Infrastructure\Filters\ValidateModelStateAttribute.cs" />
     <Compile Include="Infrastructure\Mapping\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Models\AccountBindingModels\AddExternalLoginBindingModel.cs" />
@@ -274,7 +278,8 @@
     <Compile Include="Models\ExampleTransferModels\ExampleRequestModel.cs" />
     <Compile Include="Models\ExampleTransferModels\ExampleResponseModel.cs" />
     <Compile Include="Models\SectionTransferModels\SectionRequestModel.cs" />
-    <Compile Include="Models\SectionTransferModels\SectionResponsetModel.cs" />
+    <Compile Include="Models\SectionTransferModels\SectionResponseMinifiedModel.cs" />
+    <Compile Include="Models\SectionTransferModels\SectionResponseModel.cs" />
     <Compile Include="Models\TopicTransferModels\TopicRequestModel.cs" />
     <Compile Include="Models\TopicTransferModels\TopicResponseMinifiedModel.cs" />
     <Compile Include="Models\TopicTransferModels\TopicResponseModel.cs" />

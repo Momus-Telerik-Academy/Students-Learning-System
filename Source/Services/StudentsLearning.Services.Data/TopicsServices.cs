@@ -25,18 +25,13 @@
             this.contributors = contributors;
         }
 
-        public void Add(Topic topic, ICollection<ZipFile> files, ICollection<Example> examples, User contributor)
+        public void Add(Topic topic, User contributor)
         {
-            foreach (var example in examples)
-            {
-                topic.Examples.Add(example);
-            }
-
-            foreach (var file in files)
-            {
-                topic.ZipFiles.Add(file);
-            }
-
+            //foreach (var example in examples)
+            //{
+            //    topic.Examples.Add(example);
+            //}
+                       
             topic.Contributors.Add(contributor);
             this.topics.Add(topic);
             this.topics.SaveChanges();

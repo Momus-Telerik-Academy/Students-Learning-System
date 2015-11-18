@@ -10,6 +10,14 @@
     using AutoMapper;
 
     using StudentsLearning.Server.Api.Infrastructure.Mapping;
+    using Models.ExampleTransferModels;
+    using Data.Models;
+    using Models.TopicTransferModels;
+    using Models.CommentTransferModels;
+    using Models.ZipFileTransferModels;
+    using Models.ContributorTransferModels;
+    using Models.SectionTransferModels;
+    using Models;
 
     #endregion
 
@@ -25,6 +33,26 @@
 
             LoadStandardMappings(types);
             LoadCustomMappings(types);
+            ConfigureCustomMappings();
+        }
+
+        private static void ConfigureCustomMappings()
+        {
+            // Request -> Db
+            Mapper.CreateMap<SectionRequestModel, Section>();
+            Mapper.CreateMap<TopicRequestModel, Topic>();
+            Mapper.CreateMap<ExampleRequestModel, Example>();
+            Mapper.CreateMap<CommentRequestModel, Comment>();
+
+            // Db -> Response
+            Mapper.CreateMap<Topic, TopicResponseModel>();
+            Mapper.CreateMap<Topic, TopicResponseMinifiedModel>();
+            Mapper.CreateMap<Section, SectionResponseModel>();
+            Mapper.CreateMap<Section, SectionResponseMinifiedModel>();
+            Mapper.CreateMap<Comment, CommentResponseModel>();
+            Mapper.CreateMap<Example, ExampleResponseModel>();
+            Mapper.CreateMap<ZipFile, ZipFileResponseModel>();
+            Mapper.CreateMap<User, ContributorResponseModel>();
         }
 
         private static void LoadStandardMappings(IEnumerable<Type> types)
