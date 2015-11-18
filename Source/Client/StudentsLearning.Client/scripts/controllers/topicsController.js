@@ -87,65 +87,70 @@
 
     function edit(context) {
         var topicId = context.params['id'];
-        appManager.loadView('edit-topic', context, Constants.CATEGORY_CONTENT_WRAPPER, topicModel.byId, topicId)
-        .then(function () {
+        if (appManager.checkIfLogged() === false) {
+            toastr.warning('You must be logged in to edit topics');
+        }
+        else {
+            appManager.loadView('edit-topic', context, Constants.CATEGORY_CONTENT_WRAPPER, topicModel.byId, topicId)
+            .then(function () {
 
-            $saveBtn = $('#btn-edit-topic-save');
+                $saveBtn = $('#btn-edit-topic-save');
 
-            $('.btn-edit-topic').on('click', function (e) {
-                var $target = $(e.currentTarget),
-                $parent = $target.parent(),
-                targetId = $target.attr('id'),
-                editBtnId = 'btn-change-topic-' + targetId,
-                inputId = '.tb-topic-edit-' + targetId;
+                $('.btn-edit-topic').on('click', function (e) {
+                    var $target = $(e.currentTarget),
+                    $parent = $target.parent(),
+                    targetId = $target.attr('id'),
+                    editBtnId = 'btn-change-topic-' + targetId,
+                    inputId = '.tb-topic-edit-' + targetId;
 
-                // $parent, itemName, properties)
-                htmlElementCreator.createForm($parent, 'tb-topic-edit', [targetId]);
-                $('.tb-topic-edit-content').attr('maxlength', '500');
-                //  htmlElementCreator.createButton($parent, 'Ok', editBtnId);
+                    // $parent, itemName, properties)
+                    htmlElementCreator.createForm($parent, 'tb-topic-edit', [targetId]);
+                    $('.tb-topic-edit-content').attr('maxlength', '500');
+                    //  htmlElementCreator.createButton($parent, 'Ok', editBtnId);
 
+                });
+
+                $saveBtn.on('click', function () {
+
+
+                    uploadController.upload(topicModel.currentId());
+                    //var formData = new FormData();
+
+                    //var opmlFile = $('#opmlFile')[0];
+
+                    //formData.append("opmlFile", opmlFile.files[0]);
+                    // topicModel.Properties.ZipFiles.push(formData);
+
+                    // editing already ezisting examples
+                    var updatedExamplesContent = $('.tb-topic-edit-example-content'),
+                        updatedExamplesDescription = $('.tb-topic-edit-description'),
+                        examples = $('.example');
+                    updatedExamples = [];
+
+
+                    for (var i = 0; i < examples.length; i++) {
+
+                        updatedExamples.push({
+                            Id: topicModel.Properties.Examples[i].Id,
+                            Content: $($(examples[i]).find('.tb-topic-edit-example-content')).val() || topicModel.Properties.Examples[i].Content,
+                            Description: $($(examples[i]).find('.tb-topic-edit-description')).val() || topicModel.Properties.Examples[i].Description
+                        })
+                    }
+
+                    var updatedTopic = {
+                        Title: topicModel.Properties.Title,
+                        Content: $('.tb-topic-edit-content').val() || topicModel.Properties.Content,
+                        VideoId: $('.tb-topic-edit-video-url').val() || topicModel.Properties.VideoId,
+                        SectionId: sectionModel.currentId(), // or topicModel.SectionId
+                        //  Zip: topicModel.Properties.ZipFiles,
+                        Examples: updatedExamples
+                    }
+
+                    topicModel.edit(topicModel.currentId(), updatedTopic);
+                    console.log(updatedTopic);
+                });
             });
-
-            $saveBtn.on('click', function () {
-
-
-                uploadController.upload(topicModel.currentId());
-                //var formData = new FormData();
-
-                //var opmlFile = $('#opmlFile')[0];
-
-                //formData.append("opmlFile", opmlFile.files[0]);
-                // topicModel.Properties.ZipFiles.push(formData);
-
-                // editing already ezisting examples
-                var updatedExamplesContent = $('.tb-topic-edit-example-content'),
-                    updatedExamplesDescription = $('.tb-topic-edit-description'),
-                    examples = $('.example');
-                updatedExamples = [];
-
-
-                for (var i = 0; i < examples.length; i++) {
-
-                    updatedExamples.push({
-                        Id: topicModel.Properties.Examples[i].Id,
-                        Content: $($(examples[i]).find('.tb-topic-edit-example-content')).val() || topicModel.Properties.Examples[i].Content,
-                        Description: $($(examples[i]).find('.tb-topic-edit-description')).val() || topicModel.Properties.Examples[i].Description
-                    })
-                }
-
-                var updatedTopic = {
-                    Title: topicModel.Properties.Title,
-                    Content: $('.tb-topic-edit-content').val() || topicModel.Properties.Content,
-                    VideoId: $('.tb-topic-edit-video-url').val() || topicModel.Properties.VideoId,
-                    SectionId: sectionModel.currentId(), // or topicModel.SectionId
-                    //  Zip: topicModel.Properties.ZipFiles,
-                    Examples: updatedExamples
-                }
-
-                topicModel.edit(topicModel.currentId(), updatedTopic);
-                console.log(updatedTopic);
-            });
-        });
+        }
     }
 
     return {
