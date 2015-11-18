@@ -29,55 +29,59 @@
     }
 
     function add(context) {
-        console.log("clicked");
-        appManager.loadView("add-topic", context, Constants.CATEGORY_CONTENT_WRAPPER)
-            .then(function (res) {
-                $("#add-example").on("click", function (e) {
-                    e.preventDefault();
-                    $("#topic-examples").load("partials/add-example.html");
+        if (appManager.checkIfLogged() === false) {
+            toastr.warning('You must be logged in to add topics');
+        }
+        else {
+            appManager.loadView("add-topic", context, Constants.CATEGORY_CONTENT_WRAPPER)
+                .then(function (res) {
+                    $("#add-example").on("click", function (e) {
+                        e.preventDefault();
+                        $("#topic-examples").load("partials/add-example.html");
+                    });
+
+                    $("#btn-topic-add").on("click", function (e) {
+                        e.preventDefault();
+                        console.log("clickedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
+                        var newExample = {
+                            description: $("#tb-example-description").val(),
+                            content: $("#tb-example-content").val()
+                        };
+
+                        var video_id = $("#tb-topic-video").val().split("v=")[1];
+                        var ampersandPosition = video_id.indexOf("&");
+                        if (ampersandPosition != -1) {
+                            video_id = video_id.substring(0, ampersandPosition);
+                        }
+
+                        var newTopic = {
+                            title: $("#tb-topic-title").val(),
+                            content: $("#tb-topic-content").val(),
+                            videoId: video_id,
+                            sectionId: sectionModel.currentId().toString(),
+                            examples: [
+                                newExample
+                            ]
+                        };
+
+                        topicModel.add(newTopic)
+                            .then(function (id) {
+                                // var id = topicModel.currentId() ? topicModel.currentId() : 1;
+                                topicModel.currentId(id);
+                                uploadController.upload(id);
+
+                            }, function (err) {
+                                console.log(err);
+                            }).then(function () {
+                                notificationController.publish('new topic added');
+                            });
+
+                    });
+                }, function (err) {
+                    //console.log(err);
                 });
-
-                $("#btn-topic-add").on("click", function (e) {
-                    e.preventDefault();
-                    console.log("clickedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-
-                    var newExample = {
-                        description: $("#tb-example-description").val(),
-                        content: $("#tb-example-content").val()
-                    };
-
-                    var video_id = $("#tb-topic-video").val().split("v=")[1];
-                    var ampersandPosition = video_id.indexOf("&");
-                    if (ampersandPosition != -1) {
-                        video_id = video_id.substring(0, ampersandPosition);
-                    }
-
-                    var newTopic = {
-                        title: $("#tb-topic-title").val(),
-                        content: $("#tb-topic-content").val(),
-                        videoId: video_id,
-                        sectionId: sectionModel.currentId().toString(),
-                        examples: [
-                            newExample
-                        ]
-                    };
-
-                    topicModel.add(newTopic)
-                        .then(function (id) {
-                            // var id = topicModel.currentId() ? topicModel.currentId() : 1;
-                            topicModel.currentId(id);
-                            uploadController.upload(id);
-
-                        }, function (err) {
-                            console.log(err);
-                        }).then(function () {
-                            notificationController.publish('new topic added');
-                        });
-
-                });
-            }, function (err) {
-                //console.log(err);
-            });
+        }
 
     }
 

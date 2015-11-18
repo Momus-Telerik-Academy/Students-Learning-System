@@ -52,10 +52,20 @@
         return re.test(email);
     }
 
+    function checkIfLogged() {
+        var isLogged = false;
+        if(localStorage.getItem(USER_CONSTANTS.LOCAL_STORAGE_USERNAME) && localStorage.getItem(USER_CONSTANTS.LOCAL_STORAGE_TOKEN)) {
+            isLogged = true;
+        }
+
+        return isLogged;
+    }
+
     return {
         loadView: loadView,
         toggleUserState: toggleUserState,
-        validateEmail: validateEmail
+        validateEmail: validateEmail,
+        checkIfLogged: checkIfLogged
 
     };
 }();

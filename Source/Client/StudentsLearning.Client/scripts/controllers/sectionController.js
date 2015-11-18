@@ -2,13 +2,13 @@
 
 
     function byId(context) {
-
         var sectionId = context.params["sectionId"];
         sectionModel.currentId(sectionId);
         categoryModel.currentId(+context.params["categoryId"]);
 
         appManager.loadView("category", context, false, categoryModel.byId, categoryModel.currentId())
         .then(function () {
+
 
             eventManager.attachShowSection(context);
             eventManager.attachAddSection(context);
@@ -30,31 +30,35 @@
     }
 
     function add(context) {
-        console.log("in section");
-        appManager.loadView("add-section", context, Constants.CATEGORY_CONTENT_WRAPPER)
-            .then(function (res) {
-                console.log("after app");
-                $("#btn-section-add").on("click", function (e) {
-                    console.log("click?");
-                    var newSection = {
-                        Name: $("#tb-section-name").val(),
-                        Description: $("#tb-section-description").val(),
-                        CategoryId: categoryModel.currentId()
-                    };
+        if (appManager.checkIfLogged() === false) {
+            toastr.warning('You must be logged in to add sections');
+        }
+        else {
+            appManager.loadView("add-section", context, Constants.CATEGORY_CONTENT_WRAPPER)
+                .then(function (res) {
+                    console.log("after app");
+                    $("#btn-section-add").on("click", function (e) {
+                        console.log("click?");
+                        var newSection = {
+                            Name: $("#tb-section-name").val(),
+                            Description: $("#tb-section-description").val(),
+                            CategoryId: categoryModel.currentId()
+                        };
 
-                    sectionModel.add(newSection)
-                        .then(function () {
-                            var id = categoryModel.currentId() ? categoryModel.currentId() : 1;
-                            categoryModel.currentId(id);
-                            console.log(id);
-                            context.redirect("/#/category/" + categoryModel.currentId());
-                        }, function (err) {
-                            alert(err);
-                        });
+                        sectionModel.add(newSection)
+                            .then(function () {
+                                var id = categoryModel.currentId() ? categoryModel.currentId() : 1;
+                                categoryModel.currentId(id);
+                                console.log(id);
+                                context.redirect("/#/category/" + categoryModel.currentId());
+                            }, function (err) {
+                                alert(err);
+                            });
+                    });
+                }, function (err) {
+                    alert(err);
                 });
-            }, function (err) {
-                alert(err);
-            });
+        }
 
     }
 
