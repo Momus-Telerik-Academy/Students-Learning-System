@@ -8,6 +8,7 @@
 
         appManager.loadView('home', context, false, categoryModel.all)
             .then(function () {
+                appManager.toggleUserState();
                 // set events
                 $(".btn-category-show").on("click", function (e) {
                     var target = e.currentTarget;

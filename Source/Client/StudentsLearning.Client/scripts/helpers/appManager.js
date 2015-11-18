@@ -23,6 +23,7 @@
 
     function toggleUserState() {
         var element = $("#bs-example-navbar-collapse-1").find("#login-container");
+        var elementRegister = $(".register-container");
         var state = element.text();
 
         if (localStorage.getItem(USER_CONSTANTS.LOCAL_STORAGE_USERNAME)
@@ -30,15 +31,19 @@
 
             if (state.indexOf("In") == -1) {
                 element.text("Log In");
+                elementRegister.text("Register")
             }
 
             element.text("Log Out");
-
             element.attr("href", "#/logout");
+
+            elementRegister.hide();
 
         } else if (state.indexOf("In") == -1) {
             element.text("Log In");
             element.attr("href", "/#/login");
+
+            elementRegister.show();
         }
     }
 
