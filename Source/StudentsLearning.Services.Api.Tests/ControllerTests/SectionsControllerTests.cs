@@ -1,4 +1,6 @@
-﻿namespace StudentsLearning.Services.Api.Tests.ControllerTests
+﻿using System.Linq;
+
+namespace StudentsLearning.Services.Api.Tests.ControllerTests
 {
     #region
 
@@ -12,7 +14,6 @@
     using StudentsLearning.Server.Api.Controllers;
     using StudentsLearning.Services.Data.Contracts;
     using StudentsLearning.Server.Api.Models.SectionTransferModels;
-    using StudentsLearning.Services.Data.SectionTransferModels;
 
     #endregion
 
@@ -34,8 +35,9 @@
 
             var result = controller.Get(1);
 
-            var okResult = result as OkNegotiatedContentResult<SectionResponsetModel>;
+            var okResult = result as OkNegotiatedContentResult<SectionResponseModel>;
 
+            var debug = sectionsService.All().ToList();
             Assert.IsNotNull(okResult);
         }
     }

@@ -64,7 +64,7 @@
             var result = this.categoriesService.GetById(category.Id);
 
             Assert.AreSame(result.GetType(), typeof(Category), "The returned object is not of type Category");
-            Assert.AreSame(result, null, "The returned category is null");
+            Assert.AreNotSame(result, null, "The returned category is null");
         }
 
         [Test]
