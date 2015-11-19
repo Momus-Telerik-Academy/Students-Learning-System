@@ -1,7 +1,7 @@
 ﻿var topicsController = (function () {
 
     function byId(context) {
-        var topicId = context.params['topicId'];
+        var topicId = +context.params['topicId'];
         categoryModel.currentId(+context.params['categoryId']);
         sectionModel.currentId(+context.params['sectionId'])
 

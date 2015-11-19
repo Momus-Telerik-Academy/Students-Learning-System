@@ -10,21 +10,22 @@
 
     public class CloudStorageService : ICloudStorageService
     {
-        private const string CLIENT_ID = "557664026130-pb19tq4ign0mltsev1aboc58pcvq21mc.apps.googleusercontent.com";
+        private const string CLIENT_ID = "557664026130-rq8rkcpuiq1hf3o3ej6ss36jcq693n41.apps.googleusercontent.com";
 
-        private const string CLIENT_SECRET = "BQzdej71HpYxrg0f7OujyRIC";
+        private const string CLIENT_SECRET = "u8cwoZ1Px61yrhwaLu5Ngt0X";
 
         private const string ROOT_DIRECTORY_ID = "0B9xztR8jvpkhblZiZ3lHQnlRcWc";
 
-        private const string ACCESS_TOKEN = "ya29.MQLjS-gp_GIIG2BtiztXJ9o2JHRPgvMsVk3FrnuPYZmJeFrjDSVwXG3CT1amslQxlgoc";
+        private const string ACCESS_TOKEN = "ya29.MQLEoiwFDtoo6vlV0d85swIqwgpN4HRCnQGZ9qvsWn-mJHYLeTkeUd2-OcjjqV8_2Vtb";
 
-        private const string REFRESH_TOKEN = "1/KohGyxCacRhccOjdAzKVxq0-bu7GFJSSYDa7FrdzGNtIgOrJDtdun6zK6XiATCKT";
+        private const string REFRESH_TOKEN = "1/DuoK8aCKbCQzYKrLa2XFmGvWSyiRSgZEmlWOg8dXdDLBactUREZofsF9C7PrpE-j";
 
         private DriveService service;
 
         public CloudStorageService()
         {
-            this.Service = Authentication.CreateServie("E-Academy", CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN, REFRESH_TOKEN);
+            //this.Service = Authentication.AuthenticateOauth(CLIENT_ID, CLIENT_SECRET, "E-Academy");
+             this.Service = Authentication.CreateServie("E-Academy", CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN, REFRESH_TOKEN);
             // this.CreateDirectory();
         }
 

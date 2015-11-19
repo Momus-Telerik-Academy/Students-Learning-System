@@ -2,7 +2,7 @@
 
 
     function byId(context) {
-        var sectionId = context.params["sectionId"];
+        var sectionId = +context.params["sectionId"];
         sectionModel.currentId(sectionId);
         categoryModel.currentId(+context.params["categoryId"]);
 

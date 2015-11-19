@@ -169,11 +169,20 @@ namespace StudentsLearning.Services.GoogleDrive
                     ClientId = clientId,
                     ClientSecret = clientSecret
                 },
-                Scopes = new[] { DriveService.Scope.Drive },
+                Scopes = new[]
+                {
+                    DriveService.Scope.Drive, // view and manage your files and documents
+                    DriveService.Scope.DriveAppdata, // view and manage its own configuration data
+                    DriveService.Scope.DriveAppsReadonly, // view your drive apps
+                    DriveService.Scope.DriveFile, // view and manage files created by this app
+                    DriveService.Scope.DriveMetadataReadonly, // view metadata for files
+                    DriveService.Scope.DriveReadonly, // view files and documents on your drive
+                    DriveService.Scope.DriveScripts
+                },
                 DataStore = new FileDataStore(applicationName)
             });
 
-            var credential = new UserCredential(apiCodeFlow, "zhenia.racheva@gmail.com", tokenResponse);
+            var credential = new UserCredential(apiCodeFlow, "momus.team@gmail.com", tokenResponse);
 
             var service = new DriveService(new BaseClientService.Initializer
             {
