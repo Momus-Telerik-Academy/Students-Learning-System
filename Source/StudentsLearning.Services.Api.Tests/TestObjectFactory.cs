@@ -56,6 +56,8 @@ namespace StudentsLearning.Services.Api.Tests
             }
         }.AsQueryable();
 
+
+
         private static readonly IQueryable<Topic> Topics = new List<Topic>
         {
             new Topic()
@@ -71,6 +73,30 @@ namespace StudentsLearning.Services.Api.Tests
                 Title = "nevrujbnfdrf fed"
             }
         }.AsQueryable();
+
+        private static readonly IQueryable<Comment> Comments = new List<Comment>
+        {
+            new Comment()
+            {
+                Id = 1,
+                Content = "Lorem Ipsum dor..."
+            },
+            new Comment()
+            {
+                Id = 2,
+                Content = "To be or not to be"
+            }
+        }.AsQueryable();
+
+        private static readonly IQueryable<Comment> SingleCommentAsQueriable = new List<Comment>
+        {
+            new Comment()
+            {
+                Id = 1,
+                Content = "Lorem Ipsum dor...",
+            }
+        }.AsQueryable();
+
 
         public static ICategoriesService GetCategoriesService()
         {
@@ -129,6 +155,17 @@ namespace StudentsLearning.Services.Api.Tests
             mockedTopicService.Setup(s => s.Update(It.IsAny<Topic>()));
             mockedTopicService.Setup(s => s.GetByTitle(It.IsAny<string>())).Returns(SingleTopicAsQueriable);
             return mockedTopicService.Object;
+        }
+
+        public static ICommentService GetCommentService()
+        {
+            var mock=new Mock<ICommentService>();
+
+            mock.Setup(s => s.Add(It.IsAny<Comment>()));
+            mock.Setup(s => s.All()).Returns(Comments);
+            mock.Setup(s => s.GetById(It.IsAny<int>())).Returns(SingleCommentAsQueriable);
+
+            return mock.Object;
         }
     }
 }
