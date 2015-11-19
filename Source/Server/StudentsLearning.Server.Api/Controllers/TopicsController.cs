@@ -93,6 +93,11 @@
         [CheckNull]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (this.sections.GetById(requestTopic.SectionId) == null)
             {
                 return this.BadRequest("The section id doesn't exist");
@@ -112,6 +117,11 @@
         [CheckNull]
         public IHttpActionResult Put(int id, TopicRequestModel requestTopic)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var topic = this.topics.GetById(id).FirstOrDefault();
 
             if (topic == null)

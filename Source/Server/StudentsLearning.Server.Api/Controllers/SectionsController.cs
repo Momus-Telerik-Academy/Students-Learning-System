@@ -51,6 +51,11 @@
         [CheckNull]
         public IHttpActionResult Put(int id, [FromBody] SectionRequestModel updates)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var newSection = new Section
             {
                 Id = id,

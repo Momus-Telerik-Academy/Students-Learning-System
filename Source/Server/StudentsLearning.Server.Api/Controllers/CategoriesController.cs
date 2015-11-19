@@ -48,6 +48,11 @@
         [CheckNull]
         public IHttpActionResult Put(int id, [FromBody] CategoryRequestModel updates)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var updatedCategory = this.categories.GetById(id);
 
             if (this.categories.GetId(updates.Name) != 0)
