@@ -1,4 +1,6 @@
-﻿namespace StudentsLearning.Server.Api.Models.ExampleTransferModels
+﻿using StudentsLearning.Common;
+
+namespace StudentsLearning.Server.Api.Models.ExampleTransferModels
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -10,6 +12,7 @@
         public string Description { get; set; }
 
         [Required]
+        [MaxLength(ValidationConstants.MaxTitleLength)]
         public string Content { get; set; }
 
         // public int TopicId { get; set; }
