@@ -68,14 +68,14 @@ namespace StudentsLearning.Services.Api.Tests
                 .BadRequest();
         }
 
-        [Test]
-        public void CategoriesControllerPostWithNullDataShouldReturnBadRequest()
-        {
-            MyWebApi.Controller<CategoriesController>()
-                .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesService())
-                .Calling(c => c.Post(null))
-                .ShouldReturn()
-                .BadRequest();
-        }
+        //[Test]
+        //public void CategoriesControllerPostWithNullDataShouldReturnBadRequest()
+        //{
+        //    MyWebApi.Controller<CategoriesController>()
+        //        .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesService())
+        //        .Calling(c => c.Post(null))
+        //        .ShouldReturn()
+        //        .BadRequest();
+        //}
     }
 }
