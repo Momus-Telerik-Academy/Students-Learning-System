@@ -20,30 +20,31 @@ namespace StudentsLearning.Services.Api.Tests
     [TestFixture]
     public class CategoriesControllerTests
     {
-        private ICategoriesService categoriesService;
+        private ICategoriesService mockedCategoriesService;
+        private ICategoriesService mockedCategoriesServiceNotFound;
 
         [TestFixtureSetUp]
         public void Init()
         {
-            this.categoriesService = TestObjectFactory.GetCategoriesService();
-
+            this.mockedCategoriesService = TestObjectFactory.GetCategoriesService();
+            mockedCategoriesServiceNotFound = TestObjectFactory.GetCategoriesServiceNotFound();
         }
 
         [TestCase(999999)]
         [TestCase(-3)]
-        public void CategoriesControllerGetWithInvalidIdShouldNotReturnOkResultWithData(int id)
+        public void CategoriesControllerGetWithInvalidIdShouldReturnNotFoundWithNonexistinngId(int id)
         {
             MyWebApi.Controller<CategoriesController>()
-                .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesService())
+                .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesServiceNotFound())
                 .Calling(c => c.Get(id))
                 .ShouldReturn()
                 .NotFound();
         }
 
         [Test]
-        public void CategoriesControllerGetShouldReturnOkResultWithData()
+        public void CategoriesControllerGetShouldReturnOkResultWithValidId()
         {
-            var controller = new CategoriesController(this.categoriesService);
+            var controller = new CategoriesController(this.mockedCategoriesService);
 
             var result = controller.Get(1);
 

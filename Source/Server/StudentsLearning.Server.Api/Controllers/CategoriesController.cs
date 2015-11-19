@@ -40,7 +40,13 @@
 
         public IHttpActionResult Get(int id)
         {
-            return this.Ok(this.categories.GetById(id));
+            var result = this.categories.GetById(id);
+            if (result == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.Ok(result);
         }
 
         // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
