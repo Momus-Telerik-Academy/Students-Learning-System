@@ -40,16 +40,15 @@
 
         public IHttpActionResult Get(int id)
         {
-            var result = this.categories.GetById(id);
-            if (result == null)
+            var category = this.categories.GetById(id);
+
+            if (category == null)
             {
                 return this.NotFound();
             }
-
-            return this.Ok(result);
+            return this.Ok(category);
         }
-
-        // TODO: [note] The update of the sections list will be done in post / delete in SectionsController through the foreign key automaticly
+               
         [ValidateModelState]
         [CheckNull]
         public IHttpActionResult Put(int id, [FromBody] CategoryRequestModel updates)
@@ -82,8 +81,21 @@
                 return BadRequest(ModelState);
             }
 
+            if (string.IsNullOrEmpty(categoryModel.Name))
+            {
+                return this.BadRequest();
+            }
             this.categories.Add(categoryModel.Name);
             return this.Ok(this.categories.GetId(categoryModel.Name));
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [CheckNull]
+        public IHttpActionResult Delete(int id)
+        {
+            this.categories.Delete(id);
+            return this.Ok();
         }
     }
 }
