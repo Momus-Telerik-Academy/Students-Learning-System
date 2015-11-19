@@ -109,6 +109,16 @@ namespace StudentsLearning.Services.Api.Tests
             return mockedSectionsService.Object;
         }
 
+        public static ISectionService GetSectionServiceNotFoundMock()
+        {
+            var mockedSectionsService = new Mock<ISectionService>();
+
+            mockedSectionsService.Setup(s => s.GetById(It.IsAny<int>())).Returns(null as IQueryable<Section>);
+            mockedSectionsService.Setup(s => s.GetByName(It.IsAny<string>())).Returns(null as IQueryable<Section>);
+
+            return mockedSectionsService.Object;
+        }
+
         public static ITopicsServices GetTopicsService()
         {
             var mockedTopicService = new Mock<ITopicsServices>();

@@ -22,14 +22,11 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
     public class SectionsControllerTests
     {
         private ISectionService sectionsService;
-        private IAndControllerBuilder<SectionsController> sectionsConteoller;
 
         [TestFixtureSetUp]
         public void Init()
         {
             this.sectionsService = TestObjectFactory.GetSectionService();
-            this.sectionsConteoller = MyWebApi.Controller<SectionsController>()
-                .WithResolvedDependencyFor(TestObjectFactory.GetSectionService());
         }
 
         [Test]
@@ -41,7 +38,7 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
 
             var okResult = result as OkNegotiatedContentResult<SectionResponseModel>;
 
-            var debug = sectionsService.All().ToList();
+            //var debug = sectionsService.All().ToList();
             Assert.IsNotNull(okResult);
         }
 
@@ -49,7 +46,8 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
         [TestCase(-3)]
         public void SectionsControllerGetWithInvalidIdShouldNotReturnOkResultWithData(int id)
         {
-            sectionsConteoller
+            MyWebApi.Controller<SectionsController>()
+                .WithResolvedDependencyFor(TestObjectFactory.GetSectionServiceNotFoundMock())
                 .Calling(c => c.Get(id))
                 .ShouldReturn()
                 .NotFound();
@@ -60,7 +58,8 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
         [TestCase("a")]
         public void SectionsControllerPostWithInvalidNameShouldReturnBadRequest(string name)
         {
-            sectionsConteoller
+            MyWebApi.Controller<SectionsController>()
+                .WithResolvedDependencyFor(TestObjectFactory.GetSectionService())
                 .Calling(c => c.Post(new SectionRequestModel() { Name = name, Description = "Lorem ipsum dor..."}))
                 .ShouldReturn()
                 .BadRequest();
@@ -68,10 +67,10 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
 
         [TestCase(null)]
         [TestCase("")]
-        [TestCase("a")]
         public void SectionsControllerPostWithInvalidDescriptionShouldReturnBadRequest(string description)
         {
-            sectionsConteoller
+            MyWebApi.Controller<SectionsController>()
+                .WithResolvedDependencyFor(TestObjectFactory.GetSectionService())
                 .Calling(c => c.Post(new SectionRequestModel() { Name = "Lorem ipsum", Description = description }))
                 .ShouldReturn()
                 .BadRequest();
@@ -80,7 +79,8 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
         [Test]
         public void SectionsControllerPostWithNullDataShouldReturnBadRequest()
         {
-            sectionsConteoller
+            MyWebApi.Controller<SectionsController>()
+                .WithResolvedDependencyFor(TestObjectFactory.GetSectionService())
                 .Calling(c => c.Post(null))
                 .ShouldReturn()
                 .BadRequest();
