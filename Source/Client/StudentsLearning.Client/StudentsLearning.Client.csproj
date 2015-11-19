@@ -234,6 +234,8 @@
     <Content Include="scripts\libs\sammy\package.json" />
     <Content Include="scripts\libs\sammy\Rakefile" />
     <Content Include="scripts\libs\sammy\README.md" />
+    <None Include="Properties\PublishProfiles\eacademymomus %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\eacademymomus.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -488,7 +490,7 @@
     <Content Include="scripts\libs\sammy\lib\plugins\sammy.title.js" />
     <Content Include="scripts\libs\sammy\lib\plugins\sammy.tmpl.js" />
     <Content Include="scripts\libs\sammy\lib\sammy.js" />
-    <Content Include="scripts\libs\toastr\toastr.min.css" />
+    <Content Include="scripts\libs\toastr\toastr.css" />
     <Content Include="scripts\libs\toastr\toastr.min.js" />
     <Content Include="scripts\models\categoryModel.js" />
     <Content Include="scripts\models\commentModel.js" />
