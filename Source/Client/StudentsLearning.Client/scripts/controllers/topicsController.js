@@ -42,7 +42,6 @@
 
                     $("#btn-topic-add").on("click", function (e) {
                         e.preventDefault();
-                        console.log("clickedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
                         var newExample = {
                             description: $("#tb-example-description").val(),
@@ -55,16 +54,27 @@
                             video_id = video_id.substring(0, ampersandPosition);
                         }
 
-                        var newTopic = {
-                            title: $("#tb-topic-title").val(),
-                            content: $("#tb-topic-content").val(),
-                            videoId: video_id,
-                            sectionId: sectionModel.currentId().toString(),
-                            examples: [
-                                newExample
-                            ]
-                        };
-
+                        if ($("#tb-example-description").val() === undefined && $("#tb-example-content").val() === undefined) {
+                            var newTopic = {
+                                title: $("#tb-topic-title").val(),
+                                content: $("#tb-topic-content").val(),
+                                videoId: video_id,
+                                sectionId: sectionModel.currentId().toString(),
+                                examples: []
+                            };
+                        }
+                        else {
+                            var newTopic = {
+                                title: $("#tb-topic-title").val(),
+                                content: $("#tb-topic-content").val(),
+                                videoId: video_id,
+                                sectionId: sectionModel.currentId().toString(),
+                                examples: [
+                                    newExample
+                                ]
+                            };
+                        }
+                        
                         topicModel.add(newTopic)
                             .then(function (id) {
                                 // var id = topicModel.currentId() ? topicModel.currentId() : 1;
@@ -74,7 +84,7 @@
                             }, function (err) {
                                 console.log(err);
                             }).then(function () {
-                                notificationController.publish('new topic added');
+                                notificationController.publish('New topic has been added');
                             });
 
                     });
