@@ -15,10 +15,9 @@
 #category-content {
     height: auto;
     margin: -30px 220px;
-    min-height: 103%;
+    /*min-height: 103%;*/
     padding: 20px;
-    border-left: 3px solid black;
-    /*background-color: #437A39;*/
+    /*border-left: 3px solid black;*/
     width: 88%;
 }
 
