@@ -119,7 +119,7 @@
 .special-color {
     color: #666;
 }
-.section-description {
+.section-description, .special-white {
     color: #fff;
 }
 #wrapper-sections { /*width: 100%;*/
