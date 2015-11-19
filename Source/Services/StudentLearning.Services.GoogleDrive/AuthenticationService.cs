@@ -28,6 +28,8 @@ namespace StudentsLearning.Services.GoogleDrive
 
     using Newtonsoft.Json;
     using System.Collections.Generic;
+    using Google.Apis.Auth.OAuth2.Responses;
+    using Google.Apis.Auth.OAuth2.Flows;
 
     public class Authentication
     {
@@ -50,7 +52,7 @@ namespace StudentsLearning.Services.GoogleDrive
                     DriveService.Scope.DriveFile, // view and manage files created by this app
                     DriveService.Scope.DriveMetadataReadonly, // view metadata for files
                     DriveService.Scope.DriveReadonly, // view files and documents on your drive
-                    DriveService.Scope.DriveScripts                    
+                    DriveService.Scope.DriveScripts
                 }; // modify your app scripts
 
             try
@@ -65,14 +67,16 @@ namespace StudentsLearning.Services.GoogleDrive
                 //        System.Environment.SpecialFolder.Personal);
                 //    credPath = Path.Combine(credPath, ".credentials/drive-dotnet-quickstart");
 
-                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                       new ClientSecrets() { ClientId = clientId, ClientSecret = clientSecret },
-                        scopes,
-                        userName,
-                        CancellationToken.None,
-                        new FileDataStore("E-Academy")).Result;
-                   // new FileDataStore(credPath, true)).Result;
-              //  }
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                   new ClientSecrets() { ClientId = clientId, ClientSecret = clientSecret },
+                    scopes,
+                    userName,
+                    CancellationToken.None,
+                    new FileDataStore("E-Academy")).Result;
+
+
+                // new FileDataStore(credPath, true)).Result;
+                //  }
 
                 var service =
                     new DriveService(
@@ -85,7 +89,7 @@ namespace StudentsLearning.Services.GoogleDrive
                 //listRequest.MaxResults = 10;
 
                 // List files.
-                
+
 
                 return service;
             }
@@ -146,8 +150,39 @@ namespace StudentsLearning.Services.GoogleDrive
             }
             catch (Exception ex)
             {
-                throw new AuthenticationException("Failed to authenticate! Please check credentials!"  + ex.Message);
+                throw new AuthenticationException("Failed to authenticate! Please check credentials!" + ex.Message);
             }
         }
+
+        public static DriveService CreateServie(string applicationName, string clientId, string clientSecret, string accessToken, string refreshToken)
+        {
+            var tokenResponse = new TokenResponse
+            {
+                AccessToken = accessToken,
+                RefreshToken = refreshToken,
+            };
+
+            var apiCodeFlow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
+            {
+                ClientSecrets = new ClientSecrets
+                {
+                    ClientId = clientId,
+                    ClientSecret = clientSecret
+                },
+                Scopes = new[] { DriveService.Scope.Drive },
+                DataStore = new FileDataStore(applicationName)
+            });
+
+            var credential = new UserCredential(apiCodeFlow, "zhenia.racheva@gmail.com", tokenResponse);
+
+            var service = new DriveService(new BaseClientService.Initializer
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = applicationName
+            });
+
+            return service;
+        }
+
     }
 }

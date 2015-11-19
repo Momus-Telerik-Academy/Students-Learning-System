@@ -16,11 +16,15 @@
 
         private const string ROOT_DIRECTORY_ID = "0B9xztR8jvpkhblZiZ3lHQnlRcWc";
 
+        private const string ACCESS_TOKEN = "ya29.MQLjS-gp_GIIG2BtiztXJ9o2JHRPgvMsVk3FrnuPYZmJeFrjDSVwXG3CT1amslQxlgoc";
+
+        private const string REFRESH_TOKEN = "1/KohGyxCacRhccOjdAzKVxq0-bu7GFJSSYDa7FrdzGNtIgOrJDtdun6zK6XiATCKT";
+
         private DriveService service;
 
         public CloudStorageService()
         {
-            this.Service = Authentication.AuthenticateOauth(CLIENT_ID, CLIENT_SECRET, "E-Academy");
+            this.Service = Authentication.CreateServie("E-Academy", CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN, REFRESH_TOKEN);
             // this.CreateDirectory();
         }
 
