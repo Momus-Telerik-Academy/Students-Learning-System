@@ -26,6 +26,7 @@ namespace StudentsLearning.Services.Api.Tests
         public void Init()
         {
             this.categoriesService = TestObjectFactory.GetCategoriesService();
+
         }
 
         [TestCase(999999)]
