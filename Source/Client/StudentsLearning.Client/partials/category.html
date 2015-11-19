@@ -1,6 +1,4 @@
 ﻿<div id="wrapper-sections">
-    <div class="overlay"></div>
-
     <!-- Sidebar -->
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
         <ul class="nav sidebar-nav">
@@ -9,21 +7,23 @@
                     Sections
                 </a>
             </li>
+            <li class="btn-section-add">
+                <a>Add new</a>
+            </li>
+
+            <hr style="max-width: 100%;" />
             {{#each this.Sections}}
             <li class="btn-section-show" id="{{this.Id}}">
                 <a>{{this.Name}}</a>
             </li>
             {{/each}}
-            <hr style="max-width: 80%;"/>
 
-            <li class="btn-section-add">
-                <a>Add</a>
-            </li>
+            
         </ul>
     </nav>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
-    <div class="with-header-bg" id="category-content">
+    <div class="" id="category-content">
         <div id="page-content-wrapper">
 
         </div>
