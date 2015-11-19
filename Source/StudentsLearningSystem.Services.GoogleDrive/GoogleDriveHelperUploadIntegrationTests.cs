@@ -1,4 +1,8 @@
-﻿namespace Google_Drive_Api_dotnet.Tests
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StudentsLearning.Services.GoogleDrive;
+
+namespace StudentsLearningSystem.Services.GoogleDrive
 {
     #region
 
@@ -73,7 +77,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(AuthenticationException), 
+        [ExpectedException(typeof(AuthenticationException),
             ExpectedMessage =
                 "Authentication error! Please use the Authentication class to initialize the Google Drive service!")]
         public void UploadUnauthenticatedServiceShouldThrowTest()
