@@ -1,6 +1,7 @@
 ﻿var Constants = (function() {
 
-    var DOMAIN = "http://momuslearningsystem.azurewebsites.net/";
+    //var DOMAIN = "http://momuslearningsystem.azurewebsites.net/";
+    var DOMAIN = "http://localhost:56350/";
     var PARTIALS_DIRECTORY = "partials/";
     var PARTIALS_FILE_EXTENSION = ".html";
     var CATEGORY_CONTENT_WRAPPER = "#category-content";

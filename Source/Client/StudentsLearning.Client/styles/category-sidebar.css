@@ -69,6 +69,7 @@ html { height: 100%; }
     margin: 0;
     padding: 0;
     width: 220px;
+    border-right: 4px solid #f05f40;
 }
 
 .sidebar-nav li {
@@ -307,6 +308,9 @@ html { height: 100%; }
     height: auto;
     min-height: 100%;
     position: absolute;
-    top: 60px;
+    top: 0;
     width: 100%;
+}
+.btn-section-show {
+    border-bottom: 1px solid #f05A40;
 }
