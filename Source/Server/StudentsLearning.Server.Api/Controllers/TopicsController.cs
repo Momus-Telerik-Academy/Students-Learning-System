@@ -150,41 +150,41 @@
             return this.Ok();
         }
 
-        //[HttpPut]
-        //[Route("upload/{topicId}")]
-        //public async Task<IHttpActionResult> Put(int topicId, HttpRequestMessage upload)
-        //{
-        //    var provider = new MultipartMemoryStreamProvider();
+        [HttpPut]
+        [Route("upload/{topicId}")]
+        public async Task<IHttpActionResult> Put(int topicId, HttpRequestMessage upload)
+        {
+            var provider = new MultipartMemoryStreamProvider();
 
-        //    await upload.Content.ReadAsMultipartAsync(provider);
+            await upload.Content.ReadAsMultipartAsync(provider);
 
-        //    foreach (var file in provider.Contents)
-        //    {
-        //        string name = file.Headers.ContentDisposition.FileName;
+            foreach (var file in provider.Contents)
+            {
+                string name = file.Headers.ContentDisposition.FileName;
 
-        //        if (name == null)
-        //        {
-        //            return this.BadRequest("Empty file");
-        //        }
+                if (name == null)
+                {
+                    return this.BadRequest("Empty file");
+                }
 
-        //        var stream = await file.ReadAsStreamAsync();
+                var stream = await file.ReadAsStreamAsync();
 
-        //        Console.WriteLine();
+                Console.WriteLine();
 
-        //        ZipFileGoogleDriveResponseModel response = this.cloudStorage.Upload(new ZipFileGoogleDriveRequestModel { OriginalName = name, Content = stream });
-        //        // TODO: Change evereywhere DbName to GoogleDriveId ?
-        //        try
-        //        {
-        //            this.zipFiles.Add(new ZipFile() { OriginalName = name, Path = response.DownloadLink, DbName = response.Id, TopicId = topicId });
-        //        }
+                ZipFileGoogleDriveResponseModel response = this.cloudStorage.Upload(new ZipFileGoogleDriveRequestModel { OriginalName = name, Content = stream });
+                // TODO: Change evereywhere DbName to GoogleDriveId ?
+                try
+                {
+                    this.zipFiles.Add(new ZipFile() { OriginalName = name, Path = response.DownloadLink, DbName = response.Id, TopicId = topicId });
+                }
 
-        //        catch (System.Exception ex)
-        //        {
-        //            return this.BadRequest(ex.Message);
-        //        }
-        //    }
+                catch (System.Exception ex)
+                {
+                    return this.BadRequest(ex.Message);
+                }
+            }
 
-        //    return this.Ok();
-        //}
+            return this.Ok();
+        }
     }
 }

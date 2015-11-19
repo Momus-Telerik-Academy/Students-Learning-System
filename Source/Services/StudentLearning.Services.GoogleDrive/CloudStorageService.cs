@@ -20,67 +20,67 @@
 
         public CloudStorageService()
         {
-           // this.Service = Authentication.AuthenticateOauth(CLIENT_ID, CLIENT_SECRET, "E-Academy");
+            this.Service = Authentication.AuthenticateOauth(CLIENT_ID, CLIENT_SECRET, "E-Academy");
             // this.CreateDirectory();
         }
 
-        //public DriveService Service
-        //{
-        //    get
-        //    {
-        //        return this.service;
-        //    }
+        public DriveService Service
+        {
+            get
+            {
+                return this.service;
+            }
 
-        //    set
-        //    {
-        //        if (value == null)
-        //        {
-        //            throw new System.ArgumentException();
-        //        }
-        //        this.service = value;
-        //    }
-        //}
+            set
+            {
+                if (value == null)
+                {
+                    throw new System.ArgumentException();
+                }
+                this.service = value;
+            }
+        }
 
-        //public ZipFileGoogleDriveResponseModel Upload(ZipFileGoogleDriveRequestModel uploadFile)
-        //{
-        //    var body = new File();
-        //    body.Title = uploadFile.OriginalName;
-        //    body.MimeType = "application/zip";
-        //    body.Description = "test";
+        public ZipFileGoogleDriveResponseModel Upload(ZipFileGoogleDriveRequestModel uploadFile)
+        {
+            var body = new File();
+            body.Title = uploadFile.OriginalName;
+            body.MimeType = "application/zip";
+            body.Description = "test";
 
-        //    body.Parents = new List<ParentReference> { new ParentReference() { Id = ROOT_DIRECTORY_ID } };
+            body.Parents = new List<ParentReference> { new ParentReference() { Id = ROOT_DIRECTORY_ID } };
 
-        //    var request = this.Service.Files.Insert(body, uploadFile.Content, "application/zip");
-        //    request.Upload();
+            var request = this.Service.Files.Insert(body, uploadFile.Content, "application/zip");
+            request.Upload();
 
-        //    File file = request.ResponseBody;
-        //    var res = new ZipFileGoogleDriveResponseModel { Id = file.Id, EmbededLink = file.EmbedLink, DownloadLink = file.DownloadUrl };
-        //    return res;
-        //}
+            File file = request.ResponseBody;
+            var res = new ZipFileGoogleDriveResponseModel { Id = file.Id, EmbededLink = file.EmbedLink, DownloadLink = file.DownloadUrl };
+            return res;
+        }
 
-        //public File CreateDirectory()
-        //{
-        //    File NewDirectory = null;
+        public File CreateDirectory()
+        {
+            File NewDirectory = null;
 
-        //    File body = new File();
-        //    body.Title = "E-Academy-Materials";
-        //    body.Description = "Directory for hosting zip files of topics";
-        //    body.MimeType = "application/vnd.google-apps.folder";
-        //    body.Parents = new List<ParentReference>() { new ParentReference() { Id = ROOT_DIRECTORY_ID } };
+            File body = new File();
+            body.Title = "E-Academy-Materials";
+            body.Description = "Directory for hosting zip files of topics";
+            body.MimeType = "application/vnd.google-apps.folder";
+            body.Parents = new List<ParentReference>() { new ParentReference() { Id = ROOT_DIRECTORY_ID } };
 
-        //    try
-        //    {
-        //        FilesResource.InsertRequest request = this.service.Files.Insert(body);
-        //        NewDirectory = request.Execute();
-        //    }
+            try
+            {
+                FilesResource.InsertRequest request = this.service.Files.Insert(body);
+                NewDirectory = request.Execute();
+            }
 
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine("An error occurred: " + e.Message);
-        //    }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred: " + e.Message);
+            }
 
-        //    return NewDirectory;
-        //}
+            return NewDirectory;
+        }
 
     }
 }

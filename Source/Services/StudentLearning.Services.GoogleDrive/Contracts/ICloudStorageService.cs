@@ -4,6 +4,6 @@
 
     public interface ICloudStorageService
     {
-       // ZipFileGoogleDriveResponseModel Upload(ZipFileGoogleDriveRequestModel uploadFile);
+        ZipFileGoogleDriveResponseModel Upload(ZipFileGoogleDriveRequestModel uploadFile);
     }
 }
