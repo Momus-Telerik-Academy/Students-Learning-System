@@ -317,6 +317,10 @@
       <Project>{eba18d1e-a809-4e79-ae4c-9f0f3c18f1b1}</Project>
       <Name>StudentsLearning.Services.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\StudentsLearning.Common\StudentsLearning.Common.csproj">
+      <Project>{63a5c010-421d-4ce5-8604-64c73efcdd78}</Project>
+      <Name>StudentsLearning.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

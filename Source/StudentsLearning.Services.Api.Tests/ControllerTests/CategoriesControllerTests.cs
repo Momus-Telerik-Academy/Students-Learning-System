@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using StudentsLearning.Server.Api.Models.CategoryTransferModels;
 
 namespace StudentsLearning.Services.Api.Tests
 {
@@ -31,8 +32,6 @@ namespace StudentsLearning.Services.Api.Tests
         [TestCase(-3)]
         public void CategoriesControllerGetWithInvalidIdShouldNotReturnOkResultWithData(int id)
         {
-             var controller = new CategoriesController(this.categoriesService);
-             IHttpActionResult result = controller.Get(id);
             MyWebApi.Controller<CategoriesController>()
                 .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesService())
                 .Calling(c => c.Get(id))
@@ -50,6 +49,28 @@ namespace StudentsLearning.Services.Api.Tests
             var okResult = result as OkNegotiatedContentResult<Category>;
 
             Assert.IsNotNull(okResult);
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("a")]
+        public void CategoriesControllerPostWithInvalidDataShouldReturnBadRequest(string name)
+        {
+            MyWebApi.Controller<CategoriesController>()
+                .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesService())
+                .Calling(c => c.Post(new CategoryRequestModel() { Name=name}))
+                .ShouldReturn()
+                .BadRequest();
+        }
+
+        [Test]
+        public void CategoriesControllerPostWithNullDataShouldReturnBadRequest()
+        {
+            MyWebApi.Controller<CategoriesController>()
+                .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesService())
+                .Calling(c => c.Post(null))
+                .ShouldReturn()
+                .BadRequest();
         }
     }
 }

@@ -66,6 +66,11 @@
         [CheckNull]
         public IHttpActionResult Post([FromBody] CategoryRequestModel categoryModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             this.categories.Add(categoryModel.Name);
             return this.Ok(this.categories.GetId(categoryModel.Name));
         }
