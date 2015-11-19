@@ -45,5 +45,16 @@
             this.categories.Update(category);
             this.categories.SaveChanges();
         }
+
+       public void Delete(int id)
+        {
+           var category =  this.categories.GetById(id);
+
+            if(category != null)
+            {
+                this.categories.Delete(category);
+                this.categories.SaveChanges();
+            }
+        }
     }
 }

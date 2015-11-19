@@ -40,5 +40,16 @@
             this.examples.Update(example);
             this.examples.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            var example = this.examples.GetById(id);
+
+            if (example != null)
+            {
+                this.examples.Delete(example);
+                this.examples.SaveChanges();
+            }
+        }
     }
 }

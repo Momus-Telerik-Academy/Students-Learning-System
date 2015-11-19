@@ -19,5 +19,7 @@
         void Add(Section section);
 
         void Update(Section section);
+
+        void Delete(int id);
     }
 }
