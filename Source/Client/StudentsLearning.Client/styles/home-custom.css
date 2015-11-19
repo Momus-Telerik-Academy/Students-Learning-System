@@ -123,7 +123,7 @@
     color: #fff;
 }
 label {
-    font-weight: normal;
+    font-weight: none;
 }
 #wrapper-sections { /*width: 100%;*/
 }

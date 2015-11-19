@@ -114,7 +114,9 @@
 
 #login { padding: 0; }
 
-.wrapper-login { 
+.wrapper-login { padding: 15%; }
+
+.add-topic-form { 
     padding: 10%; 
     padding-left: 0;
 }
