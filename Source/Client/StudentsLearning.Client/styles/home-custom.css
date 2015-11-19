@@ -122,5 +122,8 @@
 .section-description, .special-white {
     color: #fff;
 }
+label {
+    font-weight: normal;
+}
 #wrapper-sections { /*width: 100%;*/
 }
