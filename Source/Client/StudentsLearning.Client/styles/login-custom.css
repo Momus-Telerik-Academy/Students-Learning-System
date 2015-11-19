@@ -114,7 +114,10 @@
 
 #login { padding: 0; }
 
-.wrapper-login { padding: 15% 10%; }
+.wrapper-login { 
+    padding: 10%; 
+    padding-left: 0;
+}
 
 #btn-register { background: #666; }
 

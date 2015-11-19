@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal">
+﻿<!--<form class="form-horizontal">
     <fieldset class="pull-left">
         <legend>Add Topic</legend>
         <label for="tb-topic-title" class="col-md-2 control-label">Title</label>
@@ -30,7 +30,7 @@
         <br />
         <button class="btn btn-default" id="btn-topic-add">Add</button>
     </fieldset>
-</form>
+</form>-->
 
 
 
@@ -65,14 +65,17 @@
                                         </div>
                                         <label>Add files to the topic</label>
                                         <div class="form-group">
-                                            <input class="btn btn-primary" type="file" id="opmlFile">
-                                            <p class="small text-center">Allowed file types: zip</p>
+                                            <input class="btn btn-info" type="file" id="opmlFile">
+                                            <p class="small">Allowed file types: zip</p>
                                         </div>
-
+                                        <label>Add example</label>
+                                        <div id="topic-examples">
+                                            <button id="add-example" class="btn btn-warning">Add new example</button>
+                                        </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-6 col-sm-offset-3">
-                                                    <input type="button" name="login-submit" id="btn-section-add" tabindex="3" class="form-control btn btn-primary" value="Add">
+                                                    <input type="button" name="login-submit" id="btn-topic-add" tabindex="3" class="form-control btn btn-primary" value="Add">
                                                 </div>
                                             </div>
                                         </div>
