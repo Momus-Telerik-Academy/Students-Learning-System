@@ -41,15 +41,15 @@
 
         public IHttpActionResult Get(int id)
         {
-            Section section = this.sections.GetById(id).FirstOrDefault();
+            var result = this.sections.GetById(id);
 
-            if(section == null)
+            if (result == null)
             {
-                return this.NotFound();
+                return NotFound();
             }
+            Section section = result.FirstOrDefault();
 
-            SectionResponseModel response = 
-                Mapper.Map<Section, SectionResponseModel>(section);
+            SectionResponseModel response = Mapper.Map<Section, SectionResponseModel>(section);
 
             return this.Ok(response);
         }
@@ -97,7 +97,14 @@
         [CheckNull]
         public IHttpActionResult Delete(int id)
         {
-            this.sections.Delete(id);
+            var section = this.sections.GetById(id).FirstOrDefault();
+
+            if (section == null)
+            {
+                return this.NotFound();
+            }
+
+            this.sections.Delete(section);
             return this.Ok();
         }
     }

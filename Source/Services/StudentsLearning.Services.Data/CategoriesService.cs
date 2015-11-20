@@ -46,15 +46,10 @@
             this.categories.SaveChanges();
         }
 
-       public void Delete(int id)
+        public void Delete(Category category)
         {
-           var category =  this.categories.GetById(id);
-
-            if(category != null)
-            {
-                this.categories.Delete(category);
-                this.categories.SaveChanges();
-            }
+            this.categories.Delete(category);
+            this.categories.SaveChanges();
         }
     }
 }

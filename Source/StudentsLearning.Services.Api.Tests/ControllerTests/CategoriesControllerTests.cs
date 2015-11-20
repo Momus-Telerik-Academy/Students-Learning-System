@@ -1,56 +1,54 @@
-﻿using System.Web.Http;
-using StudentsLearning.Server.Api.Models.CategoryTransferModels;
+﻿using StudentsLearning.Server.Api.Models.CategoryTransferModels;
 
 namespace StudentsLearning.Services.Api.Tests
 {
     #region
-
-    using System.Web.Http.Results;
-
     using MyTested.WebApi;
-
+    using MyTested.WebApi.Builders.Contracts.Controllers;
     using NUnit.Framework;
-
-    using StudentsLearning.Data.Models;
-    using StudentsLearning.Server.Api.Controllers;
-    using StudentsLearning.Services.Data.Contracts;
+    using StudentsLearning.Server.Api.Controllers;  
 
     #endregion
 
     [TestFixture]
     public class CategoriesControllerTests
     {
-        private ICategoriesService mockedCategoriesService;
-        private ICategoriesService mockedCategoriesServiceNotFound;
+        private IControllerBuilder<CategoriesController> controller;
+        private IControllerBuilder<CategoriesController> controllerWithMockedNotFoundService;
 
         [TestFixtureSetUp]
         public void Init()
         {
-            this.mockedCategoriesService = TestObjectFactory.GetCategoriesService();
-            mockedCategoriesServiceNotFound = TestObjectFactory.GetCategoriesServiceNotFound();
+            this.controller = MyWebApi.Controller<CategoriesController>()
+                .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesService());
+
+            this.controllerWithMockedNotFoundService = MyWebApi.Controller<CategoriesController>()
+                 .WithResolvedDependencies(TestObjectFactory.GetCategoriesServiceNotFound());
         }
 
         [TestCase(999999)]
         [TestCase(-3)]
         public void CategoriesControllerGetWithInvalidIdShouldReturnNotFoundWithNonexistinngId(int id)
         {
-            MyWebApi.Controller<CategoriesController>()
-                .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesServiceNotFound())
-                .Calling(c => c.Get(id))
-                .ShouldReturn()
-                .NotFound();
+            this.controllerWithMockedNotFoundService
+                 .Calling(c => c.Get(id))
+                 .ShouldReturn()
+                 .NotFound();
         }
 
         [Test]
         public void CategoriesControllerGetShouldReturnOkResultWithValidId()
         {
-            var controller = new CategoriesController(this.mockedCategoriesService);
+            this.controller
+                .Calling(c => c.Get(1))
+                .ShouldReturn()
+                .Ok()
+                .WithDefaultContentNegotiator();
 
-            var result = controller.Get(1);
-
-            var okResult = result as OkNegotiatedContentResult<Category>;
-
-            Assert.IsNotNull(okResult);
+            //var controller = new CategoriesController(this.mockedCategoriesService);
+            //var result = controller.Get(1);
+            //var okResult = result as OkNegotiatedContentResult<Category>;
+            // Assert.IsNotNull(okResult);
         }
 
         [TestCase(null)]
@@ -58,15 +56,39 @@ namespace StudentsLearning.Services.Api.Tests
         [TestCase("a")]
         public void CategoriesControllerPostWithInvalidDataShouldReturnBadRequest(string name)
         {
-            MyWebApi.Controller<CategoriesController>()
-                .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesService())
-                .Calling(c => c.Post(new CategoryRequestModel() { Name=name}))
+            this.controller
+                 .Calling(c => c.Post(new CategoryRequestModel() { Name = name }))
+                 .ShouldHave()
+                 .InvalidModelState()
+                 .AndAlso()
+                 .ShouldReturn()
+                 .BadRequest();
+        }
+
+        [Test]
+        public void CategoriesControllerDeleteShouldReturnOkWithAuthorizationAndValidId()
+        {
+            this.controller
+                .Calling(c => c.Delete(1))
                 .ShouldHave()
-                .InvalidModelState()
+                .ActionAttributes(attr => attr.RestrictingForAuthorizedRequests())
                 .AndAlso()
                 .ShouldReturn()
-                .BadRequest();
+                .Ok();
         }
+
+        [Test]
+        public void CategoriesControllerDeleteShouldReturnNotFoundWithInvalidId()
+        {
+            this.controllerWithMockedNotFoundService
+                .Calling(c => c.Delete(-10))
+                .ShouldHave()
+                .ActionAttributes(attr => attr.RestrictingForAuthorizedRequests())
+                .AndAlso()
+                .ShouldReturn()
+                .NotFound();
+        }
+
 
         //[Test]
         //public void CategoriesControllerPostWithNullDataShouldReturnBadRequest()

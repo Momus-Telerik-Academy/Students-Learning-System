@@ -1,6 +1,7 @@
 ﻿namespace StudentsLearning.Server.Api.Controllers
 {
     using Services.Data.Contracts;
+    using System.Linq;
     using System.Web.Http;
 
     [RoutePrefix("api/Resources")]
@@ -16,7 +17,14 @@
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
-            this.zipFiles.Delete(id);
+            var zipfile = this.zipFiles.GetById(id).FirstOrDefault();
+
+            if(zipfile == null)
+            {
+                return this.NotFound();
+            }
+
+            this.zipFiles.Delete(zipfile);
             return this.Ok();
         }
     }

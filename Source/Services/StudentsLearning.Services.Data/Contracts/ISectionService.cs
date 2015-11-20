@@ -20,6 +20,6 @@
 
         void Update(Section section);
 
-        void Delete(int id);
+        void Delete(Section section);
     }
 }

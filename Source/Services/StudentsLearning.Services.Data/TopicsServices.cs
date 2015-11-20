@@ -31,7 +31,7 @@
             //{
             //    topic.Examples.Add(example);
             //}
-                       
+
             topic.Contributors.Add(contributor);
             this.topics.Add(topic);
             this.topics.SaveChanges();
@@ -78,17 +78,12 @@
             this.topics.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(Topic topic)
         {
-            var topic = this.topics.GetById(id);
-
-            if (topic != null)
-            {
-                this.topics.Delete(topic);
-                this.topics.SaveChanges();
-            }
+            this.topics.Delete(topic);
+            this.topics.SaveChanges();
         }
-
+        
         // }
         // return id;
         // .FirstOrDefault();
