@@ -251,7 +251,6 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\DislikesController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
-    <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Global.asax.cs">

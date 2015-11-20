@@ -1,12 +1,16 @@
-﻿
+﻿<div class="section text-center" id="{{Id}}">
     <h2 class="section-description">{{Name}}</h2>
     <h3 class="section-description">{{Description}}</h3>
-    <a href="#/add/topic">Add topic to this section</a>
-    <br/>
+    <a href="#/add/topic" class="btn btn-success">Add topic to this section</a>
+    <br />
+    <p style="margin-top: 50px" class="special-white">Topics</p>
+    <br />
+    <!--<div class=".back_mask"></div>-->
     {{#each Topics}}
     <div class="topic-box btn-topic-show" id="{{Id}}">
-        <button>
+        <button style="outline: none" class="btn btn-lg btn-danger">
             {{Title}}
         </button>
     </div>
     {{/each}}
+</div>

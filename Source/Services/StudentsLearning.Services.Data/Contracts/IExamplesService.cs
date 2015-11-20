@@ -17,7 +17,5 @@
         void Add(Example example);
 
         void Update(Example example);
-
-        void Delete(int id);
     }
 }
