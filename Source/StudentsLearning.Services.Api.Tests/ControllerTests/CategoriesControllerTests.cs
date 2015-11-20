@@ -1,4 +1,5 @@
-﻿using StudentsLearning.Server.Api.Models.CategoryTransferModels;
+﻿using StudentsLearning.Server.Api.Infrastructure.Filters;
+using StudentsLearning.Server.Api.Models.CategoryTransferModels;
 
 namespace StudentsLearning.Services.Api.Tests
 {
@@ -6,7 +7,7 @@ namespace StudentsLearning.Services.Api.Tests
     using MyTested.WebApi;
     using MyTested.WebApi.Builders.Contracts.Controllers;
     using NUnit.Framework;
-    using StudentsLearning.Server.Api.Controllers;  
+    using StudentsLearning.Server.Api.Controllers;
 
     #endregion
 
@@ -61,8 +62,13 @@ namespace StudentsLearning.Services.Api.Tests
                  .ShouldHave()
                  .InvalidModelState()
                  .AndAlso()
-                 .ShouldReturn()
-                 .BadRequest();
+                 .ShouldHave()
+                 .ActionAttributes(attributes => attributes
+                    .ContainingAttributeOfType<CheckNullAttribute>())
+                 .AndAlso()
+                 .ShouldHave()
+                 .ActionAttributes(attributes => attributes
+                    .ContainingAttributeOfType<ValidateModelStateAttribute>());
         }
 
         [Test]
