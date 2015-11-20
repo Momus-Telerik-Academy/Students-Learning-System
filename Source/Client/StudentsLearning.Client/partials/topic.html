@@ -5,7 +5,7 @@
             <div class="row" id="title-wrapper">
                 <h2>{{Title}}</h2>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <a id="edit-link" class="btn btn-info" href="/#/topic/edit/{{Id}}">
                     <!--<i class="fa fa-pencil-square-o"></i>-->
                     Edit this page
@@ -33,8 +33,9 @@
                     <h3>There are no materials for this topic.</h3>
                 </ul>
             </div>
-            <div class="col-md-7 examples">
+            <div class="col-md-5 examples">
                 <ul class="nav nav-tabs">
+                    <h4>Examples</h4>
                     {{#each this.Examples}}
                     <li><a href="#{{Id}}" data-toggle="tab">{{Description}}</a></li>
                     {{/each}}
@@ -45,6 +46,7 @@
                         <p>{{Content}}</p>
                     </div>
                     {{/each}}
+                    There are no examples for this topic.
                 </div>
             </div>
         </div>
