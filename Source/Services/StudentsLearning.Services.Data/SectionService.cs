@@ -46,5 +46,16 @@
             this.sections.Update(section);
             this.sections.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            var section = this.sections.GetById(id);
+
+            if (section != null)
+            {
+                this.sections.Delete(section);
+                this.sections.SaveChanges();
+            }
+        }
     }
 }
