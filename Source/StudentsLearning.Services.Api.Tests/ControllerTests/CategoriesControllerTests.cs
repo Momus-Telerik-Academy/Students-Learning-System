@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using StudentsLearning.Server.Api.Infrastructure.Filters;
 using StudentsLearning.Server.Api.Models.CategoryTransferModels;
 
 namespace StudentsLearning.Services.Api.Tests
@@ -60,12 +61,17 @@ namespace StudentsLearning.Services.Api.Tests
         {
             MyWebApi.Controller<CategoriesController>()
                 .WithResolvedDependencyFor(TestObjectFactory.GetCategoriesService())
-                .Calling(c => c.Post(new CategoryRequestModel() { Name=name}))
+                .Calling(c => c.Post(new CategoryRequestModel() {Name = name}))
                 .ShouldHave()
                 .InvalidModelState()
                 .AndAlso()
-                .ShouldReturn()
-                .BadRequest();
+                .ShouldHave()
+                .ActionAttributes(attributes => attributes
+                    .ContainingAttributeOfType<CheckNullAttribute>())
+                .AndAlso()
+                .ShouldHave()
+                .ActionAttributes(attributes => attributes
+                    .ContainingAttributeOfType<ValidateModelStateAttribute>());
         }
 
         //[Test]

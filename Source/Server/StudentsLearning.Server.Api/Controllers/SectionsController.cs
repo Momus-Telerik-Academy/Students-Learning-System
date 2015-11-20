@@ -42,13 +42,14 @@
         public IHttpActionResult Get(int id)
         {
             var result = this.sections.GetById(id);
-            if (result == null)
+            if(result == null)
             {
                 return NotFound();
             }
 
             Section section = result.FirstOrDefault();
-            SectionResponseModel response = Mapper.Map<Section, SectionResponseModel>(section);
+            SectionResponseModel response = 
+                Mapper.Map<Section, SectionResponseModel>(section);
 
             return this.Ok(response);
         }

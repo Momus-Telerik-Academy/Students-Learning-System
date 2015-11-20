@@ -15,6 +15,7 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
     using StudentsLearning.Server.Api.Controllers;
     using StudentsLearning.Services.Data.Contracts;
     using StudentsLearning.Server.Api.Models.SectionTransferModels;
+    using Server.Api.Infrastructure.Filters;
 
     #endregion
 
@@ -61,8 +62,16 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
             MyWebApi.Controller<SectionsController>()
                 .WithResolvedDependencyFor(TestObjectFactory.GetSectionService())
                 .Calling(c => c.Post(new SectionRequestModel() { Name = name, Description = "Lorem ipsum dor..."}))
-                .ShouldReturn()
-                .BadRequest();
+                .ShouldHave()
+                .InvalidModelState()
+                .AndAlso()
+                .ShouldHave()
+                .ActionAttributes(attributes => attributes
+                    .ContainingAttributeOfType<CheckNullAttribute>())
+                .AndAlso()
+                .ShouldHave()
+                .ActionAttributes(attributes => attributes
+                    .ContainingAttributeOfType<ValidateModelStateAttribute>());
         }
 
         [TestCase(null)]
