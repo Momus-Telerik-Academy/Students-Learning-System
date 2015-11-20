@@ -23,5 +23,7 @@
 
         // void Update(Topic topic, ZipFile newfile, ICollection<Example> newExamples);
         void Update(Topic topic);
+
+        void Delete(int id);
     }
 }

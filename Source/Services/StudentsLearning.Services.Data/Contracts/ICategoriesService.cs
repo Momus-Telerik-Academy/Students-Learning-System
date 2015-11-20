@@ -19,5 +19,7 @@
         void Add(string category);
 
         void Update(Category category);
+
+        void Delete(int id);
     }
 }

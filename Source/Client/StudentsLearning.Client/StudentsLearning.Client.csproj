@@ -70,7 +70,14 @@
     <Content Include="font-awesome\css\font-awesome.min.css" />
     <Content Include="font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="images\bg_mask.png" />
+    <Content Include="images\book.jpg" />
+    <Content Include="images\education.jpg" />
+    <Content Include="images\hall.jpg" />
     <Content Include="images\header.jpg" />
+    <Content Include="images\header3.jpg" />
+    <Content Include="images\library.jpg" />
+    <Content Include="images\university.jpg" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="font-awesome\fonts\fontawesome-webfont.eot" />
@@ -490,8 +497,6 @@
     <Content Include="scripts\libs\sammy\lib\plugins\sammy.title.js" />
     <Content Include="scripts\libs\sammy\lib\plugins\sammy.tmpl.js" />
     <Content Include="scripts\libs\sammy\lib\sammy.js" />
-    <Content Include="scripts\libs\toastr\toastr.css" />
-    <Content Include="scripts\libs\toastr\toastr.min.js" />
     <Content Include="scripts\models\categoryModel.js" />
     <Content Include="scripts\models\commentModel.js" />
     <Content Include="scripts\models\sectionModel.js" />

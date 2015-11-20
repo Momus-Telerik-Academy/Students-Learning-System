@@ -44,18 +44,23 @@
     }
 
     function add(context) {
-        appManager.loadView("add-category", context)
-            .then(function() {
-                $("#btn-category-add").on("click", function() {
-                    console.log($("#tb-category-add").val());
-                    categoryModel.add({ name: $("#tb-category-add").val() })
-                        .then(function () {
-                            notificationController.publish('new category added');
+        if (appManager.checkIfLogged() === false) {
+            toastr.warning('You must be logged in to add categories');
+        }
+        else {
+            appManager.loadView("add-category", context)
+                .then(function () {
+                    $("#btn-category-add").on("click", function () {
+                        console.log($("#tb-category-add").val());
+                        categoryModel.add({ name: $("#tb-category-add").val() })
+                            .then(function () {
+                                notificationController.publish('new category added');
 
-                            context.redirect("/#/");
-                        });
+                                context.redirect("/#/");
+                            });
+                    });
                 });
-            });
+        }
     }
 
     return {
