@@ -94,7 +94,14 @@
         [CheckNull]
         public IHttpActionResult Delete(int id)
         {
-            this.categories.Delete(id);
+            var category = this.categories.GetById(id);
+
+            if(category == null)
+            {
+                return this.NotFound();
+            }
+
+            this.categories.Delete(category);
             return this.Ok();
         }
     }

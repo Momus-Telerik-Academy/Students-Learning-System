@@ -184,7 +184,14 @@
         [CheckNull]
         public IHttpActionResult Delete(int id)
         {
-            this.topics.Delete(id);
+            var topic = this.topics.GetById(id).FirstOrDefault();
+
+            if(topic == null)
+            {
+                return this.NotFound();
+            }
+
+            this.topics.Delete(topic);
             return this.Ok();
         }
     }
