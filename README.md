@@ -14,10 +14,9 @@ E-Academy is an amazing place for everyone who is interested in learning.
 Here you may find solutions to your problems that have already been solved by other users. 
 You can also add new materials and share them with everyone. 
 E-Academy is here. Now. Freely.
-![DB models class diagram](https://raw.githubusercontent.com/Momus-Telerik-Academy/Students-Learning-System/master/screenshots/ClassDiagram1.png)
 ##Project architecture
 ###Models
-
+![DB models class diagram](https://raw.githubusercontent.com/Momus-Telerik-Academy/Students-Learning-System/master/screenshots/ClassDiagram1.png)
 ###Api
 ####CategoriesController
 * Get() - returns all available categories. Path: "api/Categories"
