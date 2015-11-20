@@ -136,6 +136,7 @@
     <Compile Include="IntegrationTests\TestInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteTests\CategoriesControllerTests.cs" />
+    <Compile Include="RouteTests\SectionsControllerTests.cs" />
     <Compile Include="TestInit.cs" />
     <Compile Include="TestObjectFactory.cs" />
     <Compile Include="TestObjects\MockedIIdentity.cs" />
