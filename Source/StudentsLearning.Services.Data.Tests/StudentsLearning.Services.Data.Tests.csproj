@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="CategoriesServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SectionsServiceTest.cs" />
     <Compile Include="TestObjects\InMemoryRepository.cs" />
     <Compile Include="TestObjects\TestObjectFactory.cs" />
   </ItemGroup>
