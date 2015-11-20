@@ -81,11 +81,6 @@
         [CheckNull]
         public IHttpActionResult Post([FromBody] SectionRequestModel sectionModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var section = Mapper.Map<SectionRequestModel, Section>(sectionModel);
 
             this.sections.Add(section);

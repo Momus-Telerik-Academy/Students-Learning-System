@@ -38,11 +38,6 @@
         [CheckNull]
         public IHttpActionResult Post([FromBody] CommentRequestModel commentModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var userId = this.User.Identity.GetUserId();
             var comment = Mapper.Map<CommentRequestModel, Comment>(commentModel);
             comment.UserId = userId;

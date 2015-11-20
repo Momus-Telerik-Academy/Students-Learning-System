@@ -93,11 +93,6 @@
         [CheckNull]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             if (this.sections.GetById(requestTopic.SectionId) == null)
             {
                 return this.BadRequest("The section id doesn't exist");

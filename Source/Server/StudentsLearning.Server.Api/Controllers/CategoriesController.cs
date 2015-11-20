@@ -54,11 +54,6 @@
         [CheckNull]
         public IHttpActionResult Put(int id, [FromBody] CategoryRequestModel updates)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var updatedCategory = this.categories.GetById(id);
 
             if (this.categories.GetId(updates.Name) != 0)
@@ -77,11 +72,6 @@
         [CheckNull]
         public IHttpActionResult Post([FromBody] CategoryRequestModel categoryModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             this.categories.Add(categoryModel.Name);
             return this.Ok(this.categories.GetId(categoryModel.Name));
         }
