@@ -63,6 +63,9 @@
                         }
                         else {
                             video_id = $("#tb-topic-video").val().split("v=")[1];
+                            if (video_id === undefined) {
+                                toastr.warning('Invalid youtube url address');
+                            }
                             var ampersandPosition = video_id.indexOf("&");
                             if (ampersandPosition != -1) {
                                 video_id = video_id.substring(0, ampersandPosition);
@@ -87,11 +90,8 @@
                                     ]
                                 };
                             }
-                        }
 
-                        debugger;
-
-                        topicModel.add(newTopic)
+                            topicModel.add(newTopic)
                             .then(function (id) {
                                 // var id = topicModel.currentId() ? topicModel.currentId() : 1;
                                 topicModel.currentId(id);
@@ -102,7 +102,7 @@
                             }).then(function () {
                                 notificationController.publish('New topic has been added');
                             });
-
+                        }
                     });
                 }, function (err) {
                     //console.log(err);
