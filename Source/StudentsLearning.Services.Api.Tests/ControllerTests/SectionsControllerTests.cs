@@ -15,7 +15,6 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
     using StudentsLearning.Server.Api.Controllers;
     using StudentsLearning.Services.Data.Contracts;
     using StudentsLearning.Server.Api.Models.SectionTransferModels;
-    using Server.Api.Infrastructure.Filters;
 
     #endregion
 
@@ -23,32 +22,36 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
     public class SectionsControllerTests
     {
         private ISectionService sectionsService;
+        private IControllerBuilder<SectionsController> controller;
+        private IControllerBuilder<SectionsController> controllerWithMockedNotFoundService;
 
         [TestFixtureSetUp]
         public void Init()
         {
+            this.controller = MyWebApi.Controller<SectionsController>()
+                .WithResolvedDependencyFor(TestObjectFactory.GetSectionService());
+
+            this.controllerWithMockedNotFoundService = MyWebApi.Controller<SectionsController>()
+                            .WithResolvedDependencyFor(TestObjectFactory.GetSectionServiceNotFoundMock());
+
             this.sectionsService = TestObjectFactory.GetSectionService();
         }
 
         [Test]
         public void SectionsControllerGetShouldReturnOkResultWithData()
         {
-            var controller = new SectionsController(this.sectionsService);
-
-            var result = controller.Get(1);
-
-            var okResult = result as OkNegotiatedContentResult<SectionResponseModel>;
-
-            //var debug = sectionsService.All().ToList();
-            Assert.IsNotNull(okResult);
+            this.controller
+                .Calling(c => c.Get(1))
+                .ShouldReturn()
+                .Ok()
+                .WithDefaultContentNegotiator();
         }
 
         [TestCase(999999)]
         [TestCase(-3)]
         public void SectionsControllerGetWithInvalidIdShouldNotReturnOkResultWithData(int id)
         {
-            MyWebApi.Controller<SectionsController>()
-                .WithResolvedDependencyFor(TestObjectFactory.GetSectionServiceNotFoundMock())
+            this.controllerWithMockedNotFoundService
                 .Calling(c => c.Get(id))
                 .ShouldReturn()
                 .NotFound();
@@ -59,32 +62,45 @@ namespace StudentsLearning.Services.Api.Tests.ControllerTests
         [TestCase("a")]
         public void SectionsControllerPostWithInvalidNameShouldReturnBadRequest(string name)
         {
-            MyWebApi.Controller<SectionsController>()
-                .WithResolvedDependencyFor(TestObjectFactory.GetSectionService())
-                .Calling(c => c.Post(new SectionRequestModel() { Name = name, Description = "Lorem ipsum dor..."}))
-                .ShouldHave()
-                .InvalidModelState()
-                .AndAlso()
-                .ShouldHave()
-                .ActionAttributes(attributes => attributes
-                    .ContainingAttributeOfType<CheckNullAttribute>())
-                .AndAlso()
-                .ShouldHave()
-                .ActionAttributes(attributes => attributes
-                    .ContainingAttributeOfType<ValidateModelStateAttribute>());
+            this.controller
+                .Calling(c => c.Post(new SectionRequestModel() { Name = name, Description = "Lorem ipsum dor..." }))
+                .ShouldReturn()
+                .BadRequest();
         }
 
         [TestCase(null)]
         [TestCase("")]
         public void SectionsControllerPostWithInvalidDescriptionShouldReturnBadRequest(string description)
         {
-            MyWebApi.Controller<SectionsController>()
-                .WithResolvedDependencyFor(TestObjectFactory.GetSectionService())
+            this.controller
                 .Calling(c => c.Post(new SectionRequestModel() { Name = "Lorem ipsum", Description = description }))
                 .ShouldReturn()
                 .BadRequest();
         }
 
+        [Test]
+        public void SectionsControllerDeleteShouldReturnOkWithAuthorizationAndValidId()
+        {
+            this.controller
+                .Calling(c => c.Delete(1))
+                .ShouldHave()
+                .ActionAttributes(attr => attr.RestrictingForAuthorizedRequests())
+                .AndAlso()
+                .ShouldReturn()
+                .Ok();
+        }
+
+        //[Test]
+        //public void SectionsControllerDeleteShouldReturnNotFoundWithInvalidId()
+        //{
+        //    this.controllerWithMockedNotFoundService
+        //        .Calling(c => c.Delete(-1))
+        //        .ShouldHave()
+        //        .ActionAttributes(attr => attr.RestrictingForAuthorizedRequests())
+        //        .AndAlso()
+        //        .ShouldReturn()
+        //        .NotFound();
+        //}
         // Wait for better times
         //[Test]
         //public void SectionsControllerPostWithNullDataShouldReturnBadRequest()

@@ -196,5 +196,21 @@
 
             return this.Ok();
         }
+
+        [Authorize]
+        [HttpDelete]
+        [CheckNull]
+        public IHttpActionResult Delete(int id)
+        {
+            var topic = this.topics.GetById(id).FirstOrDefault();
+
+            if(topic == null)
+            {
+                return this.NotFound();
+            }
+
+            this.topics.Delete(topic);
+            return this.Ok();
+        }
     }
 }

@@ -46,5 +46,10 @@
             this.sections.Update(section);
             this.sections.SaveChanges();
         }
+        public void Delete(Section section)
+        {
+            this.sections.Delete(section);
+            this.sections.SaveChanges();
+        }
     }
 }

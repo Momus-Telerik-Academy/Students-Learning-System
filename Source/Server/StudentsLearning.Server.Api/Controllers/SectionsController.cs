@@ -42,14 +42,14 @@
         public IHttpActionResult Get(int id)
         {
             var result = this.sections.GetById(id);
-            if(result == null)
+
+            if (result == null)
             {
                 return NotFound();
             }
-
             Section section = result.FirstOrDefault();
-            SectionResponseModel response = 
-                Mapper.Map<Section, SectionResponseModel>(section);
+
+            SectionResponseModel response = Mapper.Map<Section, SectionResponseModel>(section);
 
             return this.Ok(response);
         }
@@ -90,6 +90,22 @@
 
             this.sections.Add(section);
             return this.Ok(section);
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [CheckNull]
+        public IHttpActionResult Delete(int id)
+        {
+            var section = this.sections.GetById(id).FirstOrDefault();
+
+            if (section == null)
+            {
+                return this.NotFound();
+            }
+
+            this.sections.Delete(section);
+            return this.Ok();
         }
     }
 }

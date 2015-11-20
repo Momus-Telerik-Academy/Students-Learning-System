@@ -1,23 +1,25 @@
 ﻿<div class="topics-container-custom">
     <div class="row">
-        <div class="col-md-6">
-            <!--<hr style="border-color: #fff; max-width: 100%;" />-->
-            <div class="video-wrapper">
-                <iframe width="480" height="360" src="https://www.youtube.com/embed/{{VideoId}}?enablejsapi=1&version=3" enablejsapi="1" allowfullscreen></iframe>
-            </div>
-            <div class="opacity-bg video-bg"></div>
-            <!--<hr style="border-color: #fff; max-width: 100%;"     />-->
-            <div data-spy="scroll" class="scrollable" id="topic-content-box">
-                {{Content}}
-            </div>
-        </div>
+
         <div class="row" id="materials-examples-wrapper">
             <div class="row" id="title-wrapper">
                 <h2>{{Title}}</h2>
-                <a class="btn btn-info" href="/#/topic/edit/{{Id}}">
+            </div>
+            <div class="col-md-5">
+                <a id="edit-link" class="btn btn-info" href="/#/topic/edit/{{Id}}">
                     <!--<i class="fa fa-pencil-square-o"></i>-->
                     Edit this page
                 </a>
+                <!--<hr style="border-color: #fff; max-width: 100%;" />-->
+                <div class="video-wrapper">
+                    <iframe width="480" height="360" src="https://www.youtube.com/embed/{{VideoId}}?enablejsapi=1&version=3" enablejsapi="1" allowfullscreen></iframe>
+                </div>
+                <div class="opacity-bg video-bg"></div>
+                <!--<hr style="border-color: #fff; max-width: 100%;"     />-->
+                <div id="topic-content-box">
+                    <label>Description</label> <br />
+                    {{Content}}
+                </div>
             </div>
             <div class="col-md-5">
                 <ul class="materials">
@@ -29,10 +31,13 @@
                         <span>{{this.OriginalName}}</span>
                     </li>
                     {{/each}}
+                    <h3>There are no materials for this topic.</h3>
                 </ul>
             </div>
-            <div class="col-md-7 examples">
+
+            <div class="col-md-5 examples">
                 <ul class="nav nav-tabs">
+                    <h4>Examples</h4>
                     {{#each this.Examples}}
                     <li><a href="#{{Id}}" data-toggle="tab">{{Description}}</a></li>
                     {{/each}}
@@ -43,15 +48,23 @@
                         <p>{{Content}}</p>
                     </div>
                     {{/each}}
+                    There are no examples for this topic.
                 </div>
+            </div>
+            <br />
+            <div class="col-md-5 examples">
+                <h6>Contributers</h6>
+                {{#each Contributors}}
+                <span class="label">{{UserName}}</span>
+                {{/each}}
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 comments">
+            <div class="col-md-5">
                 <div class="form-horizontal comments-bg">
                 </div>
                 <div>
-                    Comments:
+                    <label class="text-center">Comments</label>
                     {{#each this.Comments}}
                     <div class="container">
                         <blockquote class="quote-box">
@@ -79,20 +92,11 @@
                     {{/each}}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-10">
-                    <input id="tb-comment" class="form-control col-md-12" placeholder="comment" style="width: 50%;">
-                </div>
-                <div class="col-lg-3">
+            <div class="row comment-row">
+                <div class="col-md-8">
+                    <input id="tb-comment" class="form-control col-md-2" placeholder="message" style="width: 50%;">
                     <a class="btn btn-primary" id="btn-comment">Comment</a>
                 </div>
-
-            </div>
-            <div class="col-md-3">
-                <h6>Contributers</h6>
-                {{#each Contributors}}
-                <span class="label">{{UserName}}</span>
-                {{/each}}
             </div>
         </div>
     </div>

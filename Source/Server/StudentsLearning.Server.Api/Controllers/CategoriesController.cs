@@ -85,5 +85,21 @@
             this.categories.Add(categoryModel.Name);
             return this.Ok(this.categories.GetId(categoryModel.Name));
         }
+
+        [Authorize]
+        [HttpDelete]
+        [CheckNull]
+        public IHttpActionResult Delete(int id)
+        {
+            var category = this.categories.GetById(id);
+
+            if(category == null)
+            {
+                return this.NotFound();
+            }
+
+            this.categories.Delete(category);
+            return this.Ok();
+        }
     }
 }

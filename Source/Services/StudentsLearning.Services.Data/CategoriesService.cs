@@ -45,5 +45,11 @@
             this.categories.Update(category);
             this.categories.SaveChanges();
         }
+
+        public void Delete(Category category)
+        {
+            this.categories.Delete(category);
+            this.categories.SaveChanges();
+        }
     }
 }
