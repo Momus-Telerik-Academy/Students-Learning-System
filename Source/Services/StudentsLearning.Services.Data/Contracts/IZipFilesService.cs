@@ -16,6 +16,6 @@
 
         void Update(ZipFile file);
 
-        void Delete(int id);
+        void Delete(ZipFile file);
     }
 }

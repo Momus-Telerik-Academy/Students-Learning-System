@@ -36,15 +36,10 @@
             this.zipfiles.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(ZipFile zipFile)
         {
-            var zipFile = this.zipfiles.GetById(id);
-
-            if (zipFile != null)
-            {
-                this.zipfiles.Delete(zipFile);
-                this.zipfiles.SaveChanges();
-            }
+            this.zipfiles.Delete(zipFile);
+            this.zipfiles.SaveChanges();
         }
     }
 }

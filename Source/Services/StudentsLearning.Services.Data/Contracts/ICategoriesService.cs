@@ -20,6 +20,6 @@
 
         void Update(Category category);
 
-        void Delete(int id);
+        void Delete(Category category);
     }
 }

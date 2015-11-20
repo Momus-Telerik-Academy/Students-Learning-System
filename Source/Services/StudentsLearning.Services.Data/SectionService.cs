@@ -47,15 +47,10 @@
             this.sections.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(Section section)
         {
-            var section = this.sections.GetById(id);
-
-            if (section != null)
-            {
-                this.sections.Delete(section);
-                this.sections.SaveChanges();
-            }
+            this.sections.Delete(section);
+            this.sections.SaveChanges();
         }
     }
 }
