@@ -107,3 +107,7 @@ margin:0;
 .examples {
     margin-left: 40px;
 }
+.comment-row {
+    margin-top: 5px;
+    padding-bottom: 30px;
+}
