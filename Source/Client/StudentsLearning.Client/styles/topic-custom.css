@@ -78,14 +78,13 @@ margin:0;
 }
 
 #topic-content-box{
-        height: 340px;
-    background: #4B4340;
-    color: white;
+    min-height: 200px;
     margin: 25px 0;
     border-bottom: 3px solid #f05f40;
     border-top: 3px solid #f05f40;
-     width: 98%;
-    overflow-y: scroll;
+    width: 100%;
+    color: #333;
+    padding-top: 10px;
 }
 #materials-examples-wrapper{
     background: #fff;

@@ -16,7 +16,8 @@
                 </div>
                 <div class="opacity-bg video-bg"></div>
                 <!--<hr style="border-color: #fff; max-width: 100%;"     />-->
-                <div data-spy="scroll" class="scrollable" id="topic-content-box">
+                <div id="topic-content-box">
+                    <label>Description</label> <br />
                     {{Content}}
                 </div>
             </div>
@@ -49,13 +50,20 @@
                     There are no examples for this topic.
                 </div>
             </div>
+            <br />
+            <div class="col-md-5 examples">
+                <h6>Contributers</h6>
+                {{#each Contributors}}
+                <span class="label">{{UserName}}</span>
+                {{/each}}
+            </div>
         </div>
         <div class="row">
-            <div class="col-md-12 comments">
+            <div class="col-md-5">
                 <div class="form-horizontal comments-bg">
                 </div>
                 <div>
-                    Comments:
+                    <label class="text-center">Comments</label>
                     {{#each this.Comments}}
                     <div class="container">
                         <blockquote class="quote-box">
@@ -84,17 +92,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-10">
-                    <input id="tb-comment" class="form-control col-md-12" placeholder="message" style="width: 50%;">
+                <div class="col-md-8">
+                    <input id="tb-comment" class="form-control col-md-2" placeholder="message" style="width: 50%;">
                     <a class="btn btn-primary" id="btn-comment">Comment</a>
-                </div>
-                    
-            </div>
-            <div class="col-md-3">
-                <h6>Contributers</h6>
-                {{#each Contributors}}
-                <span class="label">{{UserName}}</span>
-                {{/each}}
+                </div>  
             </div>
         </div>
     </div>
