@@ -1,101 +1,99 @@
 ﻿<div class="topics-container-custom">
-    <div class="row" id="title-wrapper">
-        <h2>{{Title}}</h2>
-        <a class="btn btn-info" href="/#/topic/edit/{{Id}}">
-            <i class="fa fa-pencil-square-o"></i>
-        </a>
-    </div>
-    <hr style="border-color: #fff; max-width: 100%;" />
-    <div class="video-wrapper">
-        <iframe width="480" height="360" src="https://www.youtube.com/embed/{{VideoId}}?enablejsapi=1&version=3" enablejsapi="1" allowfullscreen></iframe>
-    </div>
-    <div class="opacity-bg video-bg"></div>
-
-    <hr style="border-color: #fff; max-width: 100%;" />
-
-    <div data-spy="scroll" class="scrollable" id="topic-content-box">
-        {{Content}}
-    </div>
-
-    <div class="row" id="materials-examples-wrapper">
-        <div class="col-md-5">
-            <ul class="materials">
-                <h4>Materials</h4>
-                <hr style="border-color: #fff; max-width: 80%;" />
-                {{#each ZipFiles}}
-                <li style="list-style-type:none">
-                    <a target="_blank" href="https://drive.google.com/file/d/{{this.DbName}}/view?pli=1"><span class="glyphicon glyphicon-download-alt"></span></a>
-                    <span>{{this.OriginalName}}</span>
-                </li>
-                {{/each}}
-            </ul>
-        </div>
-        <div class="col-md-7 examples">
-            <ul class="nav nav-tabs">
-                {{#each this.Examples}}
-                <li><a href="#{{Id}}" data-toggle="tab">{{Description}}</a></li>
-                {{/each}}
-            </ul>
-            <div id="myTabContent" class="tab-content">
-                {{#each this.Examples}}
-                <div class="tab-pane fade active in" id={{Id}}>
-                    <p>{{Content}}</p>
-                </div>
-                {{/each}}
-            </div>
-        </div>
-    </div>
     <div class="row">
-
-        <div class="col-md-12 comments">
-            <div class="form-horizontal comments-bg">
+        <div class="col-md-6">
+            <!--<hr style="border-color: #fff; max-width: 100%;" />-->
+            <div class="video-wrapper">
+                <iframe width="480" height="360" src="https://www.youtube.com/embed/{{VideoId}}?enablejsapi=1&version=3" enablejsapi="1" allowfullscreen></iframe>
             </div>
-            <div>
-                Comments:
-                {{#each this.Comments}}
-                <div class="container">
-                    <blockquote class="quote-box">
-                        <p class="quotation-mark">
-                            “
-                        </p>
-                        <p class="quote-text">
-                            {{Content}}
-                        </p>
-                        <hr>
-                        <div class="blog-post-actions">
-                            <p class="blog-post-bottom pull-left">
-                                {{Username}}
-                            </p>
-                            <!-- classes btn-like and btn dislike are used for events =)  -->
-                            <p id={{Id}} class="blog-post-bottom pull-right">
-                                <a class="fa fa-thumbs-o-up btn-like"></a>
-                                <span class="badge quote-badge">{{Likes}}</span>
-                                <a class="fa fa-thumbs-o-down btn-dislike"></a>
-                                <span class="badge quote-badge">{{Dislikes}}</span>
-                            </p>
-                        </div>
-                    </blockquote>
+            <div class="opacity-bg video-bg"></div>
+            <!--<hr style="border-color: #fff; max-width: 100%;"     />-->
+            <div data-spy="scroll" class="scrollable" id="topic-content-box">
+                {{Content}}
+            </div>
+        </div>
+        <div class="row" id="materials-examples-wrapper">
+            <div class="row" id="title-wrapper">
+                <h2>{{Title}}</h2>
+                <a class="btn btn-info" href="/#/topic/edit/{{Id}}">
+                    <!--<i class="fa fa-pencil-square-o"></i>-->
+                    Edit this page
+                </a>
+            </div>
+            <div class="col-md-5">
+                <ul class="materials">
+                    <h4>Materials</h4>
+                    <!--<hr style="border-color: #fff; max-width: 80%;" />-->
+                    {{#each ZipFiles}}
+                    <li style="list-style-type:none">
+                        <a target="_blank" href="https://drive.google.com/file/d/{{this.DbName}}/view?pli=1"><span class="glyphicon glyphicon-download-alt"></span></a>
+                        <span>{{this.OriginalName}}</span>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="col-md-7 examples">
+                <ul class="nav nav-tabs">
+                    {{#each this.Examples}}
+                    <li><a href="#{{Id}}" data-toggle="tab">{{Description}}</a></li>
+                    {{/each}}
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    {{#each this.Examples}}
+                    <div class="tab-pane fade active in" id={{Id}}>
+                        <p>{{Content}}</p>
+                    </div>
+                    {{/each}}
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 comments">
+                <div class="form-horizontal comments-bg">
+                </div>
+                <div>
+                    Comments:
+                    {{#each this.Comments}}
+                    <div class="container">
+                        <blockquote class="quote-box">
+                            <p class="quotation-mark">
+                                “
+                            </p>
+                            <p class="quote-text">
+                                {{Content}}
+                            </p>
+                            <hr>
+                            <div class="blog-post-actions">
+                                <p class="blog-post-bottom pull-left">
+                                    {{Username}}
+                                </p>
+                                <!-- classes btn-like and btn dislike are used for events =)  -->
+                                <p id={{Id}} class="blog-post-bottom pull-right">
+                                    <a class="fa fa-thumbs-o-up btn-like"></a>
+                                    <span class="badge quote-badge">{{Likes}}</span>
+                                    <a class="fa fa-thumbs-o-down btn-dislike"></a>
+                                    <span class="badge quote-badge">{{Dislikes}}</span>
+                                </p>
+                            </div>
+                        </blockquote>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10">
+                    <input id="tb-comment" class="form-control col-md-12" placeholder="comment" style="width: 50%;">
+                </div>
+                <div class="col-lg-3">
+                    <a class="btn btn-primary" id="btn-comment">Comment</a>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <h6>Contributers</h6>
+                {{#each Contributors}}
+                <span class="label">{{UserName}}</span>
                 {{/each}}
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-lg-10">
-                <input id="tb-comment" class="form-control col-md-12" placeholder="comment" style="width: 50%;">
-            </div>
-            <div class="col-lg-3">
-                <a class="btn btn-primary" id="btn-comment">Comment</a>
-            </div>
-
-
-        </div>
-        <div class="col-md-3">
-            <h6>Contributers</h6>
-            {{#each Contributors}}
-            <span class="label">{{UserName}}</span>
-            {{/each}}
-        </div>
-
     </div>
 </div>

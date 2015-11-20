@@ -1,4 +1,4 @@
-﻿var categoriesController = (function() {
+﻿var categoriesController = (function () {
 
     function all(context) {
         var categories;
@@ -13,8 +13,9 @@
         //        templatesManager.fill(context, partial, categories);
         //    })
         appManager.loadView("categories", context, false, categoryModel.all, false)
-            .then(function() {
-                $("#btn-add").on("click", function() {
+            .then(function () {
+                categoryModel.all().then(function (data) { console.log(data) });
+                $("#btn-add").on("click", function () {
                     categoryModel.add($("#tb-new-category-name").val());
                 });
 
@@ -23,7 +24,7 @@
                     // TODO: Save on localeStorage for better behave on refresh
                     categoryModel.currentId(+$(target).attr("id"));
                     context.redirect("/#/category/" + categoryModel.currentId());
-                });               
+                });
             });
     }
 
@@ -33,12 +34,12 @@
         var category;
 
         appManager.loadView("category", context, false, categoryModel.byId, categoryModel.currentId())
-            .then(function() {
+            .then(function () {
                 sidebarController.config;
 
                 eventManager.attachShowSection(context);
                 eventManager.attachAddSection(context);
-               
+
             });
         return false;
     }

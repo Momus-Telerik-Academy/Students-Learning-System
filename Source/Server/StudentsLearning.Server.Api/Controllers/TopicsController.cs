@@ -1,6 +1,7 @@
 ﻿namespace StudentsLearning.Server.Api.Controllers
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -8,13 +9,19 @@
     using System.Web.Http.Cors;
 
     using Microsoft.AspNet.Identity;
+
+    using Models.CommentTransferModels;
     using Models.ExampleTransferModels;
     using Services.Data.Contracts;
     using Services.GoogleDrive.Contracts;
     using Services.GoogleDrive.Models;
     using StudentsLearning.Data.Models;
+    using StudentsLearning.Server.Api.Models.ContributorTransferModels;
     using StudentsLearning.Server.Api.Models.TopicTransferModels;
+    using StudentsLearning.Server.Api.Models.ZipFileTransferModels;
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    using System.Collections.Generic;
 
     using StudentsLearning.Server.Api.Infrastructure.Filters;
 
@@ -58,21 +65,42 @@
             return this.Ok(response);
         }
 
-       
+        //http://localhost:56350/api/Topics
+        //body example:
+        /*
+{
+  "title":"neshto",
+  "content":"neshto1",
+  "videoId":"ssidhs",
+  "sectionId":"1",
+  "examples":[
+    {
+      "description":"description",
+      "content":"secitonContent",
+          }
+  ],
+  "zipFiles":[{
+    "originalName":"originalName1",
+    "dbName":"dbName1",
+    "path":"path"
+  }]
+}      */
+        //TODO:Check if the current category exist and if exist do not let the user the make the same category twice
+
         [Authorize]
         [HttpPost]
         [ValidateModelState]
         [CheckNull]
         public IHttpActionResult Post(TopicRequestModel requestTopic)
         {
-            //if (!this.ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             if (this.sections.GetById(requestTopic.SectionId) == null)
             {
-                return this.NotFound();
+                return this.BadRequest("The section id doesn't exist");
             }
 
             var topic = Mapper.Map<TopicRequestModel, Topic>(requestTopic);
@@ -146,28 +174,18 @@
 
                 if (name == null)
                 {
-                    return this.BadRequest("File cannot be empty");
+                    return this.BadRequest("Empty file");
                 }
 
                 var stream = await file.ReadAsStreamAsync();
 
-              //  Console.WriteLine();
+                Console.WriteLine();
 
-                ZipFileGoogleDriveResponseModel response =
-                    this.cloudStorage.Upload(new ZipFileGoogleDriveRequestModel
-                    {
-                        OriginalName = name,
-                        Content = stream
-                    });
-
+                ZipFileGoogleDriveResponseModel response = this.cloudStorage.Upload(new ZipFileGoogleDriveRequestModel { OriginalName = name, Content = stream });
+                // TODO: Change evereywhere DbName to GoogleDriveId ?
                 try
                 {
-                    this.zipFiles.Add(new ZipFile() {
-                        OriginalName = name,
-                        Path = response.DownloadLink,
-                        DbName = response.Id,
-                        TopicId = topicId
-                    });
+                    this.zipFiles.Add(new ZipFile() { OriginalName = name, Path = response.DownloadLink, DbName = response.Id, TopicId = topicId });
                 }
 
                 catch (System.Exception ex)
@@ -176,15 +194,6 @@
                 }
             }
 
-            return this.Ok();
-        }
-
-        [Authorize]
-        [HttpDelete]
-        [CheckNull]
-        public IHttpActionResult Delete(int id)
-        {
-            this.topics.Delete(id);
             return this.Ok();
         }
     }

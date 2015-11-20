@@ -41,12 +41,13 @@
 }
 
 .topics-container-custom .row {
-    color: #fff;
-    margin:0;   
+    /*color: #fff;*/
+    margin:0;
 }
 .topics-container-custom {
- margin-left: -20px;
- background: #fff;
+ margin-top: 100px;
+ /*background: #fff;*/
+background-color: #fff;
 }
 
 iframe {
@@ -87,7 +88,7 @@ margin:0;
     overflow-y: scroll;
 }
 #materials-examples-wrapper{
-    background: #4B4340;
+    background: #fff;
 }
 #materials-examples-wrapper ul li a {
     color: #f05f40;

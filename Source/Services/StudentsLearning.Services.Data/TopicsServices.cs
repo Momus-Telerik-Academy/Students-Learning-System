@@ -78,17 +78,6 @@
             this.topics.SaveChanges();
         }
 
-        public void Delete(int id)
-        {
-            var topic = this.topics.GetById(id);
-
-            if (topic != null)
-            {
-                this.topics.Delete(topic);
-                this.topics.SaveChanges();
-            }
-        }
-
         // }
         // return id;
         // .FirstOrDefault();
